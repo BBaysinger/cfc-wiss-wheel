@@ -1,8 +1,12 @@
 import React from 'react';
 
-class Button extends React.Component() {
+export default class Test extends React.Component {
+
+  constructor() {
+    super();
+  }
+  
   render() {
-    return
-      <path />
+    return <path />
   }
 }

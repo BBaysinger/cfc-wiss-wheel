@@ -2,7 +2,7 @@ import React from 'react';
 
 import Button from './Button';
 
-class ButtonLabel extends React.Component() {
+export default class ButtonLabel extends React.Component {
 
   buttons = [
     <Button id="0" />,
@@ -11,14 +11,13 @@ class ButtonLabel extends React.Component() {
     <Button id="3" />,
   ];
 
-  constructor () {
-
+  constructor() {
+    super();
   }
 
   render() {
-    return
-    <g>
-      {buttons}
+    return <g>
+      {this.buttons}
     </g>
   }
 }
