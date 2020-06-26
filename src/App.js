@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        What is Second Step (WISS) Interactive Wheel
+        What is Second Step (WISS) Interactive Component
       </header>
       <div className="app-container">
         <WissWheel />

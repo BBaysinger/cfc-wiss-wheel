@@ -5,10 +5,10 @@ import Button from './Button';
 export default class ButtonLabel extends React.Component {
 
   buttons = [
-    <Button id="0" />,
-    <Button id="1" />,
-    <Button id="2" />,
-    <Button id="3" />,
+    <Button id="button0" />,
+    <Button id="button1" />,
+    <Button id="button2" />,
+    <Button id="button3" />,
   ];
 
   constructor() {

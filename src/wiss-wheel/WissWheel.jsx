@@ -17,7 +17,7 @@ export default class WissWheel extends React.Component {
   }
 
   render() {
-    return <svg className="wiss-wheel" width="500" height="500">
+    return <svg className="wiss-wheel" xmlns="http://www.w3.org/2000/svg" width="500" height="500">
       <g>
         <ButtonRing id="ring1" data={this.buttonData[0]} />
         <ButtonRing id="ring2" data={this.buttonData[1]} />
