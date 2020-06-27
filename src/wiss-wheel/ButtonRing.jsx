@@ -13,13 +13,8 @@ export default class ButtonRing extends React.Component {
     for (var i = 0; i < 4; i++) {
       var tempConfig = { ...props.config };
       delete tempConfig.buttonConfigs;
-      this.configs[i] = { ...tempConfig, ...props.config.buttonConfigs[i] };
+      this.configs[i] = { ...tempConfig, ...props.config.buttonConfigs[i], index: i };
     }
-
-    // console.log(this.configs[0], this.configs[1]);
-  }
-
-  componentDidMount() {
 
   }
 
