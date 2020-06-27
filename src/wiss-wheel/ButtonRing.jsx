@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Button from './Button';
+import ArcButton from './ArcButton';
 
 export default class ButtonRing extends React.Component {
 
