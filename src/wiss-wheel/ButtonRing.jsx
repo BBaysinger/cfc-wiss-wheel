@@ -11,9 +11,9 @@ export default class ButtonRing extends React.Component {
     super();
 
     for (var i = 0; i < 4; i++) {
-      var tempConfig = {...props.config};
+      var tempConfig = { ...props.config };
       delete tempConfig.buttonConfigs;
-      this.configs[i] = {...tempConfig, ...props.config.buttonConfigs[i]};
+      this.configs[i] = { ...tempConfig, ...props.config.buttonConfigs[i] };
     }
 
     // console.log(this.configs[0], this.configs[1]);
@@ -28,10 +28,10 @@ export default class ButtonRing extends React.Component {
     let configs = this.configs;
 
     return <g>
-      <Button id="button0" config={configs[0]} />,
-      <Button id="button1" config={configs[1]} />,
-      <Button id="button2" config={configs[2]} />,
-      <Button id="button3" config={configs[3]} />,
+      <ArcButton id="button0" config={configs[0]} />,
+      <ArcButton id="button1" config={configs[1]} />,
+      <ArcButton id="button2" config={configs[2]} />,
+      <ArcButton id="button3" config={configs[3]} />,
     </g>
   }
 }

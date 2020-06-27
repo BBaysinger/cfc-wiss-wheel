@@ -2,7 +2,7 @@ import React from 'react';
 
 import ButtonLabel from './ButtonLabel';
 
-export default class Button extends React.Component {
+export default class ArcButton extends React.Component {
 
   constructor(props) {
     super();
@@ -17,6 +17,7 @@ export default class Button extends React.Component {
     return <g>
       <ButtonLabel label={label} />
       <circle cx="0" cy="0" r={radius} stroke={color} strokeWidth={thickness} fill="transparent" />
+      <rect width="500" height="100" style={{ fill: 'rgb(0,0,255)', strokeWwidth: 3, stroke: 'red' }} />
     </g>
   }
 }
