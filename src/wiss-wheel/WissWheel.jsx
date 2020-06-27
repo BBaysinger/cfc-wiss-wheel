@@ -10,10 +10,30 @@ export default class WissWheel extends React.Component {
   static VIEWBOX = -WissWheel.HEIGHT / 2 + " " + -WissWheel.WIDTH / 2 + " " + WissWheel.HEIGHT + " " + WissWheel.WIDTH;
 
   ringConfigs = [
-    { radius: 100, thickness: 60, buttonConfigs: [{ label: "Families", color: "#555" }, { color: "" }, { color: "" }, { color: "" }] },
-    { radius: 200, thickness: 100, buttonConfigs: [{ label: "Early Learning", color: "#E74F3D" }, { label: "Elementary", color: "" }, { label: "Middle School", color: "" }, { label: "HighSchool", color: "" }] },
-    { radius: 280, thickness: 80, buttonConfigs: [{ label: "SEL for Adults", color: "" }, { color: "" }, { color: "" }] },
-    { radius: 260, thickness: 80, buttonConfigs: [{ label: "Out-of-School Time", color: "" }] },
+    {
+      radius: 123, thickness: 60, buttonConfigs: [
+        { label: "Families", color: "#58595B" }, { color: "#58595B" }, { color: "#58595B" }, { color: "#58595B" }]
+    },
+    {
+      radius: 200, thickness: 100, buttonConfigs: [
+        { label: "Early Learning", color: "#E74F3D" },
+        { label: "Elementary", color: "#44797B" },
+        { label: "Middle School", color: "#44797B" },
+        { label: "HighSchool", color: "#FFBF3C" }
+      ]
+    },
+    {
+      radius: 290, thickness: 80, buttonConfigs: [
+        { label: "SEL for Adults", color: "#B1B3B6" },
+        { label: "", color: "#B1B3B6" },
+        { label: "", color: "#B1B3B6" }
+      ]
+    },
+    {
+      radius: 360, thickness: 80, buttonConfigs: [
+        { label: "Out-of-School Time", color: "#E4E1DC" }
+      ]
+    },
   ];
 
   // constructor() {

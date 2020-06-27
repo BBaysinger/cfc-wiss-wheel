@@ -18,13 +18,12 @@ export default class ArcButton extends React.Component {
     const radius = config.radius;
     const randColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
     const transform = 'rotate(' + (config.index * 90) + 'deg)';
-
-    console.log(transform);
+    const outerRadius = radius + (thickness / 2);
 
     return <g>
       <ButtonLabel label={label} />
       <circle cx="0" cy="0" r={radius} stroke={color} strokeWidth={thickness} fill="transparent" />
-      <rect width="500" height="100" style={{ fill: randColor, transform: transform }} />
+      <rect width={outerRadius} height={outerRadius} style={{ opacity: 0.6, fill: randColor, transform: transform }} />
     </g>
   }
 }
