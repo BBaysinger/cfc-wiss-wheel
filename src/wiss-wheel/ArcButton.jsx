@@ -5,7 +5,7 @@ import ButtonLabel from './ButtonLabel';
 export default class ArcButton extends React.Component {
 
   constructor(props) {
-    super();
+    super(props);
   }
 
   render() {
@@ -22,8 +22,13 @@ export default class ArcButton extends React.Component {
 
     return <g>
       <ButtonLabel label={label} />
+
+      <clipPath id="clipRect" clipPathUnits="objectBoundingBox">
+        <rect width={outerRadius - 152} height={outerRadius - 152} style={{ opacity: 0.6, fill: randColor, transform: transform }} />
+      </clipPath>
+
+      {/* <circle clipPath="url(#clipRect)" cx="0" cy="0" r={radius} stroke={color} strokeWidth={thickness} fill="transparent" /> */}
       <circle cx="0" cy="0" r={radius} stroke={color} strokeWidth={thickness} fill="transparent" />
-      <rect width={outerRadius} height={outerRadius} style={{ opacity: 0.6, fill: randColor, transform: transform }} />
     </g>
   }
 }

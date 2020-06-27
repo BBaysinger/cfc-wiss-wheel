@@ -9,10 +9,16 @@ export default class WissWheel extends React.Component {
   static WIDTH = 800;
   static VIEWBOX = -WissWheel.HEIGHT / 2 + " " + -WissWheel.WIDTH / 2 + " " + WissWheel.HEIGHT + " " + WissWheel.WIDTH;
 
+  rings = [];
+
   ringConfigs = [
     {
       radius: 123, thickness: 60, buttonConfigs: [
-        { label: "Families", color: "#58595B" }, { color: "#58595B" }, { color: "#58595B" }, { color: "#58595B" }]
+        { label: "Families", color: "#58595B" },
+        { color: "#58595B" },
+        { color: "#58595B" },
+        { color: "#58595B" }
+      ]
     },
     {
       radius: 200, thickness: 100, buttonConfigs: [
@@ -36,17 +42,21 @@ export default class WissWheel extends React.Component {
     },
   ];
 
-  // constructor() {
-  //   super();
-  // }
+  constructor(props) {
+    super(props);
+
+    let key;
+
+    for (var i = 0; i < this.ringConfigs.length; i++) {
+      key = "ring" + i;
+      this.rings[i] = <ButtonRing id={key} key={key} config={this.ringConfigs[i]} />
+    }
+  }
 
   render() {
     return <svg className="wiss-wheel" viewBox={WissWheel.VIEWBOX} xmlns="http://www.w3.org/2000/svg" width={WissWheel.HEIGHT} height={WissWheel.WIDTH}>
       <g>
-        <ButtonRing id="ring1" config={this.ringConfigs[0]} />
-        <ButtonRing id="ring2" config={this.ringConfigs[1]} />
-        <ButtonRing id="ring3" config={this.ringConfigs[2]} />
-        <ButtonRing id="ring4" config={this.ringConfigs[3]} />
+        {this.rings}
       </g>
     </svg>
   }
