@@ -10,16 +10,15 @@ export default class WissWheel extends React.Component {
   static VIEWBOX = -WissWheel.HEIGHT / 2 + " " + -WissWheel.WIDTH / 2 + " " + WissWheel.HEIGHT + " " + WissWheel.WIDTH;
 
   ringConfigs = [
-    { radius: 100, thickness: 50, buttonConfigs: [{label: "Families", color: "#555"}, {color: ""}, {color: ""}, {color: ""}] },
-    { radius: 150, thickness: 75, buttonConfigs: [{label: "Elementary", color: ""}, {label: "Middle School", color: ""}, {label: "HighSchool", color: ""}, {label: "Early Learning", color: ""}]},
-    { radius: 100, thickness: 150, buttonConfigs: [{label: "SEL for Adults", color: ""}, {color: ""}, {color: ""}]},
-    { radius: 100, thickness: 250, buttonConfigs: [{label: "Out-of-School Time", color: ""}]},
+    { radius: 100, thickness: 60, buttonConfigs: [{label: "Families", color: "#555"}, {color: ""}, {color: ""}, {color: ""}] },
+    { radius: 200, thickness: 100, buttonConfigs: [{label: "Early Learning", color: "#E74F3D"}, {label: "Elementary", color: ""}, {label: "Middle School", color: ""}, {label: "HighSchool", color: ""}]},
+    { radius: 280, thickness: 80, buttonConfigs: [{label: "SEL for Adults", color: ""}, {color: ""}, {color: ""}]},
+    { radius: 260, thickness: 80, buttonConfigs: [{label: "Out-of-School Time", color: ""}]},
   ];
 
-  constructor() {
-    super();
-    console.log('asdfasdf');
-  }
+  // constructor() {
+  //   super();
+  // }
 
   render() {
     return <svg className="wiss-wheel" viewBox={WissWheel.VIEWBOX} xmlns="http://www.w3.org/2000/svg" width={WissWheel.HEIGHT} height={WissWheel.WIDTH}>

@@ -4,9 +4,14 @@ import './App.scss';
 
 import WissWheel from "./wiss-wheel/WissWheel";
 
-function App() {
-  return (
-    <div className="App">
+export default class App extends React.Component {
+
+  constructor(props) {
+    super();
+  }
+
+  render() {
+    return <div className="App">
       <header className="App-header">
         What is Second Step (WISS) Interactive Component
       </header>
@@ -14,7 +19,5 @@ function App() {
         <WissWheel />
       </div>
     </div>
-  );
+  }
 }
-
-export default App;

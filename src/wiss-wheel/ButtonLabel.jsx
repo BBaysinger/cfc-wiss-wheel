@@ -1,10 +1,10 @@
 import React from 'react';
 
-class ButtonLabel extends React.Component {
+export default class ButtonLabel extends React.Component {
 
-  constructor() {
-    super();
-  }
+  // constructor() {
+  //   super();
+  // }
 
   render() {
     return <path />
