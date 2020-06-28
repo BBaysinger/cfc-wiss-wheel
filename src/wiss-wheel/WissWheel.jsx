@@ -13,11 +13,11 @@ export default class WissWheel extends React.Component {
 
   ringConfigs = [
     {
-      radius: 123, thickness: 60, buttonConfigs: [
+      radius: 121, thickness: 59, buttonConfigs: [
         { color: "#58595B" },
         { color: "#58595B", label: "Families" },
         { color: "#58595B" },
-        { color: "#58595B" }
+        { color: "#58595B" },
       ]
     },
     {
@@ -25,7 +25,7 @@ export default class WissWheel extends React.Component {
         { color: "#E74F3D", label: "Early Learning" },
         { color: "#44797B", label: "Elementary" },
         { color: "#162D54", label: "Middle School" },
-        { color: "#FFBF3C", label: "HighSchool" }
+        { color: "#FFBF3C", label: "HighSchool" },
       ]
     },
     {
@@ -33,13 +33,13 @@ export default class WissWheel extends React.Component {
         {},
         { color: "#B1B3B6", label: "SEL for Adults" },
         { color: "#B1B3B6" },
-        { color: "#B1B3B6" }
+        { color: "#B1B3B6" },
       ]
     },
     {
       radius: 362.5, thickness: 75, buttonConfigs: [
         {},
-        { color: "#E4E1DC", label: "Out-of-School Time" }
+        { color: "#E4E1DC", label: "Out-of-School Time" },
       ]
     },
   ];
