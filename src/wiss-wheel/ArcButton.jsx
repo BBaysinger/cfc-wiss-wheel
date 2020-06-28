@@ -29,12 +29,14 @@ export default class ArcButton extends React.Component {
     const clipId = "clipRect" + idInts;
     const clipRef = `url(#${clipId})`;
 
+    console.log(circPath);
+
     return <g>
       <clipPath id={clipId}>
         <rect width={outerRadius} height={outerRadius} style={{ fill: randColor, transform: transform }} />
       </clipPath>
-      <path id={circPathId} d={circPath} fill="transparent" />
-      <circle cx="0" cy="0" clipPath={clipRef} r={radius} stroke={color} strokeWidth={thickness} fill="transparent" />
+      <path id={circPathId} d={circPath} fill="transparent" stroke={color} strokeWidth={thickness} />
+      {/* <circle cx="0" cy="0" clipPath={clipRef} r={radius} stroke={color} strokeWidth={thickness} fill="transparent" /> */}
       <ButtonLabel config={config} />
     </g>
   }
