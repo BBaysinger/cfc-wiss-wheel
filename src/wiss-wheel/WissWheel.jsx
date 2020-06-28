@@ -15,7 +15,7 @@ export default class WissWheel extends React.Component {
     {
       radius: 123, thickness: 60, buttonConfigs: [
         { label: "Families", color: "#58595B" },
-        { color: "#58595B" },
+        { label: "asdf", color: "#58595B" },
         { color: "#58595B" },
         { color: "#58595B" }
       ]
@@ -49,7 +49,7 @@ export default class WissWheel extends React.Component {
 
     for (var i = 0; i < this.ringConfigs.length; i++) {
       key = "ring" + i;
-      this.rings[i] = <ButtonRing id={key} key={key} config={this.ringConfigs[i]} />
+      this.rings[i] = <ButtonRing id={key} key={key} config={{...this.ringConfigs[i], ringIndex: i}} />
     }
   }
 
