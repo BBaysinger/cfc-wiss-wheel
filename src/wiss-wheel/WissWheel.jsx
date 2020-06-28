@@ -2,6 +2,7 @@ import React from 'react';
 
 import ButtonRing from './ButtonRing';
 import './WissWheel.scss';
+import Child from '../images/child.svg';
 
 export default class WissWheel extends React.Component {
 
@@ -61,6 +62,10 @@ export default class WissWheel extends React.Component {
         <g>
           {this.rings}
         </g>
+      </g>
+      <g>
+        <circle cx="0" cy="0" r="92" stroke="black" strokeWidth="0" fill="white" />
+        <image x="-32" y="-145" width="68" height="292" xlinkHref={Child} />
       </g>
     </svg>
   }
