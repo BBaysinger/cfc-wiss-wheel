@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './ButtonLabel.scss';
+
 export default class ButtonLabel extends React.Component {
 
   // constructor(props) {
@@ -15,8 +17,8 @@ export default class ButtonLabel extends React.Component {
     const label = config.label;
     // const side = (false) ? "left" : "right";
 
-    return <text className="donutText">
-      <textPath startOffset="50%" xlinkHref={`#${circPathId}`} style={{ textAnchor: "middle" }}>{label}</textPath>
+    return <text className="arc-button-text" dominant-baseline="central">
+      <textPath startOffset="50%"  xlinkHref={`#${circPathId}`} style={{ textAnchor: "middle" }}>{label}</textPath>
     </text>
   }
 }

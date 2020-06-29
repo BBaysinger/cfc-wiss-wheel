@@ -1,13 +1,10 @@
 import React from 'react';
 
-import utils from 'svg-path-reverse';
-
 import ButtonLabel from './ButtonLabel';
 
 export default class ArcButton extends React.Component {
 
   static circlePath(cx, cy, r, sweep = 1) {
-    // return 'M ' + cx + ' ' + cy + ' m -' + r + ', 0 a ' + r + ',' + r + ' 0 1,' + sweep + ' ' + (r * 2) + ',0 a ' + r + ',' + r + ' 0 1,' + sweep + ' -' + (r * 2) + ',0';
     return `M ${cx} ${cy} m -${r}, 0 a ${r},${r} 0 1,${sweep} ${r * 2},0 a ${r},${r} 0 1,${sweep} -${r * 2},0`;
   }
 
@@ -23,25 +20,30 @@ export default class ArcButton extends React.Component {
     const color = config.color;
     const radius = config.radius;
     const cwCircPath = ArcButton.circlePath(0, 0, radius);
-    const ccwCircPath = utils.reverse(cwCircPath);
+    const btnIndex = this.props.config.buttonIndex;
     const randColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
-    const transform = `rotate(${config.buttonIndex * 90 - 90}deg)`;
+    const clipRot = `rotate(${btnIndex * 90 - 90}deg)`;
+    const textRot = `rotate(${btnIndex * 90 - 45}deg)`;
     const outerRadius = radius + (thickness / 2);
-    const idInts = this.props.config.ringIndex + "-" + this.props.config.buttonIndex;
+    const idInts = config.ringIndex + "-" + btnIndex;
     const circPathId = "circ" + idInts;
     const clipId = "clipRect" + idInts;
     const clipRef = `url(#${clipId})`;
 
+    return <g className="arc-button">
 
-    console.log(cwCircPath, "-------", ccwCircPath);
-
-    return <g>
       <clipPath id={clipId}>
-        <rect width={outerRadius} height={outerRadius} style={{ fill: randColor, transform: transform }} />
+        <rect width={outerRadius} height={outerRadius} style={{ fill: randColor, transform: clipRot }} />
       </clipPath>
-      <path id={circPathId} d={cwCircPath} clipPath={clipRef} stroke={color} strokeWidth={thickness} fill="transparent" />
-      {/* <circle cx="0" cy="0" clipPath={clipRef} r={radius} stroke={color} strokeWidth={thickness} fill="transparent" /> */}
-      <ButtonLabel config={config} />
+
+      <g clipPath={clipRef}>
+        <path id={circPathId} d={cwCircPath} stroke={color} strokeWidth={thickness} fill="transparent" />
+        {/* <circle cx="0" cy="0" clipPath={clipRef} r={radius} stroke={color} strokeWidth={thickness} fill="transparent" /> */}
+      </g>
+
+      <g style={{ transform: textRot }}>
+        <ButtonLabel config={config} />
+      </g>
     </g>
   }
 }
