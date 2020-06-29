@@ -20,23 +20,23 @@ export default class WissWheel extends React.Component {
     {
       radius: 121, thickness: 59, buttonConfigs: [
         { color: "#58595B" },
-        { color: "#58595B", label: "Families" },
+        { color: "#58595B", textColor: '#fff', label: "Families" },
         { color: "#58595B" },
         { color: "#58595B" },
       ]
     },
     {
       radius: 200, thickness: 100, buttonConfigs: [
-        { color: "#E74F3D", label: "Early Learning" },
-        { color: "#44797B", label: "Elementary" },
-        { color: "#162D54", label: "Middle School" },
-        { color: "#FFBF3C", label: "High School" },
+        { color: "#E74F3D", textColor: '#fff', label: "Early Learning" },
+        { color: "#44797B", textColor: '#fff', label: "Elementary" },
+        { color: "#162D54", textColor: '#fff', label: "Middle School" },
+        { color: "#FFBF3C", textColor: '#000', label: "High School" },
       ]
     },
     {
       radius: 287.5, thickness: 75, buttonConfigs: [
         {},
-        { color: "#B1B3B6", label: "SEL for Adults" },
+        { color: "#B1B3B6", textColor: '#fff', label: "SEL for Adults" },
         { color: "#B1B3B6" },
         { color: "#B1B3B6" },
       ]
@@ -44,7 +44,7 @@ export default class WissWheel extends React.Component {
     {
       radius: 362.5, thickness: 75, buttonConfigs: [
         {},
-        { color: "#E4E1DC", label: "Out-of-School Time" },
+        { color: "#E4E1DC", textColor: '#000', label: "Out-of-School Time" },
       ]
     },
   ];

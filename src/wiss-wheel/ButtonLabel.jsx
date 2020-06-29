@@ -15,9 +15,15 @@ export default class ButtonLabel extends React.Component {
     const idInts = config.ringIndex + "-" + config.buttonIndex;
     const circPathId = "circ" + idInts;
     const label = config.label;
+    const textColor = config.textColor;
 
     return <text className="wiss-arc-button-label" dominantBaseline="central">
-      <textPath startOffset="50%"  xlinkHref={`#${circPathId}`} style={{ textAnchor: "middle" }}>{label}</textPath>
+      <textPath startOffset="50%"
+        xlinkHref={`#${circPathId}`}
+        fill={textColor}
+        fontSize="25px"
+        style={{ textAnchor: "middle" }}
+        >{label}</textPath>
     </text>
   }
 }
