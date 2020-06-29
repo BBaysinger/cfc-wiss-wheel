@@ -39,7 +39,7 @@ export default class ArcButton extends React.Component {
         width={outerRadius}
         height={outerRadius * 2}
         y={-outerRadius}
-        style={{ opacity: 0.6, fill: randColor, transform: "rotate(-180deg)" }}
+        style={{ opacity: 0.6, fill: randColor, transform: "rotate(-179deg)" }}
       />
 
       // console.log(clipRef, clipId);

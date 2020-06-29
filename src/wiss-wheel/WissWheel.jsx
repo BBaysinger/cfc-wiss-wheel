@@ -67,12 +67,15 @@ export default class WissWheel extends React.Component {
   render() {
     return <svg className="wiss-interactive-wheel" viewBox={WissWheel.VIEWBOX} xmlns="http://www.w3.org/2000/svg" width={WissWheel.HEIGHT} height={WissWheel.WIDTH}>
       {/* <g style={{ transform: "rotate(-90deg)" }}><!-- Rotated here so config indexes align logially with button orientation. --> */}
-      <g className={`wiss-wheel ${this.state.phase}`}>
-        {this.rings}
-      </g>
       <g>
-        <circle cx="0" cy="0" r="92" stroke="black" strokeWidth="0" fill="white" />
-        <image x="-40" y="-70" height="138" xlinkHref={Child} />
+      {/* <g style={{ transform: "scale(0.5)" }}> */}
+        <g className={`wiss-wheel ${this.state.phase}`}>
+          {this.rings}
+        </g>
+        <g>
+          <circle cx="0" cy="0" r="92" stroke="black" strokeWidth="0" fill="white" />
+          <image x="-40" y="-70" height="138" xlinkHref={Child} />
+        </g>
       </g>
     </svg>
   }
