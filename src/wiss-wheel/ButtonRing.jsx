@@ -25,7 +25,7 @@ export default class ButtonRing extends React.Component {
 
   render() {
 
-    return <g>
+    return <g className="wiss-button-ring">
       {this.arcButtons}
     </g>
   }

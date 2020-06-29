@@ -16,7 +16,7 @@ export default class ButtonLabel extends React.Component {
     const circPathId = "circ" + idInts;
     const label = config.label;
 
-    return <text className="arc-button-text" dominant-baseline="central">
+    return <text className="wiss-arc-button-label" dominantBaseline="central">
       <textPath startOffset="50%"  xlinkHref={`#${circPathId}`} style={{ textAnchor: "middle" }}>{label}</textPath>
     </text>
   }

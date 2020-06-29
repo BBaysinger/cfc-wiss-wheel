@@ -1,3 +1,12 @@
-.wiss-wheel {
+svg.wiss-interactive-wheel {
   background-color: #ffffff;
+
+  .wiss-wheel {
+    transition: transform 2s ease-out;
+    transform: rotate(0deg);
+
+    &.wiss-intro {
+      transform: rotate(-600deg);
+    }
+  }
 }

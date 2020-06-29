@@ -10,6 +10,10 @@ export default class WissWheel extends React.Component {
   static WIDTH = 800;
   static VIEWBOX = -WissWheel.HEIGHT / 2 + " " + -WissWheel.WIDTH / 2 + " " + WissWheel.HEIGHT + " " + WissWheel.WIDTH;
 
+  state = {
+    phase: 'wiss-intro',
+  }
+
   rings = [];
 
   ringConfigs = [
@@ -56,10 +60,14 @@ export default class WissWheel extends React.Component {
     }
   }
 
+  componentDidMount() {
+    setTimeout(() => { this.setState({ phase: '' }) }, 1000);
+  }
+
   render() {
-    return <svg className="wiss-wheel" viewBox={WissWheel.VIEWBOX} xmlns="http://www.w3.org/2000/svg" width={WissWheel.HEIGHT} height={WissWheel.WIDTH}>
-      <g style={{ transform: "rotate(-90deg)" }}>
-        <g>
+    return <svg className="wiss-interactive-wheel" viewBox={WissWheel.VIEWBOX} xmlns="http://www.w3.org/2000/svg" width={WissWheel.HEIGHT} height={WissWheel.WIDTH}>
+      <g style={{ transform: "rotate(-90deg)" }}>{/* <!-- Rotated here so config indexes align logially with button orientation. --> */}
+        <g className={`wiss-wheel ${this.state.phase}`}>
           {this.rings}
         </g>
       </g>
