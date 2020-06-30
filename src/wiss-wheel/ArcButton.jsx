@@ -33,7 +33,7 @@ export default class ArcButton extends React.Component {
 
     // if (btnIndex === 0 && config.ringIndex === 1) {
     if (true) {
-      // Moved components here so we can conditionally create them in order to analyze.
+      // Moved components here so we can conditionally instantiate to analyze.
 
       clip = <rect
         width={outerRadius}
@@ -41,8 +41,6 @@ export default class ArcButton extends React.Component {
         y={-outerRadius}
         style={{ opacity: 0.6, fill: randColor, transform: "rotate(-179deg)" }}
       />
-
-      // console.log(clipRef, clipId);
 
       arc = <path
         id={circPathId}
@@ -60,6 +58,7 @@ export default class ArcButton extends React.Component {
         {clip}
       </clipPath>
 
+      {/* Leave for testing. */}
       {/* {clip} */}
 
       <g>
