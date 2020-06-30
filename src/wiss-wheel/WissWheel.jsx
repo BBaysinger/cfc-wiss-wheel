@@ -70,7 +70,7 @@ export default class WissWheel extends React.Component {
   render() {
     return <div>
       <div>
-        asdf asdf {this.props.animState}
+        Anim ID: {this.props.animState}
       </div>
       <svg className={`wiss-interactive-wheel ${this.props.animState}`}
         viewBox={WissWheel.VIEWBOX}
