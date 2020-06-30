@@ -1,5 +1,6 @@
 import React from 'react';
-// import logo from './logo.svg';
+
+import ButtonBar from './wiss-wheel/ButtonBar';
 import './App.scss';
 
 import WissWheel from "./wiss-wheel/WissWheel";
@@ -17,6 +18,7 @@ export default class App extends React.Component {
       </header>
       <div className="app-container">
         <WissWheel />
+        <ButtonBar />
       </div>
     </div>
   }

@@ -31,7 +31,7 @@ export default class ArcButton extends React.Component {
     let clip = null;
     let arc = null;
 
-    // if (btnIndex === 0) {
+    // if (btnIndex === 0 && config.ringIndex === 1) {
     if (true) {
       // Moved components here so we can conditionally create them in order to analyze.
 
