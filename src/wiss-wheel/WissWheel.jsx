@@ -35,7 +35,7 @@ export default class WissWheel extends React.Component {
     },
     {
       radius: 287.5, thickness: 75, buttonConfigs: [
-        {},
+        {  },
         { color: "#B1B3B6", textColor: '#fff', label: "SEL for Adults" },
         { color: "#B1B3B6" },
         { color: "#B1B3B6" },
