@@ -5,7 +5,7 @@ import './ButtonBar.scss';
 export default class WissWheel extends React.Component {
 
   nextAnim = function () {
-    alert("Not set.");
+    alert("Oops, not set.");
   };
 
   // constructor(props) {
@@ -21,10 +21,11 @@ export default class WissWheel extends React.Component {
   render() {
 
     return <div className="wiss-button-bar" style={{ textAlign: "center" }}>
-      <button onClick={() => this.nextAnim('one')}>One</button>
-      <button onClick={() => this.nextAnim('two')}>Two</button>
-      <button onClick={() => this.nextAnim('tre')}>Three</button>
-      <button onClick={() => this.nextAnim('for')}>Four</button>
+      <button onClick={() => this.nextAnim('a1')}>One</button>
+      <button onClick={() => this.nextAnim('a2')}>Two</button>
+      <button onClick={() => this.nextAnim('a3')}>Three</button>
+      <button onClick={() => this.nextAnim('a4')}>Four</button>
+      <button onClick={() => this.nextAnim('')} style={{backgroundColor: 'orange'}}>Reset</button>
     </div>
   }
 }

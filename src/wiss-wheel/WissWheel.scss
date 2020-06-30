@@ -3,14 +3,16 @@ svg.wiss-interactive-wheel {
 
   .wiss-wheel {
     transition: transform 3s ease-out;
-    transform: rotate(0deg);
 
-    &.wiss-intro {
-      transform: rotate(-720deg);
+    .wiss-button-ring {
+      transform: scale(0.1) rotate(-720deg);
+      transition: transform 2s ease-out;
+    }
+  }
 
-      // .wiss-button-clip-path {
-      //   transform: rotate(-30deg);
-      // }
+  &.a1 {
+    .wiss-button-ring {
+      transform: scale(1) rotate(0deg);
     }
   }
 }

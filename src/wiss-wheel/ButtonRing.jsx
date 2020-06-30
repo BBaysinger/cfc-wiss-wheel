@@ -20,12 +20,11 @@ export default class ButtonRing extends React.Component {
       key = "button" + i;
       this.arcButtons[i] = <ArcButton id={key} key={key} config={tempConfig} />;
     }
-
   }
 
   render() {
 
-    return <g className="wiss-button-ring">
+    return <g className={`wiss-button-ring wiss-button-ring${this.props.ringIndex}`}>
       {this.arcButtons}
     </g>
   }
