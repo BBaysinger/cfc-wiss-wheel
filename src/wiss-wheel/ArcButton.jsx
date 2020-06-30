@@ -56,7 +56,7 @@ export default class ArcButton extends React.Component {
         d={cwCircPath}
         stroke={color}
         strokeWidth={thickness}
-        fill="transparent"
+        fill={color}
       />
     }
 

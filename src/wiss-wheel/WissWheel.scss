@@ -34,4 +34,20 @@ svg.wiss-interactive-wheel {
       }
     }
   }
+  &.a2 {
+    .wiss-button-ring {
+      transform: scale(1) rotate(0deg);
+      
+      // transition-timing-function: cubic-bezier(0.64, 0.57, 0.67, 1.53);
+      transition-timing-function: cubic-bezier(0.000, 0.960, 0.760, 0.575);
+    }
+    .wiss-button-clip {
+      transform: rotate(-179.9deg);
+    }
+    .wiss-button-ring3 {
+      .wiss-button-clip {
+        transform: rotate(-179.9deg);
+      }
+    }
+  }
 }
