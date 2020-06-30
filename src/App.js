@@ -7,8 +7,16 @@ import WissWheel from "./wiss-wheel/WissWheel";
 
 export default class App extends React.Component {
 
+  state = {
+    animState: 'text',
+  }
+
   constructor(props) {
     super();
+  }
+
+  nextAnim = (animState) => {
+    this.setState({ animState: animState });
   }
 
   render() {
@@ -17,8 +25,8 @@ export default class App extends React.Component {
         What is Second Step (WISS) Interactive Component
       </header>
       <div className="app-container">
-        <WissWheel />
-        <ButtonBar />
+        <WissWheel animState={this.state.animState} />
+        <ButtonBar nextAnim={this.nextAnim} />
       </div>
     </div>
   }

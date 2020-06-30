@@ -50,6 +50,7 @@ export default class WissWheel extends React.Component {
   ];
 
   constructor(props) {
+
     super(props);
 
     let key;
@@ -60,23 +61,32 @@ export default class WissWheel extends React.Component {
     }
   }
 
-  componentDidMount() {
-    setTimeout(() => { this.setState({ phase: '' }) }, 1000);
+  componentDidUpdate(prevProps) {
+    if (this.props.nextAnim !== prevProps.nextAnim) {
+      this.nextAnim = this.props.nextAnim;
+    }
   }
 
   render() {
-    return <svg className="wiss-interactive-wheel" viewBox={WissWheel.VIEWBOX} xmlns="http://www.w3.org/2000/svg" width={WissWheel.HEIGHT} height={WissWheel.WIDTH}>
-      {/* <g style={{ transform: "rotate(-90deg)" }}><!-- Rotated here so config indexes align logially with button orientation. --> */}
-      <g>
-      {/* <g style={{ transform: "scale(0.5)" }}> */}
-        <g className={`wiss-wheel ${this.state.phase}`}>
-          {this.rings}
-        </g>
+    return <div>
+      <div>
+        asdf asdf {this.props.animState}
+      </div>
+      <svg className={`wiss-interactive-wheel ${this.props.animState}`}
+        viewBox={WissWheel.VIEWBOX}
+        xmlns="http://www.w3.org/2000/svg"
+        width={WissWheel.HEIGHT}
+        height={WissWheel.WIDTH}>
         <g>
-          <circle cx="0" cy="0" r="92" stroke="black" strokeWidth="0" fill="white" />
-          <image x="-40" y="-70" height="138" xlinkHref={Child} />
+          <g className={`wiss-wheel ${this.state.phase}`}>
+            {this.rings}
+          </g>
+          <g>
+            <circle cx="0" cy="0" r="92" stroke="black" strokeWidth="0" fill="white" />
+            <image x="-40" y="-70" height="138" xlinkHref={Child} />
+          </g>
         </g>
-      </g>
-    </svg>
+      </svg>
+    </div>
   }
 }

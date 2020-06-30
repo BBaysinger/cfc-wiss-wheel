@@ -21,9 +21,8 @@ export default class ButtonLabel extends React.Component {
       <textPath startOffset="50%"
         xlinkHref={`#${circPathId}`}
         fill={textColor}
-        fontSize="25px"
         style={{ textAnchor: "middle" }}
-        >{label}</textPath>
+      >{label}</textPath>
     </text>
   }
 }
