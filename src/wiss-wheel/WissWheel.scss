@@ -8,11 +8,21 @@ svg.wiss-interactive-wheel {
       transform: scale(0.1) rotate(-720deg);
       transition: transform 2s ease-out;
     }
+    .wiss-button-ring3 {
+      transform: scale(0.1) rotate(400deg);
+    }
+    .wiss-button-clip {
+      transform: rotate(-270deg);
+      transition: transform 0.5s linear;
+    }
   }
 
   &.a1 {
     .wiss-button-ring {
       transform: scale(1) rotate(0deg);
+    }
+    .wiss-button-clip {
+      transform: rotate(-179.9deg);
     }
   }
 }
