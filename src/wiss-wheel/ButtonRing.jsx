@@ -5,12 +5,18 @@ import ArcButton from './ArcButton';
 export default class ButtonRing extends React.Component {
 
   arcButtons = [];
+  ringIndex = null;
+  reverseRingIndex = null;
 
   constructor(props) {
 
     super(props);
 
     const config = this.props.config;
+
+    this.ringIndex = config.ringIndex;
+    // this.reverseRingIndex = 3 - this.ringIndex;
+
     let key;
 
     for (var i = 0; i < config.buttonConfigs.length; i++) {
@@ -24,7 +30,9 @@ export default class ButtonRing extends React.Component {
 
   render() {
 
-    return <g className={`wiss-button-ring wiss-button-ring${this.props.ringIndex}`}>
+    return <g
+      style={{ transitionDelay: `${this.ringIndex * 0.4}s` }}
+      className={`wiss-button-ring wiss-button-ring${this.ringIndex}`}>
       {this.arcButtons}
     </g>
   }

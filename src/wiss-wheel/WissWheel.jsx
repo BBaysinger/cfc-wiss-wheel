@@ -59,6 +59,9 @@ export default class WissWheel extends React.Component {
       key = "ring" + i;
       this.rings[i] = <ButtonRing id={key} key={key} config={{ ...this.ringConfigs[i], ringIndex: i }} />
     }
+
+    // Keys/indexes remain as smaller rings first, but they need stacked oposite of that.
+    this.rings.reverse();
   }
 
   componentDidUpdate(prevProps) {

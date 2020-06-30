@@ -65,9 +65,9 @@ export default class ArcButton extends React.Component {
         {arc}
       </g>
 
-      <g style={{ transform: "rotate(-45deg)" }}>
+      {/* <g style={{ transform: "rotate(-45deg)" }}>
         <ButtonLabel config={config} />
-      </g>
+      </g> */}
     </g>
   }
 }
