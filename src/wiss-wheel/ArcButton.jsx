@@ -28,24 +28,22 @@ export default class ArcButton extends React.Component {
     const circPathId = "circ" + idInts;
     const clipId = "clipRect" + idInts;
     const clipRef = `url(#${clipId})`;
-    const transitionDelay = ringIndex * 0.9 + config.buttonIndex * 0.5;
+    const transitionDelay = ringIndex * 0.45 + config.buttonIndex * 0.25;
 
     let clip = null;
     let arc = null;
 
-    // if (btnIndex === 0 && config.ringIndex === 1) {
-    if (true) {
+    // if (btnIndex === 1 && config.ringIndex === 3) {
+      if (true) {
       // Moved components here so we can conditionally instantiate to analyze.
 
       clip = <rect
         className="wiss-button-clip"
         width={outerRadius}
-        height={outerRadius * 2}
-        y={-outerRadius}
+        height={outerRadius}
         style={{
           opacity: 0.6,
           fill: randColor,
-          // transform: "rotate(-179deg)",
           transitionDelay: `${transitionDelay}s`,
         }}
       />
@@ -73,9 +71,9 @@ export default class ArcButton extends React.Component {
         {arc}
       </g>
 
-      {/* <g style={{ transform: "rotate(-45deg)" }}>
+      <g style={{ transform: "rotate(-45deg)" }}>
         <ButtonLabel config={config} />
-      </g> */}
+      </g>
     </g>
   }
 }

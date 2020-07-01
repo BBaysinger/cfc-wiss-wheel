@@ -2,12 +2,12 @@ svg.wiss-interactive-wheel {
   background-color: #ffffff;
 
   .wiss-wheel {
-    transition: transform 3s ease-out;
+    transition: transform 1.5s ease-out;
 
     .wiss-button-ring {
       transform: rotate(-720deg);
-      transform: scale(0.1) rotate(-720deg);
-      transition: transform 2s ease-out;
+      transform: scale(0.05) rotate(-720deg);
+      transition: transform 1s ease-out;
     }
     .wiss-button-ring3 {
       transform: scale(0.1) rotate(200deg);
@@ -17,7 +17,7 @@ svg.wiss-interactive-wheel {
     }
     .wiss-button-clip {
       transform: rotate(-270deg);
-      transition: transform 0.5s linear;
+      transition: transform 0.25s linear;
     }
   }
 

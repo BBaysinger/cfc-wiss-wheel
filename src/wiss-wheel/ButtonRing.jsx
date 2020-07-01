@@ -31,7 +31,7 @@ export default class ButtonRing extends React.Component {
   render() {
 
     return <g
-      style={{ transitionDelay: `${this.ringIndex * 0.9}s` }}
+      style={{ transitionDelay: `${this.ringIndex * 0.45}s` }}
       className={`wiss-button-ring wiss-button-ring${this.ringIndex}`}>
       {this.arcButtons}
     </g>
