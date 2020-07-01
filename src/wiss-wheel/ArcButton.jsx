@@ -28,7 +28,7 @@ export default class ArcButton extends React.Component {
     const circPathId = "circ" + idInts;
     const clipId = "clipRect" + idInts;
     const clipRef = `url(#${clipId})`;
-    const transitionDelay = ringIndex * 0.45 + config.buttonIndex * 0.25;
+    const transitionDelay = ringIndex * 0.6 + config.buttonIndex * 0.50 + 1;
 
     let clip = null;
     let arc = null;
@@ -71,9 +71,9 @@ export default class ArcButton extends React.Component {
         {arc}
       </g>
 
-      <g style={{ transform: "rotate(-45deg)" }}>
+      {/* <g style={{ transform: "rotate(-45deg)" }}>
         <ButtonLabel config={config} />
-      </g>
+      </g> */}
     </g>
   }
 }

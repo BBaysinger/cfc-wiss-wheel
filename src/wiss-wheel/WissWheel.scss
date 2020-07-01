@@ -9,15 +9,15 @@ svg.wiss-interactive-wheel {
       transform: scale(0.05) rotate(-720deg);
       transition: transform 1s ease-out;
     }
+    .wiss-button-clip {
+      transform: rotate(-270deg);
+      transition: transform 0.25s linear;
+    }
     .wiss-button-ring3 {
       transform: scale(0.1) rotate(200deg);
       .wiss-button-clip {
         transform: rotate(0deg);
       }
-    }
-    .wiss-button-clip {
-      transform: rotate(-270deg);
-      transition: transform 0.25s linear;
     }
   }
 
@@ -26,11 +26,11 @@ svg.wiss-interactive-wheel {
       transform: scale(1) rotate(0deg);
     }
     .wiss-button-clip {
-      transform: rotate(-179.9deg);
+      transform: rotate(-179.8deg);
     }
     .wiss-button-ring3 {
       .wiss-button-clip {
-        transform: rotate(-179.9deg);
+        transform: rotate(-179.8deg);
       }
     }
   }
@@ -42,11 +42,11 @@ svg.wiss-interactive-wheel {
       transition-timing-function: cubic-bezier(0.000, 0.960, 0.760, 0.575);
     }
     .wiss-button-clip {
-      transform: rotate(-179.9deg);
+      transform: rotate(-179.8deg);
     }
     .wiss-button-ring3 {
       .wiss-button-clip {
-        transform: rotate(-179.9deg);
+        transform: rotate(-178.8deg);
       }
     }
   }
