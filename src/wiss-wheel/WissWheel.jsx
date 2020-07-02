@@ -57,7 +57,7 @@ export default class WissWheel extends React.Component {
 
     for (var i = 0; i < this.ringConfigs.length; i++) {
       key = "ring" + i;
-      this.rings[i] = <ButtonRing id={key} key={key} config={{ ...this.ringConfigs[i], ringIndex: i }} />
+      this.rings[i] = <ButtonRing style={{display: "none"}} id={key} key={key} config={{ ...this.ringConfigs[i], ringIndex: i }} />
     }
 
     // Keys/indexes remain as smaller rings first, but they need stacked oposite of that.

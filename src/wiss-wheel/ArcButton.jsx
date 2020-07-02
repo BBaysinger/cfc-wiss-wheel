@@ -17,6 +17,7 @@ export default class ArcButton extends React.Component {
     const config = this.props.config;
 
     const thickness = config.thickness;
+    // const color = "red"; //config.color;
     const color = config.color;
     const radius = config.radius;
     const ringIndex = config.ringIndex;
@@ -28,13 +29,14 @@ export default class ArcButton extends React.Component {
     const circPathId = "circ" + idInts;
     const clipId = "clipRect" + idInts;
     const clipRef = `url(#${clipId})`;
-    const transitionDelay = ringIndex * 0.6 + config.buttonIndex * 0.50 + 1;
-
+    const transitionDelay = ringIndex * 0.45 + config.buttonIndex * 0.25 + 1;
+    /* This is maybe a little complicated, as these helped mask outer buttons to not show in gaps of smaller rings. */
+    const style = (config.color === "transparent" || config.color === "#FFFFFF") ? { display: "none" } : {};
     let clip = null;
     let arc = null;
-
+    
     // if (btnIndex === 1 && config.ringIndex === 3) {
-      if (true) {
+    if (true) {
       // Moved components here so we can conditionally instantiate to analyze.
 
       clip = <rect
@@ -56,9 +58,10 @@ export default class ArcButton extends React.Component {
         strokeWidth={thickness}
         fill={color}
       />
+
     }
 
-    return <g className="wiss-arc-button" style={{ transform: `rotate(${btnIndex * 90}deg)` }}>
+    return <g className="wiss-arc-button" style={{ ...style, transform: `rotate(${btnIndex * 90}deg)` }}>
 
       <clipPath id={clipId}>
         {clip}
@@ -71,9 +74,9 @@ export default class ArcButton extends React.Component {
         {arc}
       </g>
 
-      {/* <g style={{ transform: "rotate(-45deg)" }}>
+      <g style={{ transform: "rotate(-45deg)" }}>
         <ButtonLabel config={config} />
-      </g> */}
+      </g>
     </g>
   }
 }
