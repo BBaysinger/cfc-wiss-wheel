@@ -1,53 +1,10 @@
 svg.wiss-interactive-wheel {
-  background-color: #ffffff;
 
-  .wiss-wheel {
-    transition: transform 1.5s ease-out;
 
-    .wiss-button-ring {
-      transform: rotate(-720deg);
-      transform: scale(0.05) rotate(-720deg);
-      transition: transform 1s ease-out;
-    }
-    .wiss-button-clip {
-      transform: rotate(-270.2deg);
-      transition: transform 0.25s linear;
-    }
-    .wiss-button-ring3 {
-      transform: scale(0.1) rotate(200deg);
-      .wiss-button-clip {
-        transform: rotate(0deg);
-      }
-    }
-  }
 
-  &.a1 {
-    .wiss-button-ring {
-      transform: scale(1) rotate(0deg);
-    }
-    .wiss-button-clip {
-      transform: rotate(-179.8deg);
-    }
-    .wiss-button-ring3 {
-      .wiss-button-clip {
-        transform: rotate(-179.8deg);
-      }
-    }
-  }
-  &.a2 {
-    .wiss-button-ring {
-      transform: scale(1) rotate(0deg);
-      
-      // transition-timing-function: cubic-bezier(0.64, 0.57, 0.67, 1.53);
-      transition-timing-function: cubic-bezier(0.000, 0.960, 0.760, 0.575);
-    }
-    .wiss-button-clip {
-      transform: rotate(-179.8deg);
-    }
-    .wiss-button-ring3 {
-      .wiss-button-clip {
-        transform: rotate(-179.8deg);
-      }
-    }
-  }
 }
+@use '../global.css';
+
+// svg.wiss-interactive-wheel {
+//     color: inherit;
+// }

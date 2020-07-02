@@ -1,0 +1,12 @@
+@mixin staggered_transitions($nth:1,$items:2,$initial:0,$step:.1){
+	@for $i from $nth through $items{
+		&:nth-of-type(#{$i}){
+			transition-delay:#{$initial}s;
+		}
+		$initial: $initial + $step;
+	}
+}
+
+// .item { // example
+//   @include staggered_transitions($items:10,$nth:2,$initial:.3,$step:.2)
+// }
