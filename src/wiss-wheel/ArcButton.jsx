@@ -29,7 +29,7 @@ export default class ArcButton extends React.Component {
     const circPathId = "circ" + idInts;
     const clipId = "clipRect" + idInts;
     const clipRef = `url(#${clipId})`;
-    const transitionDelay = ringIndex * 0.45 + config.buttonIndex * 0.25 + 1;
+    // const transitionDelay = ringIndex * 0.45 + config.buttonIndex * 0.25 + 1;
     /* This is maybe a little complicated, as these helped mask outer buttons to not show in gaps of smaller rings. */
     const style = (config.color === "transparent" || config.color === "#FFFFFF") ? { display: "none" } : {};
     let clip = null;
@@ -46,7 +46,7 @@ export default class ArcButton extends React.Component {
         style={{
           opacity: 0.6,
           fill: randColor,
-          transitionDelay: `${transitionDelay}s`,
+          // transitionDelay: `${transitionDelay}s`,
         }}
       />
 
@@ -61,13 +61,12 @@ export default class ArcButton extends React.Component {
 
     }
 
-    return <g className="wiss-arc-button" style={{ ...style, transform: `rotate(${btnIndex * 90}deg)` }}>
+    return <g className="wiss-arc-button" style={{ ...style }}>
 
       <clipPath id={clipId}>
         {clip}
       </clipPath>
 
-      {/* Leave for testing. */}
       {/* {clip} */}
 
       <g>

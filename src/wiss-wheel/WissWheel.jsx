@@ -2,7 +2,7 @@ import React from 'react';
 
 import ButtonRing from './ButtonRing';
 import './WissWheel.scss';
-import './animation.scss';
+import './wheel-animation.scss';
 import Child from '../images/child.svg';
 
 export default class WissWheel extends React.Component {

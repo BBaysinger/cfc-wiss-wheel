@@ -1,4 +1,4 @@
-@use '../global.css';
+@import '../global.scss';
 
 svg.wiss-interactive-wheel {
 
@@ -6,7 +6,6 @@ svg.wiss-interactive-wheel {
     transition: transform 1.5s ease-out;
 
     .wiss-button-ring {
-      transform: rotate(-720deg);
       transform: scale(0.05) rotate(-720deg);
       transition: transform 1s ease-out;
     }
@@ -22,12 +21,17 @@ svg.wiss-interactive-wheel {
     }
   }
 
+  .wiss-arc-button {
+    @include staggered_rotations($items:4,$nth:1,$initial:0,$step:90);
+  }
+
   &.a1 {
     .wiss-button-ring {
       transform: scale(1) rotate(0deg);
     }
     .wiss-button-clip {
       transform: rotate(-179.8deg);
+      @include staggered_transitions($items:4,$nth:1,$initial:.3,$step:.2);
     }
     .wiss-button-ring3 {
       .wiss-button-clip {
@@ -39,8 +43,6 @@ svg.wiss-interactive-wheel {
   &.a2 {
     .wiss-button-ring {
       transform: scale(1) rotate(0deg);
-
-      // transition-timing-function: cubic-bezier(0.64, 0.57, 0.67, 1.53);
       transition-timing-function: cubic-bezier(0.000, 0.960, 0.760, 0.575);
     }
     .wiss-button-clip {
@@ -53,3 +55,7 @@ svg.wiss-interactive-wheel {
     }
   }
 }
+
+
+
+
