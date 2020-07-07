@@ -34,7 +34,7 @@ export default class ArcButton extends React.Component {
     const style = (config.color === "transparent" || config.color === "#FFFFFF") ? { display: "none" } : {};
     let clip = null;
     let arc = null;
-    
+
     // if (btnIndex === 1 && config.ringIndex === 3) {
     if (true) {
       // Moved components here so we can conditionally instantiate to analyze.

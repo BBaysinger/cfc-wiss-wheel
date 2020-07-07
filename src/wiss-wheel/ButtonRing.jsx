@@ -13,10 +13,7 @@ export default class ButtonRing extends React.Component {
     super(props);
 
     const config = this.props.config;
-
     this.ringIndex = config.ringIndex;
-    // this.reverseRingIndex = 3 - this.ringIndex;
-
     let key;
 
     for (var i = 0; i < config.buttonConfigs.length; i++) {
@@ -28,11 +25,15 @@ export default class ButtonRing extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    console.log(123, this.props);
+  }
+
   render() {
 
     return <g
       style={{ transitionDelay: `${this.ringIndex * 0.45}s` }}
-      className={`wiss-button-ring wiss-button-ring${this.ringIndex}`}>
+      className={`wiss-button-ring wiss-button-ring${this.ringIndex} ${this.props.phaseClass}`}>
       {this.arcButtons}
     </g>
   }

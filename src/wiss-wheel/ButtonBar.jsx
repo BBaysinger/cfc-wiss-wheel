@@ -2,7 +2,7 @@ import React from 'react';
 
 import './ButtonBar.scss';
 
-export default class WissWheel extends React.Component {
+export default class ButtonBar extends React.Component {
 
   nextAnim = function () {
     alert("Oops, not set.");
@@ -25,7 +25,7 @@ export default class WissWheel extends React.Component {
       <button onClick={() => this.nextAnim('a2')}>Two</button>
       <button onClick={() => this.nextAnim('a3')}>Three</button>
       <button onClick={() => this.nextAnim('a4')}>Four</button>
-      <button onClick={() => this.nextAnim('')} style={{backgroundColor: 'orange'}}>Reset</button>
+      <button onClick={() => this.nextAnim('')} style={{ backgroundColor: 'orange' }}>Reset</button>
     </div>
   }
 }

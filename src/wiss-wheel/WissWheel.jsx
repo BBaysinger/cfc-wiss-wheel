@@ -11,11 +11,12 @@ export default class WissWheel extends React.Component {
   static WIDTH = 800;
   static VIEWBOX = -WissWheel.HEIGHT / 2 + " " + -WissWheel.WIDTH / 2 + " " + WissWheel.HEIGHT + " " + WissWheel.WIDTH;
 
-  state = {
-    phase: 'wiss-intro',
-  }
+  offsetInterval = null;
 
-  rings = [];
+  state = {
+    phases: ['', '', '', ''],
+    anims: ['', '', '', ''],
+  }
 
   ringConfigs = [
     {
@@ -50,40 +51,67 @@ export default class WissWheel extends React.Component {
     },
   ];
 
-  constructor(props) {
-
-    super(props);
-
-    let key;
-
-    for (var i = 0; i < this.ringConfigs.length; i++) {
-      key = "ring" + i;
-      this.rings[i] = <ButtonRing style={{display: "none"}} id={key} key={key} config={{ ...this.ringConfigs[i], ringIndex: i }} />
-    }
-
-    // Keys/indexes remain as smaller rings first, but they need stacked oposite of that.
-    this.rings.reverse();
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   componentDidUpdate(prevProps) {
-    if (this.props.nextAnim !== prevProps.nextAnim) {
-      this.nextAnim = this.props.nextAnim;
+
+    if (this.props.animState !== prevProps.animState) {
+      this.animState = this.props.animState;
+
+      let updateIndex = 0;
+      const anims = this.state.phases;
+
+      const update = () => {
+        anims[updateIndex] = this.animState;
+        this.setState({ anims: anims });
+        updateIndex++;
+        if (updateIndex >= 4) {
+          clearInterval(this.offsetInterval);
+        }
+        console.log(updateIndex, anims);
+      }
+
+      clearInterval(this.offsetInterval);
+      this.offsetInterval = setInterval(update, 500);
+      update();
     }
+
   }
 
   render() {
+
+    let key;
+    const rings = [];
+
+    // if (this.state.anims) {
+    for (var i = 0; i < this.ringConfigs.length; i++) {
+      key = "ring" + i;
+      rings[i] = <ButtonRing
+        phaseClass={this.state.anims[i]}
+        style={{ display: "none" }}
+        id={key}
+        key={key}
+        config={{ ...this.ringConfigs[i], ringIndex: i }} />
+    }
+    // }
+
+    // Keys/indexes remain as smaller rings first, but they need stacked oposite of that.
+    rings.reverse();
+
     return <div>
       <div>
         Anim ID: {this.props.animState}
       </div>
-      <svg className={`wiss-interactive-wheel ${this.props.animState}`}
+      <svg className={`wiss-interactive-wheel`}
         viewBox={WissWheel.VIEWBOX}
         xmlns="http://www.w3.org/2000/svg"
         width={WissWheel.HEIGHT}
         height={WissWheel.WIDTH}>
         <g>
-          <g className={`wiss-wheel ${this.state.phase}`}>
-            {this.rings}
+          <g className={`wiss-wheel`}>
+            {rings}
           </g>
           <g>
             <circle cx="0" cy="0" r="92" stroke="black" strokeWidth="0" fill="white" />

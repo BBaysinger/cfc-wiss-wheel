@@ -1,7 +1,6 @@
-@import '../global.scss';
+@import "../global.scss";
 
 svg.wiss-interactive-wheel {
-
   .wiss-wheel {
     transition: transform 1.5s ease-out;
 
@@ -22,40 +21,36 @@ svg.wiss-interactive-wheel {
   }
 
   .wiss-arc-button {
-    @include staggered_rotations($items:4,$nth:1,$initial:0,$step:90);
+    @include staggered_rotations($items: 4, $nth: 1, $initial: 0, $step: 90);
+    @include staggered_transitions($items: 4, $nth: 1, $initial: 0.5, $step: 0.5);
   }
 
-  &.a1 {
-    .wiss-button-ring {
+  .a1 {
+    &.wiss-button-ring {
       transform: scale(1) rotate(0deg);
+      .wiss-button-clip {
+        transform: rotate(-179.8deg);
+      }
     }
-    .wiss-button-clip {
-      transform: rotate(-179.8deg);
-      @include staggered_transitions($items:4,$nth:1,$initial:.3,$step:.2);
-    }
-    .wiss-button-ring3 {
+    &.wiss-button-ring3 {
       .wiss-button-clip {
         transform: rotate(-179.8deg);
       }
     }
   }
-	
-  &.a2 {
-    .wiss-button-ring {
+
+  .a2 {
+    &.wiss-button-ring {
       transform: scale(1) rotate(0deg);
-      transition-timing-function: cubic-bezier(0.000, 0.960, 0.760, 0.575);
+      transition-timing-function: cubic-bezier(0, 0.96, 0.76, 0.575);
     }
-    .wiss-button-clip {
+    &.wiss-button-clip {
       transform: rotate(-179.8deg);
     }
-    .wiss-button-ring3 {
+    &.wiss-button-ring3 {
       .wiss-button-clip {
         transform: rotate(-179.8deg);
       }
     }
   }
 }
-
-
-
-
