@@ -16,6 +16,7 @@ export default class ArcButton extends React.Component {
 
     const config = this.props.config;
 
+    // TODO: Make most of this into class properties?
     const thickness = config.thickness;
     // const color = "red"; //config.color;
     const color = config.color;
@@ -29,7 +30,6 @@ export default class ArcButton extends React.Component {
     const circPathId = "circ" + idInts;
     const clipId = "clipRect" + idInts;
     const clipRef = `url(#${clipId})`;
-    // const transitionDelay = ringIndex * 0.45 + config.buttonIndex * 0.25 + 1;
     /* This is maybe a little complicated, as these helped mask outer buttons to not show in gaps of smaller rings. */
     const style = (config.color === "transparent" || config.color === "#FFFFFF") ? { display: "none" } : {};
     let clip = null;
@@ -46,7 +46,6 @@ export default class ArcButton extends React.Component {
         style={{
           opacity: 0.6,
           fill: randColor,
-          // transitionDelay: `${transitionDelay}s`,
         }}
       />
 
@@ -73,7 +72,7 @@ export default class ArcButton extends React.Component {
         {arc}
       </g>
 
-      <g style={{ transform: "rotate(-45deg)" }}>
+      <g clipPath={clipRef}>
         <ButtonLabel config={config} />
       </g>
     </g>

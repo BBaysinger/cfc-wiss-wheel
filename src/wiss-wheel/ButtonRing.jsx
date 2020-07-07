@@ -25,14 +25,13 @@ export default class ButtonRing extends React.Component {
     }
   }
 
-  componentDidUpdate(prevProps) {
-    console.log(123, this.props);
-  }
+  // componentDidUpdate(prevProps) {
+  //   console.log(this.props);
+  // }
 
   render() {
 
     return <g
-      style={{ transitionDelay: `${this.ringIndex * 0.45}s` }}
       className={`wiss-button-ring wiss-button-ring${this.ringIndex} ${this.props.phaseClass}`}>
       {this.arcButtons}
     </g>

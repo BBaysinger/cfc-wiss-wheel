@@ -70,11 +70,10 @@ export default class WissWheel extends React.Component {
         if (updateIndex >= 4) {
           clearInterval(this.offsetInterval);
         }
-        console.log(updateIndex, anims);
       }
 
       clearInterval(this.offsetInterval);
-      this.offsetInterval = setInterval(update, 500);
+      this.offsetInterval = setInterval(update, 400);
       update();
     }
 
@@ -85,7 +84,6 @@ export default class WissWheel extends React.Component {
     let key;
     const rings = [];
 
-    // if (this.state.anims) {
     for (var i = 0; i < this.ringConfigs.length; i++) {
       key = "ring" + i;
       rings[i] = <ButtonRing
@@ -95,7 +93,6 @@ export default class WissWheel extends React.Component {
         key={key}
         config={{ ...this.ringConfigs[i], ringIndex: i }} />
     }
-    // }
 
     // Keys/indexes remain as smaller rings first, but they need stacked oposite of that.
     rings.reverse();

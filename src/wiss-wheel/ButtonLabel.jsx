@@ -17,7 +17,7 @@ export default class ButtonLabel extends React.Component {
     const label = config.label;
     const textColor = config.textColor;
 
-    return <text className="wiss-arc-button-label" dominantBaseline="central">
+    return <text style={{ transform: "rotate(-45deg)" }} className="wiss-arc-button-label" dominantBaseline="central">
       <textPath startOffset="50%"
         xlinkHref={`#${circPathId}`}
         fill={textColor}
