@@ -2,12 +2,14 @@ import React from 'react';
 
 import ArcButton from './ArcButton';
 import WissWheel from './WissWheel';
+import './ButtonRing.scss';
 
 export default class ButtonRing extends React.Component {
 
   arcButtons = [];
   ringIndex = null;
   reverseRingIndex = null;
+  rotation = 0;
 
   // HACK: I couldn't figure out how to get react-motion to work without setting state in each button. >:-(
   btnRefs = null;
@@ -54,11 +56,11 @@ export default class ButtonRing extends React.Component {
 
   render() {
 
-    let style = {};
-    let rotation = (this.state.isSelectedRing) ? WissWheel.selected_button_index * -90 : null;
-    if (typeof rotation !== 'undefined') style = { transform: `rotate(${rotation}deg)` }
+    let rotOffset = -(Math.floor(this.rotation / 360)) - 720;
+    this.rotation = (this.state.isSelectedRing) ? rotOffset - WissWheel.selected_button_index * 90 : null;
+    let style = (this.state.isSelectedRing) ? { transform: `rotate(${50180}deg)` } : {};
 
-    console.log(this.state.isSelectedRing);
+    // console.log(style);
 
     return <g
       className={`wiss-button-ring wiss-button-ring${this.ringIndex} ${this.props.phaseClass}`}
