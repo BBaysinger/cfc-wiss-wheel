@@ -51,20 +51,20 @@ export default class ButtonRing extends React.Component {
 
     switch (mod) {
       case 0:
-        angles = [-360, -90, -180, -270];
+        angles = [360, 90, 180, 270];
         break;
       case 90:
-        angles = [-270, -360, -90, -180];
+        angles = [270, 360, 90, 180];
         break;
       case 180:
-        angles = [-180, -270, -360, -90];
+        angles = [180, 270, 360, 90];
         break;
       case 270:
-        angles = [-90, -180, -270, -360];
+        angles = [90, 180, 270, 360];
         break;
     }
 
-    let delta = angles[WissWheel.selected_button_index];
+    let delta = -angles[WissWheel.selected_button_index];
     let rotation = this.state.rotation + delta;
 
     // if (rotation !== null) {
