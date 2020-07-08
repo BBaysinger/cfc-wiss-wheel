@@ -1,17 +1,10 @@
 import React from 'react';
+
 import { Animate } from 'react-move';
 import { easeExpOut } from 'd3-ease';
 
 import ButtonLabel from './ButtonLabel';
-
-const trackStyles = {
-  borderRadius: 4,
-  backgroundColor: 'rgba(255, 255, 255, 0.7)',
-  position: 'relative',
-  margin: '5px 3px 10px',
-  width: 250,
-  height: 50,
-}
+import WissWheel from './WissWheel';
 
 export default class ArcButton extends React.Component {
 
@@ -19,11 +12,14 @@ export default class ArcButton extends React.Component {
     return `M ${cx} ${cy} m -${r}, 0 a ${r},${r} 0 1,${sweep} ${r * 2},0`;
   }
 
-  state = { selected: false };
+  state = { inSelectedRing: false };
 
   handleClick = () => {
-    this.props.handleClick();
-    // this.setState(this.state);
+    this.props.handleClick(this.props.config.ringIndex, this.props.config.buttonIndex);
+  }
+
+  update = () => {
+    this.setState({ inSelectedRing: WissWheel.selected_ring_index === this.props.config.ringIndex })
   }
 
   render() {
@@ -43,7 +39,6 @@ export default class ArcButton extends React.Component {
     const clipId = "clipRect" + idInts;
     const clipRef = `url(#${clipId})`;
     /* This is maybe a little complicated, as these helped mask outer buttons to not show in gaps of smaller rings. */
-    // const style = (config.color === "transparent" || config.color === "#FFFFFF") ? { display: "none" } : {};
     const style = {};
     let clip = null;
 
@@ -74,9 +69,9 @@ export default class ArcButton extends React.Component {
         })}
 
         update={() => {
-          console.log(config.radius);
+          console.log(this.state.inSelectedRing);
           return ({
-            tweenRadius: [this.state.selected ? 200 : config.radius],
+            tweenRadius: [this.state.inSelectedRing ? 200 : config.radius],
             timing: { duration: 750, ease: easeExpOut },
           })
         }}

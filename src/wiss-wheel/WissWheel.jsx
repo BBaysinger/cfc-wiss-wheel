@@ -10,12 +10,17 @@ export default class WissWheel extends React.Component {
   static HEIGHT = 800;
   static WIDTH = 800;
   static VIEWBOX = -WissWheel.HEIGHT / 2 + " " + -WissWheel.WIDTH / 2 + " " + WissWheel.HEIGHT + " " + WissWheel.WIDTH;
+  static selected_button_index = -1;
+  static selected_ring_index = -1;
 
   offsetInterval = null;
+  ringRefs = [];
 
   state = {
     phases: ['', '', '', ''],
     anims: ['', '', '', ''],
+    selectedRingIndex: -1,
+    selectedButtonIndex: -1,
   }
 
   ringConfigs = [
@@ -51,9 +56,22 @@ export default class WissWheel extends React.Component {
     },
   ];
 
-  // constructor(props) {
-  //   super(props);
-  // }
+  constructor(props) {
+
+    super(props);
+
+    this.ringRefs = [React.createRef(), React.createRef(), React.createRef(), React.createRef()];
+
+  }
+
+  handleClick = (ringIndex, buttonIndex) => {
+    this.setState({ selectedRingIndex: ringIndex, selectedButtonIndex: buttonIndex });
+    WissWheel.selected_ring_index = ringIndex;
+    WissWheel.selected_button_index = buttonIndex;
+    for (var i = 0; i < 4; i++) {
+      this.ringRefs[i].current.update();
+    }
+  }
 
   componentDidUpdate(prevProps) {
 
@@ -87,10 +105,12 @@ export default class WissWheel extends React.Component {
     for (var i = 0; i < this.ringConfigs.length; i++) {
       key = "ring" + i;
       rings[i] = <ButtonRing
+        ref={this.ringRefs[i]}
         phaseClass={this.state.anims[i]}
         style={{ display: "none" }}
         id={key}
         key={key}
+        handleClick={this.handleClick}
         config={{ ...this.ringConfigs[i], ringIndex: i }} />
     }
 

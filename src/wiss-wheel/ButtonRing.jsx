@@ -1,16 +1,18 @@
 import React from 'react';
 
 import ArcButton from './ArcButton';
+import WissWheel from './WissWheel';
 
 export default class ButtonRing extends React.Component {
 
   arcButtons = [];
   ringIndex = null;
   reverseRingIndex = null;
+
   // HACK: I couldn't figure out how to get react-motion to work without setting state in each button. >:-(
   btnRefs = null;
 
-  state = { selected: true };
+  state = { isSelectedRing: false };
 
   constructor(props) {
 
@@ -28,24 +30,40 @@ export default class ButtonRing extends React.Component {
       tempConfig = { ...tempConfig, ...config.buttonConfigs[i], buttonIndex: i };
 
       key = "button" + i;
-      this.arcButtons[i] = <ArcButton ref={this.btnRefs[i]} id={key} key={key} handleClick={this.handleChildClick} config={tempConfig} />;
+
+      this.arcButtons[i] = <ArcButton
+        ref={this.btnRefs[i]}
+        id={key}
+        key={key}
+        handleClick={this.props.handleClick}
+        config={tempConfig}
+      />;
     }
   }
 
-  handleChildClick = () => {
+  update = () => {
 
-    this.setState({ selected: !this.state.selected });
+    this.setState({ isSelectedRing: WissWheel.selected_ring_index === this.props.config.ringIndex });
 
     for (var i = 0; i < 4; i++) {
-      this.btnRefs[i].current.setState({ selected: this.state.selected });
+      if (this.btnRefs[i].current) {
+        this.btnRefs[i].current.update();
+      }
     }
-
   }
 
   render() {
 
+    let style = {};
+    let rotation = (this.state.isSelectedRing) ? WissWheel.selected_button_index * -90 : null;
+    if (typeof rotation !== 'undefined') style = { transform: `rotate(${rotation}deg)` }
+
+    console.log(this.state.isSelectedRing);
+
     return <g
-      className={`wiss-button-ring wiss-button-ring${this.ringIndex} ${this.props.phaseClass}`}>
+      className={`wiss-button-ring wiss-button-ring${this.ringIndex} ${this.props.phaseClass}`}
+      style={style}
+    >
       {this.arcButtons}
     </g>
   }
