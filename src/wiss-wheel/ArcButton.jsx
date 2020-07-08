@@ -28,7 +28,7 @@ export default class ArcButton extends React.Component {
     const config = this.props.config;
 
     // TODO: Make most of this into class properties?
-    const thickness = config.thickness;
+    const thickness = (this.state.inSelectedRing) ? 100 : config.thickness;
     const color = config.color;
     const radius = config.radius;
     const ringIndex = config.ringIndex;
@@ -88,7 +88,7 @@ export default class ArcButton extends React.Component {
             d={ArcButton.circlePath(0, 0, tweenRadius)}
             stroke={color}
             strokeWidth={thickness}
-            fill={'transparent'}
+            fill={"none"}
             style={style}
           /> : null;
 

@@ -117,6 +117,12 @@ export default class WissWheel extends React.Component {
     // Keys/indexes remain as smaller rings first, but they need stacked oposite of that.
     rings.reverse();
 
+    let moveIndex = -this.state.selectedRingIndex + 3;
+
+    if (this.state.selectedRingIndex !== -1) {
+      rings.push(rings.splice(moveIndex, 1)[0]);
+    }
+
     return <div>
       <div>
         Anim ID: {this.props.animState}
