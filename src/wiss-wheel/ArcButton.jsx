@@ -1,6 +1,17 @@
 import React from 'react';
+import { Animate } from 'react-move';
+import { easeExpOut } from 'd3-ease';
 
 import ButtonLabel from './ButtonLabel';
+
+const trackStyles = {
+  borderRadius: 4,
+  backgroundColor: 'rgba(255, 255, 255, 0.7)',
+  position: 'relative',
+  margin: '5px 3px 10px',
+  width: 250,
+  height: 50,
+}
 
 export default class ArcButton extends React.Component {
 
@@ -22,7 +33,7 @@ export default class ArcButton extends React.Component {
     const color = config.color;
     const radius = config.radius;
     const ringIndex = config.ringIndex;
-    const cwCircPath = ArcButton.circlePath(0, 0, radius);
+    // const cwCircPath = ArcButton.circlePath(0, 0, radius);
     const btnIndex = this.props.config.buttonIndex;
     const randColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
     const outerRadius = radius + (thickness / 2);
@@ -37,8 +48,7 @@ export default class ArcButton extends React.Component {
 
     // if (btnIndex === 1 && config.ringIndex === 3) {
     if (true) {
-      // Moved components here so we can conditionally instantiate to analyze.
-
+      // Keep rect here to analyze by populating into mulitiple points.
       clip = <rect
         className="wiss-button-clip"
         width={outerRadius}
@@ -48,30 +58,40 @@ export default class ArcButton extends React.Component {
           fill: randColor,
         }}
       />
-
-      arc = <path
-        id={circPathId}
-        clipPath={clipRef}
-        d={cwCircPath}
-        stroke={color}
-        strokeWidth={thickness}
-        fill={color}
-        // style={{ transform: "scale(1.0)" }}
-      />
-
     }
 
     return <g className="wiss-arc-button" style={{ ...style }}>
-
       <clipPath id={clipId}>
         {clip}
       </clipPath>
 
       {/* {clip} */}
 
-      <g>
-        {arc}
-      </g>
+      <Animate
+        start={() => ({
+          tweenRadius: config.radius,
+        })}
+
+        update={() => ({
+          tweenRadius: [this.state.open ? 200 : config.radius],
+          timing: { duration: 750, ease: easeExpOut },
+        })}
+      >
+        {(state) => {
+          const { tweenRadius } = state
+
+          return (
+            <path
+              id={circPathId}
+              clipPath={clipRef}
+              d={ArcButton.circlePath(0, 0, tweenRadius)}
+              stroke={color}
+              strokeWidth={thickness}
+              fill={color}
+            />
+          )
+        }}
+      </Animate>
 
       <g clipPath={clipRef}>
         <ButtonLabel config={config} />
