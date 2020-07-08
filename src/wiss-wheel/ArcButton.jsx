@@ -48,8 +48,8 @@ export default class ArcButton extends React.Component {
       // Keep rect here to analyze by populating into mulitiple points.
       clip = <rect
         className="wiss-button-clip"
-        width={outerRadius}
-        height={outerRadius}
+        width={Math.max(250, outerRadius)}
+        height={Math.max(250, outerRadius)}
         style={{
           opacity: 0.6,
           fill: randColor,
@@ -77,20 +77,24 @@ export default class ArcButton extends React.Component {
         }}
       >
         {(state) => {
-          const { tweenRadius } = state
+          const { tweenRadius } = state;
 
-          return (
-            <path
-              className="wiss-arc-button"
-              onClick={this.handleClick}
-              id={circPathId}
-              clipPath={clipRef}
-              d={ArcButton.circlePath(0, 0, tweenRadius)}
-              stroke={color}
-              strokeWidth={thickness}
-              fill={color}
-            />
-          )
+          let style = (color === "#FFFFFF") ? { pointerEvents: 'none' } : {};
+          let path = (typeof color !== "undefined") ? <path
+            className="wiss-arc-button"
+            onClick={this.handleClick}
+            id={circPathId}
+            clipPath={clipRef}
+            d={ArcButton.circlePath(0, 0, tweenRadius)}
+            stroke={color}
+            strokeWidth={thickness}
+            fill={'transparent'}
+            style={style}
+          /> : null;
+
+          return (<g>
+            {path}
+          </g>)
         }}
       </Animate>
 

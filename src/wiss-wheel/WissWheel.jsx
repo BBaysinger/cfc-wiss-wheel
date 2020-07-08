@@ -50,7 +50,7 @@ export default class WissWheel extends React.Component {
     },
     {
       radius: 362.5, thickness: 75, buttonConfigs: [
-        { color: "#FFFFFF" },
+        {},
         { color: "#E4E1DC", textColor: '#000', label: "Out-of-School Time" },
       ]
     },

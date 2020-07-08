@@ -45,39 +45,49 @@ export default class ButtonRing extends React.Component {
   update = () => {
 
     const isSelectedRing = WissWheel.selected_ring_index === this.props.config.ringIndex;
+    let selectedButtonIndex = WissWheel.selected_button_index
 
-    let mod = Math.abs(this.state.rotation % 360);
-    let angles;
+    if (isSelectedRing) {
+      if (WissWheel.selected_ring_index !== 1) {
+        selectedButtonIndex = 1;
+      }
 
-    switch (mod) {
-      case 0:
-        angles = [360, 90, 180, 270];
-        break;
-      case 90:
-        angles = [270, 360, 90, 180];
-        break;
-      case 180:
-        angles = [180, 270, 360, 90];
-        break;
-      case 270:
-        angles = [90, 180, 270, 360];
-        break;
+      let mod = Math.abs(this.state.rotation % 360);
+      let angles;
+
+      switch (mod) {
+        case 0:
+          angles = [360, 90, 180, 270];
+          break;
+        case 90:
+          angles = [270, 360, 90, 180];
+          break;
+        case 180:
+          angles = [180, 270, 360, 90];
+          break;
+        case 270:
+          angles = [90, 180, 270, 360];
+          break;
+        default:
+          console.log("Whoops, something's jacked!")
+      }
+
+      let delta = -angles[selectedButtonIndex];
+      let rotation = this.state.rotation + delta;
+
+      this.setState({ isSelectedRing: isSelectedRing, rotation: rotation });
+
+    } else {
+
+      this.setState({ isSelectedRing: isSelectedRing, rotation: 0 });
+      
     }
-
-    let delta = -angles[WissWheel.selected_button_index];
-    let rotation = this.state.rotation + delta;
-
-    // if (rotation !== null) {
-    //   console.log(mod, delta);
-    // }
 
     for (var i = 0; i < 4; i++) {
       if (this.btnRefs[i].current) {
         this.btnRefs[i].current.update();
       }
     }
-
-    this.setState({ isSelectedRing: isSelectedRing, rotation: rotation });
 
   }
 
