@@ -56,6 +56,7 @@ export default class ArcButton extends React.Component {
         stroke={color}
         strokeWidth={thickness}
         fill={color}
+        // style={{ transform: "scale(1.0)" }}
       />
 
     }
