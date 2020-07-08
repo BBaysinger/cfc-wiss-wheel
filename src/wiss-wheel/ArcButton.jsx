@@ -19,9 +19,12 @@ export default class ArcButton extends React.Component {
     return `M ${cx} ${cy} m -${r}, 0 a ${r},${r} 0 1,${sweep} ${r * 2},0`;
   }
 
-  // constructor(props) {
-  //   super(props);
-  // }
+  state = { selected: false };
+
+  handleClick = () => {
+    this.props.handleClick();
+    // this.setState(this.state);
+  }
 
   render() {
 
@@ -29,11 +32,9 @@ export default class ArcButton extends React.Component {
 
     // TODO: Make most of this into class properties?
     const thickness = config.thickness;
-    // const color = "red"; //config.color;
     const color = config.color;
     const radius = config.radius;
     const ringIndex = config.ringIndex;
-    // const cwCircPath = ArcButton.circlePath(0, 0, radius);
     const btnIndex = this.props.config.buttonIndex;
     const randColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
     const outerRadius = radius + (thickness / 2);
@@ -42,9 +43,9 @@ export default class ArcButton extends React.Component {
     const clipId = "clipRect" + idInts;
     const clipRef = `url(#${clipId})`;
     /* This is maybe a little complicated, as these helped mask outer buttons to not show in gaps of smaller rings. */
-    const style = (config.color === "transparent" || config.color === "#FFFFFF") ? { display: "none" } : {};
+    // const style = (config.color === "transparent" || config.color === "#FFFFFF") ? { display: "none" } : {};
+    const style = {};
     let clip = null;
-    let arc = null;
 
     // if (btnIndex === 1 && config.ringIndex === 3) {
     if (true) {
@@ -72,16 +73,20 @@ export default class ArcButton extends React.Component {
           tweenRadius: config.radius,
         })}
 
-        update={() => ({
-          tweenRadius: [this.state.open ? 200 : config.radius],
-          timing: { duration: 750, ease: easeExpOut },
-        })}
+        update={() => {
+          console.log(config.radius);
+          return ({
+            tweenRadius: [this.state.selected ? 200 : config.radius],
+            timing: { duration: 750, ease: easeExpOut },
+          })
+        }}
       >
         {(state) => {
           const { tweenRadius } = state
 
           return (
             <path
+              onClick={this.handleClick}
               id={circPathId}
               clipPath={clipRef}
               d={ArcButton.circlePath(0, 0, tweenRadius)}
