@@ -5,6 +5,7 @@ import { easeExpOut } from 'd3-ease';
 
 import ButtonLabel from './ButtonLabel';
 import WissWheel from './WissWheel';
+import './ArcButton.scss';
 
 export default class ArcButton extends React.Component {
 
@@ -69,7 +70,6 @@ export default class ArcButton extends React.Component {
         })}
 
         update={() => {
-          console.log(this.state.inSelectedRing);
           return ({
             tweenRadius: [this.state.inSelectedRing ? 200 : config.radius],
             timing: { duration: 750, ease: easeExpOut },
@@ -81,6 +81,7 @@ export default class ArcButton extends React.Component {
 
           return (
             <path
+              className="wiss-arc-button"
               onClick={this.handleClick}
               id={circPathId}
               clipPath={clipRef}
