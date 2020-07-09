@@ -9,6 +9,7 @@ export default class ButtonRing extends React.Component {
   arcButtons = [];
   ringIndex = null;
   reverseRingIndex = null;
+  randomX = Math.random() * 100;
 
   // HACK: I couldn't figure out how to get react-motion to work without setting state in each button. >:-(
   btnRefs = null;
@@ -80,7 +81,7 @@ export default class ButtonRing extends React.Component {
     } else {
 
       this.setState({ isSelectedRing: isSelectedRing, rotation: 0 });
-      
+
     }
 
     for (var i = 0; i < 4; i++) {
@@ -88,12 +89,13 @@ export default class ButtonRing extends React.Component {
         this.btnRefs[i].current.update();
       }
     }
-
   }
 
   render() {
 
     let style = (this.state.isSelectedRing) ? { transform: `rotate(${this.state.rotation}deg)` } : {};
+
+    // style.transform += `translateX(${this.randomX}px)`;
 
     return <g
       className={`wiss-button-ring wiss-button-ring${this.ringIndex} ${this.props.phaseClass}`}

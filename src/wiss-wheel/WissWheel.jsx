@@ -15,6 +15,7 @@ export default class WissWheel extends React.Component {
 
   offsetInterval = null;
   ringRefs = [];
+  rings = null;
 
   state = {
     phases: ['', '', '', ''],
@@ -95,33 +96,32 @@ export default class WissWheel extends React.Component {
       update();
     }
 
+    this.rings = this.ringConfigs.map((config, i) => {
+      return <ButtonRing
+        ref={this.ringRefs[i]}
+        phaseClass={this.state.anims[i]}
+        style={{ display: "none" }}
+        id={"ring" + i}
+        key={"ring" + i}
+        handleClick={this.handleClick}
+        config={{ ...config, ringIndex: i }}
+      />
+    });
+
+    // Keys/indexes remain as smaller rings first, but they need stacked oposite of that.
+    this.rings.reverse();
+
   }
 
   render() {
 
-    let key;
-    const rings = [];
-
-    for (var i = 0; i < this.ringConfigs.length; i++) {
-      key = "ring" + i;
-      rings[i] = <ButtonRing
-        ref={this.ringRefs[i]}
-        phaseClass={this.state.anims[i]}
-        style={{ display: "none" }}
-        id={key}
-        key={key}
-        handleClick={this.handleClick}
-        config={{ ...this.ringConfigs[i], ringIndex: i }} />
-    }
-
-    // Keys/indexes remain as smaller rings first, but they need stacked oposite of that.
-    rings.reverse();
-
     let moveIndex = -this.state.selectedRingIndex + 3;
 
     if (this.state.selectedRingIndex !== -1) {
-      rings.push(rings.splice(moveIndex, 1)[0]);
+      this.rings.push(this.rings.splice(moveIndex, 1)[0]);
     }
+
+    console.log(this.rings);
 
     return <div>
       <div>
@@ -134,7 +134,7 @@ export default class WissWheel extends React.Component {
         height={WissWheel.WIDTH}>
         <g>
           <g className={`wiss-wheel`}>
-            {rings}
+            {this.rings}
           </g>
           <g>
             <circle cx="0" cy="0" r="92" stroke="black" strokeWidth="0" fill="white" />
