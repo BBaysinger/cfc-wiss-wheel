@@ -25,7 +25,7 @@ svg.wiss-interactive-wheel {
     @include staggered_transitions($items: 4, $nth: 1, $initial: 0, $step: 0.25);
   }
 
-  .a1 {
+  .anim1 {
     &.wiss-button-ring {
       transform: none;
       .wiss-button-clip {
@@ -39,7 +39,7 @@ svg.wiss-interactive-wheel {
     }
   }
 
-  .a2 {
+  .anim2 {
     &.wiss-button-ring {
       transform: scale(1) rotate(0deg);
       transition-timing-function: cubic-bezier(0, 0.96, 0.76, 0.575);

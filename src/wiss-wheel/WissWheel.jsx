@@ -1,21 +1,22 @@
 import React from 'react';
 
 import ButtonRing from './ButtonRing';
-import './WissWheel.scss';
+import './WISSWheel.scss';
 import './wheel-animation.scss';
 import Child from '../images/child.svg';
 
-export default class WissWheel extends React.Component {
+export default class WISSWheel extends React.Component {
 
   static HEIGHT = 800;
   static WIDTH = 800;
-  static VIEWBOX = -WissWheel.HEIGHT / 2 + " " + -WissWheel.WIDTH / 2 + " " + WissWheel.HEIGHT + " " + WissWheel.WIDTH;
+  static VIEWBOX = -WISSWheel.HEIGHT / 2 + " " + -WISSWheel.WIDTH / 2 + " " + WISSWheel.HEIGHT + " " + WISSWheel.WIDTH;
   static selected_button_index = -1;
   static selected_ring_index = -1;
 
   offsetInterval = null;
   ringRefs = [];
   rings = null;
+  ringOrder = [3, 2, 1, 0];
 
   state = {
     phases: ['', '', '', ''],
@@ -66,9 +67,11 @@ export default class WissWheel extends React.Component {
   }
 
   handleClick = (ringIndex, buttonIndex) => {
+
     this.setState({ selectedRingIndex: ringIndex, selectedButtonIndex: buttonIndex });
-    WissWheel.selected_ring_index = ringIndex;
-    WissWheel.selected_button_index = buttonIndex;
+    WISSWheel.selected_ring_index = ringIndex;
+    WISSWheel.selected_button_index = buttonIndex;
+
     for (var i = 0; i < 4; i++) {
       this.ringRefs[i].current.update();
     }
@@ -95,8 +98,13 @@ export default class WissWheel extends React.Component {
       this.offsetInterval = setInterval(update, 400);
       update();
     }
+  }
 
-    this.rings = this.ringConfigs.map((config, i) => {
+  render() {
+
+    // const reorderedRings = [];
+
+    const rings = this.ringConfigs.map((config, i) => {
       return <ButtonRing
         ref={this.ringRefs[i]}
         phaseClass={this.state.anims[i]}
@@ -108,40 +116,51 @@ export default class WissWheel extends React.Component {
       />
     });
 
-    // Keys/indexes remain as smaller rings first, but they need stacked oposite of that.
-    this.rings.reverse();
+    // let moveIndex;
 
-  }
+    // if (rings) {
+    //   for (var i = 0; i < rings.length; i++) {
+    //     if (rings[i].key === `ring${this.state.selectedRingIndex}`) {
+    //       moveIndex = i;
+    //       break;
+    //     }
+    //   }
 
-  render() {
+    //   const order = this.ringOrder;
 
-    let moveIndex = -this.state.selectedRingIndex + 3;
+    //   if (this.state.selectedRingIndex !== -1) {
+    //     order.push(order.splice(order.indexOf(this.state.selectedRingIndex), 1)[0]);
+    //   }
 
-    if (this.state.selectedRingIndex !== -1) {
-      this.rings.push(this.rings.splice(moveIndex, 1)[0]);
-    }
+    //   // [0, 1, 2, 3].map((num, index) => {
+    //   order.map((num, index) => {
+    //     reorderedRings[index] = rings[num];
+    //   });
 
-    console.log(this.rings);
+    //   console.log(1234, order, reorderedRings);
+    // }
 
     return <div>
       <div>
         Anim ID: {this.props.animState}
       </div>
-      <svg className={`wiss-interactive-wheel`}
-        viewBox={WissWheel.VIEWBOX}
+      <div className={`wiss-interactive-wheel`}
+        viewBox={WISSWheel.VIEWBOX}
         xmlns="http://www.w3.org/2000/svg"
-        width={WissWheel.HEIGHT}
-        height={WissWheel.WIDTH}>
-        <g>
-          <g className={`wiss-wheel`}>
-            {this.rings}
-          </g>
-          <g>
-            <circle cx="0" cy="0" r="92" stroke="black" strokeWidth="0" fill="white" />
-            <image x="-40" y="-70" height="138" xlinkHref={Child} />
-          </g>
-        </g>
-      </svg>
+        width={WISSWheel.HEIGHT}
+        height={WISSWheel.WIDTH}>
+        <div>
+          <div className={`wiss-wheel`}>
+            {rings}
+          </div>
+          <svg className="wiss-child" viewBox={WISSWheel.VIEWBOX}>
+            <g transform="translate(400,400)">
+              <circle cx="0" cy="0" r="92" stroke="black" strokeWidth="0" fill="white" />
+              <image x="-40" y="-70" height="138" xlinkHref={Child} />
+            </g>
+          </svg>
+        </div>
+      </div>
     </div>
   }
 }

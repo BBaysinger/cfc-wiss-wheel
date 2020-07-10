@@ -1,7 +1,7 @@
 import React from 'react';
 
 import ArcButton from './ArcButton';
-import WissWheel from './WissWheel';
+import WISSWheel from './WISSWheel';
 import './ButtonRing.scss';
 
 export default class ButtonRing extends React.Component {
@@ -45,11 +45,11 @@ export default class ButtonRing extends React.Component {
 
   update = () => {
 
-    const isSelectedRing = WissWheel.selected_ring_index === this.props.config.ringIndex;
-    let selectedButtonIndex = WissWheel.selected_button_index
+    const isSelectedRing = WISSWheel.selected_ring_index === this.props.config.ringIndex;
+    let selectedButtonIndex = WISSWheel.selected_button_index
 
     if (isSelectedRing) {
-      if (WissWheel.selected_ring_index !== 1) {
+      if (WISSWheel.selected_ring_index !== 1) {
         selectedButtonIndex = 1;
       }
 
@@ -93,16 +93,15 @@ export default class ButtonRing extends React.Component {
 
   render() {
 
-    let style = (this.state.isSelectedRing) ? { transform: `rotate(${this.state.rotation}deg)` } : {};
+    let style = { transform: `rotate(${this.state.rotation}deg)` };
 
-    // style.transform += `translateX(${this.randomX}px)`;
-
-    return <g
+    return <svg
+      viewBox={WISSWheel.VIEWBOX}
       className={`wiss-button-ring wiss-button-ring${this.ringIndex} ${this.props.phaseClass}`}
       style={style}
     >
       {this.arcButtons}
-    </g>
+    </svg>
   }
 }
 

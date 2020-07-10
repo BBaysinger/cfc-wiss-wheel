@@ -21,8 +21,8 @@ export default class ButtonBar extends React.Component {
   render() {
 
     return <div className="wiss-button-bar" style={{ textAlign: "center" }}>
-      <button onClick={() => this.nextAnim('a1')}>One</button>
-      <button onClick={() => this.nextAnim('a2')}>Two</button>
+      <button onClick={() => this.nextAnim('anim1')}>One</button>
+      <button onClick={() => this.nextAnim('anim2')}>Two</button>
       {/* <button onClick={() => this.nextAnim('a3')}>Three</button>
       <button onClick={() => this.nextAnim('a4')}>Four</button> */}
       <button onClick={() => this.nextAnim('')} style={{ backgroundColor: 'orange' }}>Reset</button>

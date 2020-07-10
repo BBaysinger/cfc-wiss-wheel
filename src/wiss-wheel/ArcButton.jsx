@@ -4,7 +4,7 @@ import { Animate } from 'react-move';
 import { easeExpOut } from 'd3-ease';
 
 import ButtonLabel from './ButtonLabel';
-import WissWheel from './WissWheel';
+import WISSWheel from './WISSWheel';
 import './ArcButton.scss';
 
 export default class ArcButton extends React.Component {
@@ -20,7 +20,7 @@ export default class ArcButton extends React.Component {
   }
 
   update = () => {
-    this.setState({ inSelectedRing: WissWheel.selected_ring_index === this.props.config.ringIndex })
+    this.setState({ inSelectedRing: WISSWheel.selected_ring_index === this.props.config.ringIndex })
   }
 
   render() {
@@ -38,7 +38,7 @@ export default class ArcButton extends React.Component {
     const idInts = ringIndex + "-" + btnIndex;
     const circPathId = "circ" + idInts;
     const clipId = "clipRect" + idInts;
-    const clipRef = `url(#${clipId})`;
+    // const clipRef = `url(#${clipId})`;
     /* This is maybe a little complicated, as these helped mask outer buttons to not show in gaps of smaller rings. */
     const style = {};
     let clip = null;
@@ -80,25 +80,50 @@ export default class ArcButton extends React.Component {
           const { tweenRadius } = state;
 
           let style = (color === "#FFFFFF") ? { pointerEvents: 'none' } : {};
-          let path = (typeof color !== "undefined") ? <path
-            className="wiss-arc-button"
-            onClick={this.handleClick}
-            id={circPathId}
-            clipPath={clipRef}
-            d={ArcButton.circlePath(0, 0, tweenRadius)}
-            stroke={color}
-            strokeWidth={thickness}
-            fill={"none"}
-            style={style}
-          /> : null;
+          let path = (typeof color !== "undefined") ?
+            <path
+              className="wiss-arc-button"
+              onClick={this.handleClick}
+              id={circPathId}
+              // clipPath={clipRef}
+              d={ArcButton.circlePath(0, 0, tweenRadius)}
+              stroke={color}
+              strokeWidth={thickness}
+              fill={"none"}
+              style={style}
+            /> : null;
 
-          return (<g>
-            {path}
-          </g>)
+          return (
+            <Animate
+              start={() => ({
+                // tweenRadius: config.radius,
+              })}
+
+              update={() => {
+                return ({
+                  // tweenRadius: [this.state.inSelectedRing ? 200 : config.radius],
+                  // timing: { duration: 750, ease: easeExpOut },
+                })
+              }}
+            >
+              {(state) => {
+
+                return (
+                  <g transform="translate(400,400)">
+                    {path}
+                  </g>
+                )
+
+              }}
+            </Animate>
+          )
         }}
       </Animate>
 
-      <g clipPath={clipRef}>
+      <g
+        // clipPath={clipRef}
+        transform="translate(400,400)"
+      >
         <ButtonLabel config={config} />
       </g>
     </g>
