@@ -38,7 +38,7 @@ export default class ArcButton extends React.Component {
     const idInts = ringIndex + "-" + btnIndex;
     const circPathId = "circ" + idInts;
     const clipId = "clipRect" + idInts;
-    // const clipRef = `url(#${clipId})`;
+    const clipRef = `url(#${clipId})`;
     /* This is maybe a little complicated, as these helped mask outer buttons to not show in gaps of smaller rings. */
     const style = {};
     let clip = null;
@@ -62,7 +62,7 @@ export default class ArcButton extends React.Component {
         {clip}
       </clipPath>
 
-      {/* {clip} */}
+      {clip}
 
       <Animate
         start={() => ({
@@ -76,22 +76,7 @@ export default class ArcButton extends React.Component {
           })
         }}
       >
-        {(state) => {
-          const { tweenRadius } = state;
-
-          let style = (color === "#FFFFFF") ? { pointerEvents: 'none' } : {};
-          let path = (typeof color !== "undefined") ?
-            <path
-              className="wiss-arc-button"
-              onClick={this.handleClick}
-              id={circPathId}
-              // clipPath={clipRef}
-              d={ArcButton.circlePath(0, 0, tweenRadius)}
-              stroke={color}
-              strokeWidth={thickness}
-              fill={"none"}
-              style={style}
-            /> : null;
+        {(state1) => {
 
           return (
             <Animate
@@ -106,8 +91,22 @@ export default class ArcButton extends React.Component {
                 })
               }}
             >
-              {(state) => {
+              {(state2) => {
+                const { tweenRadius } = state1;
 
+                let style = (color === "#FFFFFF") ? { pointerEvents: 'none' } : {};
+                let path = (typeof color !== "undefined") ?
+                  <path
+                    className="wiss-arc-button"
+                    onClick={this.handleClick}
+                    id={circPathId}
+                    // clipPath={clipRef}
+                    d={ArcButton.circlePath(0, 0, tweenRadius)}
+                    stroke={color}
+                    strokeWidth={thickness}
+                    fill={"none"}
+                    style={style}
+                  /> : null;
                 return (
                   <g transform="translate(400,400)">
                     {path}
