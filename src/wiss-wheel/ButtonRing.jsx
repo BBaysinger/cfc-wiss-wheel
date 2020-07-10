@@ -1,5 +1,8 @@
 import React from 'react';
 
+import { Animate } from 'react-move';
+import { easeExpOut } from 'd3-ease';
+
 import ArcButton from './ArcButton';
 import WISSWheel from './WISSWheel';
 import './ButtonRing.scss';
@@ -14,7 +17,11 @@ export default class ButtonRing extends React.Component {
   // HACK: I couldn't figure out how to get react-motion to work without setting state in each button. >:-(
   btnRefs = null;
 
-  state = { isSelectedRing: false, rotation: 0 };
+  state = {
+    isSelectedRing: false,
+    rotation: 0,
+    introStarted: false
+  };
 
   constructor(props) {
 
@@ -91,16 +98,45 @@ export default class ButtonRing extends React.Component {
     }
   }
 
+  componentDidMount() {
+    if (!this.state.introStarted) {
+      setTimeout(() => {
+        this.setState({ introStarted: true });
+      }, 0);
+    }
+  }
+
   render() {
 
-    let style = { transform: `rotate(${this.state.rotation}deg)` };
+    return <Animate
+      start={() => ({
+        rotation: -180,
+      })}
 
-    return <svg
-      className={`wiss-button-ring wiss-button-ring${this.ringIndex} ${this.props.phaseClass}`}
-      style={style}
+      update={() => {
+        return ({
+          rotation: [this.state.introStarted ? this.state.rotation : -180],
+          timing: { duration: 1000, ease: easeExpOut },
+        })
+      }}
     >
-      {this.arcButtons}
-    </svg>
+      {(state) => {
+
+        const { rotation } = state;
+
+        let style = { transform: `rotate(${rotation}deg)` };
+
+        return (
+          <svg
+            className={`wiss-button-ring wiss-button-ring${this.ringIndex} ${this.props.phaseClass}`}
+            style={style}
+          >
+            {this.arcButtons}
+          </svg>
+        )
+      }}
+    </Animate>
+
   }
 }
 
