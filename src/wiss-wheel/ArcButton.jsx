@@ -16,7 +16,6 @@ export default class ArcButton extends React.Component {
   state = { inSelectedRing: false };
 
   handleClick = () => {
-    console.log(this.props.config.buttonIndex);
     this.props.handleClick(this.props.config.ringIndex, this.props.config.buttonIndex);
   }
 

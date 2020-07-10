@@ -70,7 +70,7 @@ export default class ButtonRing extends React.Component {
           angles = [90, 180, 270, 360];
           break;
         default:
-          console.log("Whoops, something's jacked!")
+          console.error("Whoops, something's jacked!")
       }
 
       let delta = -angles[selectedButtonIndex];
@@ -96,7 +96,6 @@ export default class ButtonRing extends React.Component {
     let style = { transform: `rotate(${this.state.rotation}deg)` };
 
     return <svg
-      // viewBox={WISSWheel.VIEWBOX}
       className={`wiss-button-ring wiss-button-ring${this.ringIndex} ${this.props.phaseClass}`}
       style={style}
     >
