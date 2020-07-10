@@ -16,6 +16,7 @@ export default class ArcButton extends React.Component {
   state = { inSelectedRing: false };
 
   handleClick = () => {
+    console.log(this.props.config.buttonIndex);
     this.props.handleClick(this.props.config.ringIndex, this.props.config.buttonIndex);
   }
 
@@ -97,7 +98,7 @@ export default class ArcButton extends React.Component {
                     className="wiss-arc-button"
                     onClick={this.handleClick}
                     id={circPathId}
-                    
+
                     d={ArcButton.circlePath(0, 0, tweenRadius)}
                     stroke={color}
                     strokeWidth={thickness}

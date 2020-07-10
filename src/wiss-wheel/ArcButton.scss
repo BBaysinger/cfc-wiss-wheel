@@ -1,3 +1,6 @@
 .wiss-arc-button {
     cursor: pointer;
+    path {
+        pointer-events: stroke;
+    }
 }

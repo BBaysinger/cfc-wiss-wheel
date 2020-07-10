@@ -7,16 +7,14 @@
     width: 800px;
 
     svg {
-        border: 1px solid black;
+        border: 1px solid red;
         position: absolute;
         left: 0px;
         top: 0px;
         height: 800px;
         width: 800px;
-        // background-color: red;
+        pointer-events: none;
+        // transform: rotate(40deg)
     }
 
-    // svg.wiss-child {
-    //     border: 1px solid red;
-    // }
 }
