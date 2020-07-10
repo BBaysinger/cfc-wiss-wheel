@@ -96,7 +96,7 @@ export default class ButtonRing extends React.Component {
     let style = { transform: `rotate(${this.state.rotation}deg)` };
 
     return <svg
-      viewBox={WISSWheel.VIEWBOX}
+      // viewBox={WISSWheel.VIEWBOX}
       className={`wiss-button-ring wiss-button-ring${this.ringIndex} ${this.props.phaseClass}`}
       style={style}
     >

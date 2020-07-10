@@ -145,7 +145,7 @@ export default class WISSWheel extends React.Component {
         Anim ID: {this.props.animState}
       </div>
       <div className={`wiss-interactive-wheel`}
-        viewBox={WISSWheel.VIEWBOX}
+        // viewBox={WISSWheel.VIEWBOX}
         xmlns="http://www.w3.org/2000/svg"
         width={WISSWheel.HEIGHT}
         height={WISSWheel.WIDTH}>
@@ -153,8 +153,10 @@ export default class WISSWheel extends React.Component {
           <div className={`wiss-wheel`}>
             {rings}
           </div>
-          <svg className="wiss-child" viewBox={WISSWheel.VIEWBOX}>
-            <g transform="translate(400,400)">
+          <svg className="wiss-child"
+          // viewBox={WISSWheel.VIEWBOX}
+          >
+            <g>
               <circle cx="0" cy="0" r="92" stroke="black" strokeWidth="0" fill="white" />
               <image x="-40" y="-70" height="138" xlinkHref={Child} />
             </g>
