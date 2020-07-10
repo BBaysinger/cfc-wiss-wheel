@@ -50,6 +50,7 @@ export default class ArcButton extends React.Component {
         className="wiss-button-clip"
         width={Math.max(250, outerRadius)}
         height={Math.max(250, outerRadius)}
+        transform="rotate(-180)"
         style={{
           opacity: 0.6,
           fill: randColor,
@@ -58,11 +59,6 @@ export default class ArcButton extends React.Component {
     }
 
     return <g className="wiss-arc-button" style={{ ...style }}>
-      <clipPath id={clipId}>
-        {clip}
-      </clipPath>
-
-      {clip}
 
       <Animate
         start={() => ({
@@ -95,12 +91,13 @@ export default class ArcButton extends React.Component {
                 const { tweenRadius } = state1;
 
                 let style = (color === "#FFFFFF") ? { pointerEvents: 'none' } : {};
+                const rotation = this.props.config.buttonIndex * 90;
                 let path = (typeof color !== "undefined") ?
                   <path
                     className="wiss-arc-button"
                     onClick={this.handleClick}
                     id={circPathId}
-                    // clipPath={clipRef}
+                    clipPath={clipRef}
                     d={ArcButton.circlePath(0, 0, tweenRadius)}
                     stroke={color}
                     strokeWidth={thickness}
@@ -108,11 +105,15 @@ export default class ArcButton extends React.Component {
                     style={style}
                   /> : null;
                 return (
-                  <g transform="translate(400,400)">
+                  <g transform={`translate(400,400) rotate(${rotation})`}>
+                    <clipPath id={clipId}>
+                      {clip}
+                    </clipPath>
+
+                    {/* {clip} */}
                     {path}
                   </g>
                 )
-
               }}
             </Animate>
           )
