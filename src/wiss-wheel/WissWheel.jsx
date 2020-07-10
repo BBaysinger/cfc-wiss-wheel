@@ -102,8 +102,6 @@ export default class WISSWheel extends React.Component {
 
   render() {
 
-    // const reorderedRings = [];
-
     const rings = this.ringConfigs.map((config, i) => {
       return <ButtonRing
         ref={this.ringRefs[i]}
@@ -115,30 +113,6 @@ export default class WISSWheel extends React.Component {
         config={{ ...config, ringIndex: i }}
       />
     });
-
-    // let moveIndex;
-
-    // if (rings) {
-    //   for (var i = 0; i < rings.length; i++) {
-    //     if (rings[i].key === `ring${this.state.selectedRingIndex}`) {
-    //       moveIndex = i;
-    //       break;
-    //     }
-    //   }
-
-    //   const order = this.ringOrder;
-
-    //   if (this.state.selectedRingIndex !== -1) {
-    //     order.push(order.splice(order.indexOf(this.state.selectedRingIndex), 1)[0]);
-    //   }
-
-    //   // [0, 1, 2, 3].map((num, index) => {
-    //   order.map((num, index) => {
-    //     reorderedRings[index] = rings[num];
-    //   });
-
-    //   console.log(1234, order, reorderedRings);
-    // }
 
     return <div>
       <div>
@@ -156,7 +130,7 @@ export default class WISSWheel extends React.Component {
           <svg className="wiss-child"
           // viewBox={WISSWheel.VIEWBOX}
           >
-            <g>
+            <g transform="translate(400,400)">
               <circle cx="0" cy="0" r="92" stroke="black" strokeWidth="0" fill="white" />
               <image x="-40" y="-70" height="138" xlinkHref={Child} />
             </g>

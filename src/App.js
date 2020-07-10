@@ -3,7 +3,7 @@ import React from 'react';
 import ButtonBar from './wiss-wheel/ButtonBar';
 import './App.scss';
 
-import WissWheel from "./wiss-wheel/WissWheel";
+import WISSWheel from "./wiss-wheel/WISSWheel";
 
 export default class App extends React.Component {
 
@@ -25,7 +25,7 @@ export default class App extends React.Component {
         {/* What is Second Step (WISS) Interactive Component */}
       </header>
       <div className="app-container">
-        <WissWheel animState={this.state.animState} />
+        <WISSWheel animState={this.state.animState} />
         <ButtonBar nextAnim={this.nextAnim} />
       </div>
     </div>
