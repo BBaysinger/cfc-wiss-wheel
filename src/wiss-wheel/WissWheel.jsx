@@ -114,29 +114,33 @@ export default class WISSWheel extends React.Component {
       />
     });
 
-    return <div>
+    const style = {
+      zIndex: this.state.selectedRingIndex ? 100 : "auto",
+      opacity: 0.999999,
+    };
+
+    return (
       <div>
-        Anim ID: {this.props.animState}
-      </div>
-      <div className={`wiss-interactive-wheel`}
-        // viewBox={WISSWheel.VIEWBOX}
-        xmlns="http://www.w3.org/2000/svg"
-        width={WISSWheel.HEIGHT}
-        height={WISSWheel.WIDTH}>
         <div>
-          <div className={`wiss-wheel`}>
-            {rings}
+          Anim ID: {this.props.animState}
+        </div>
+        <div className={`wiss-interactive-wheel`}
+          xmlns="http://www.w3.org/2000/svg"
+          width={WISSWheel.HEIGHT}
+          height={WISSWheel.WIDTH}>
+          <div>
+            <div className={`wiss-wheel`}>
+              {rings}
+            </div>
+            <svg className="wiss-child">
+              <g transform="translate(400,400)">
+                <circle cx="0" cy="0" r="92" stroke="black" strokeWidth="0" fill="white" />
+                <image x="-40" y="-70" height="138" xlinkHref={Child} />
+              </g>
+            </svg>
           </div>
-          <svg className="wiss-child"
-          // viewBox={WISSWheel.VIEWBOX}
-          >
-            <g transform="translate(400,400)">
-              <circle cx="0" cy="0" r="92" stroke="black" strokeWidth="0" fill="white" />
-              <image x="-40" y="-70" height="138" xlinkHref={Child} />
-            </g>
-          </svg>
         </div>
       </div>
-    </div>
+    )
   }
 }

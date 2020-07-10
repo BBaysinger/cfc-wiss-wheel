@@ -20,7 +20,8 @@ export default class ButtonRing extends React.Component {
   state = {
     isSelectedRing: false,
     rotation: 0,
-    introStarted: false
+    introStarted: false,
+    introCompleted: false
   };
 
   constructor(props) {
@@ -102,6 +103,9 @@ export default class ButtonRing extends React.Component {
     if (!this.state.introStarted) {
       setTimeout(() => {
         this.setState({ introStarted: true });
+        setTimeout(() => {
+          this.setState({ introCompleted: true });
+        }, 1000);
       }, 0);
     }
   }
@@ -116,7 +120,7 @@ export default class ButtonRing extends React.Component {
       update={() => {
         return ({
           rotation: [this.state.introStarted ? this.state.rotation : -180],
-          timing: { duration: 1000, ease: easeExpOut },
+          timing: { delay: this.state.introCompleted ? 0 : 1000, duration: 5000, ease: easeExpOut },
         })
       }}
     >
@@ -124,7 +128,11 @@ export default class ButtonRing extends React.Component {
 
         const { rotation } = state;
 
-        let style = { transform: `rotate(${rotation}deg)` };
+        const style = {
+          zIndex: this.state.isSelectedRing ? 100 : "auto",
+          opacity: 0.999999,
+          transform: `rotate(${rotation}deg)`
+        };
 
         return (
           <svg
