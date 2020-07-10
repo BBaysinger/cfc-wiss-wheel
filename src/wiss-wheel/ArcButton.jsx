@@ -13,7 +13,10 @@ export default class ArcButton extends React.Component {
     return `M ${cx} ${cy} m -${r}, 0 a ${r},${r} 0 1,${sweep} ${r * 2},0`;
   }
 
-  state = { inSelectedRing: false };
+  state = {
+    inSelectedRing: false,
+    intro: false,
+  };
 
   handleClick = () => {
     this.props.handleClick(this.props.config.ringIndex, this.props.config.buttonIndex);
@@ -62,17 +65,19 @@ export default class ArcButton extends React.Component {
           return (
             <Animate
               start={() => ({
-                // tweenRadius: config.radius,
+                clipMaskRotation: -270,
               })}
 
               update={() => {
                 return ({
-                  // tweenRadius: [this.state.inSelectedRing ? 200 : config.radius],
-                  // timing: { duration: 750, ease: easeExpOut },
+                  clipMaskRotation: [this.state.intro ? -270 : -180],
+                  timing: { delay: 1000, duration: 750, ease: easeExpOut },
                 })
               }}
             >
               {(state2) => {
+
+                const { clipMaskRotation } = state2;
 
                 // if (btnIndex === 1 && config.ringIndex === 3) {
                 if (true) {
@@ -81,14 +86,14 @@ export default class ArcButton extends React.Component {
                     className="wiss-button-clip"
                     width={Math.max(250, outerRadius)}
                     height={Math.max(250, outerRadius)}
-                    transform="rotate(-180)"
+                    transform={`rotate(${clipMaskRotation})`}
                     style={{
                       opacity: 0.6,
                       fill: randColor,
                     }}
                   />
                 }
-                
+
                 const { tweenRadius } = state1;
 
                 let style = (color === "#FFFFFF") ? { pointerEvents: 'none' } : {};
