@@ -5,6 +5,9 @@
     position: relative;
     height: 800px;
     width: 800px;
+    overflow: hidden;
+    user-select: none;
+    pointer-events: none;
 
     svg {
         position: absolute;
@@ -12,8 +15,5 @@
         top: 0px;
         height: 800px;
         width: 800px;
-        pointer-events: none;
-        // transform: rotate(40deg)
     }
-
 }

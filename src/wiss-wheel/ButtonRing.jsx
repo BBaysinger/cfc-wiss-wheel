@@ -120,7 +120,7 @@ export default class ButtonRing extends React.Component {
       update={() => {
         return ({
           rotation: [this.state.introStarted ? this.state.rotation : -180],
-          timing: { delay: this.state.introCompleted ? 0 : 1000, duration: 5000, ease: easeExpOut },
+          timing: { delay: this.state.introCompleted ? 0 : 1000, duration: 500, ease: easeExpOut },
         })
       }}
     >
