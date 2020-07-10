@@ -43,21 +43,6 @@ export default class ArcButton extends React.Component {
     const style = {};
     let clip = null;
 
-    // if (btnIndex === 1 && config.ringIndex === 3) {
-    if (true) {
-      // Keep rect here to analyze by populating into mulitiple points.
-      clip = <rect
-        className="wiss-button-clip"
-        width={Math.max(250, outerRadius)}
-        height={Math.max(250, outerRadius)}
-        transform="rotate(-180)"
-        style={{
-          opacity: 0.6,
-          fill: randColor,
-        }}
-      />
-    }
-
     return <g className="wiss-arc-button" style={{ ...style }}>
 
       <Animate
@@ -88,6 +73,22 @@ export default class ArcButton extends React.Component {
               }}
             >
               {(state2) => {
+
+                // if (btnIndex === 1 && config.ringIndex === 3) {
+                if (true) {
+                  // Keep rect here to analyze by populating into mulitiple points.
+                  clip = <rect
+                    className="wiss-button-clip"
+                    width={Math.max(250, outerRadius)}
+                    height={Math.max(250, outerRadius)}
+                    transform="rotate(-180)"
+                    style={{
+                      opacity: 0.6,
+                      fill: randColor,
+                    }}
+                  />
+                }
+                
                 const { tweenRadius } = state1;
 
                 let style = (color === "#FFFFFF") ? { pointerEvents: 'none' } : {};
