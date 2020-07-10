@@ -97,7 +97,7 @@ export default class ArcButton extends React.Component {
                     className="wiss-arc-button"
                     onClick={this.handleClick}
                     id={circPathId}
-                    clipPath={clipRef}
+                    
                     d={ArcButton.circlePath(0, 0, tweenRadius)}
                     stroke={color}
                     strokeWidth={thickness}
@@ -111,7 +111,10 @@ export default class ArcButton extends React.Component {
                     </clipPath>
 
                     {/* {clip} */}
-                    {path}
+                    <g clipPath={clipRef}>
+                      {path}
+                      <ButtonLabel config={config} />
+                    </g>
                   </g>
                 )
               }}
@@ -119,13 +122,6 @@ export default class ArcButton extends React.Component {
           )
         }}
       </Animate>
-
-      <g
-        // clipPath={clipRef}
-        transform="translate(400,400)"
-      >
-        <ButtonLabel config={config} />
-      </g>
     </g>
   }
 }
