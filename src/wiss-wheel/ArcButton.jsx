@@ -4,18 +4,14 @@ import { Animate } from 'react-move';
 import { easeExpOut } from 'd3-ease';
 
 import ButtonLabel from './ButtonLabel';
+import ButtonArm from './ButtonArm';
 import WISSWheel from './WISSWheel';
 import './ArcButton.scss';
 
 export default class ArcButton extends React.Component {
 
-  static circlePath(cx, cy, r, sweep = 1) {
+  static arcPath(cx, cy, r, sweep = 1) {
     return `m -${r}, 0 a ${r},${r} 0 1,${sweep} ${r * 2},0`;
-  }
-
-  static canePath(leg, radius) {
-
-    return `M${-leg},-${radius} L0,-${radius} a${radius},${radius} 0 0,1 ${radius},${radius}`;
   }
 
   static randomColor() {
@@ -33,6 +29,10 @@ export default class ArcButton extends React.Component {
 
   update = () => {
     this.setState({ inSelectedRing: WISSWheel.selected_ring_index === this.props.config.ringIndex })
+  }
+
+  componentDidMount() {
+
   }
 
   render() {
@@ -105,9 +105,9 @@ export default class ArcButton extends React.Component {
 
                 const { tweenRadius } = state1;
                 const style = (color === "#FFFFFF") ? { pointerEvents: 'none' } : {};
-                const rotation = this.props.config.buttonIndex * 90;
+                const rotation = btnIndex * 90;
                 let arcPath = null;
-                let canePath = null;
+                let buttonArm = null;
 
                 if (typeof color !== "undefined") {
 
@@ -115,26 +115,23 @@ export default class ArcButton extends React.Component {
                     className="wiss-arc-button"
                     onClick={this.handleClick}
                     id={circPathId}
-                    d={ArcButton.circlePath(0, 0, tweenRadius)}
+                    d={ArcButton.arcPath(0, 0, tweenRadius)}
                     stroke={color}
                     strokeWidth={thickness}
-                    fill={"none"}
+                    fill="none"
                     style={style}
                   />
 
                   if (typeof this.props.config.label !== "undefined") {
 
                     // if (this.props.config.buttonIndex === 3) {
-                    canePath = <path
-                      className="wiss-arc-button"
-                      onClick={this.handleClick}
-                      id={circPathId + 'cane'}
-                      d={ArcButton.canePath(900, tweenRadius)}
-                      stroke={ArcButton.randomColor()}
-                      strokeWidth={20}
-                      fill='none'
-                    />
+                    buttonArm = <ButtonArm
+                      tweenRadius={tweenRadius}
+                      ringIndex={ringIndex}
+                      buttonIndex={btnIndex}
+                    />;
                     // }
+
                   }
                 };
                 return (
@@ -147,7 +144,7 @@ export default class ArcButton extends React.Component {
                       {arcPath}
                     </g>
                     <g transform="rotate(-90)">
-                      {canePath}
+                      {buttonArm}
                     </g>
                     <g clipPath={clipRef}>
                       <ButtonLabel config={config} />
