@@ -111,49 +111,47 @@ export default class ArcButton extends React.Component {
 
                 if (typeof color !== "undefined") {
 
-                  if (this.props.config.buttonIndex !== 0) {
+                  arcPath = <path
+                    className="wiss-arc-button"
+                    onClick={this.handleClick}
+                    id={circPathId}
+                    d={ArcButton.circlePath(0, 0, tweenRadius)}
+                    stroke={color}
+                    strokeWidth={thickness}
+                    fill={"none"}
+                    style={style}
+                  />
 
-                    arcPath = <path
-                      className="wiss-arc-button"
-                      onClick={this.handleClick}
-                      id={circPathId}
-                      d={ArcButton.circlePath(0, 0, tweenRadius)}
-                      stroke={color}
-                      strokeWidth={thickness}
-                      fill={"none"}
-                      style={style}
-                    />
-                  }
+                  if (typeof this.props.config.label !== "undefined") {
 
-                  if (this.props.config.buttonIndex === 0) {
+                    // if (this.props.config.buttonIndex === 3) {
                     canePath = <path
                       className="wiss-arc-button"
                       onClick={this.handleClick}
                       id={circPathId + 'cane'}
-                      d={ArcButton.canePath(400, tweenRadius)}
+                      d={ArcButton.canePath(900, tweenRadius)}
                       stroke={ArcButton.randomColor()}
                       strokeWidth={20}
                       fill='none'
-                    // style={style}
                     />
+                    // }
                   }
-
                 };
                 return (
                   <g transform={`translate(400,400) rotate(${rotation})`}>
                     <clipPath id={clipId}>
                       {clip}
                     </clipPath>
-
                     {/* {clip} */}
                     <g clipPath={clipRef}>
                       {arcPath}
-                      <ButtonLabel config={config} />
                     </g>
                     <g transform="rotate(-90)">
                       {canePath}
                     </g>
-
+                    <g clipPath={clipRef}>
+                      <ButtonLabel config={config} />
+                    </g>
                   </g>
                 )
               }}

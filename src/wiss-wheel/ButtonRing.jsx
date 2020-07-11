@@ -5,6 +5,7 @@ import { easeExpOut } from 'd3-ease';
 
 import ArcButton from './ArcButton';
 import WISSWheel from './WISSWheel';
+import Utils from './Utils.js';
 import './ButtonRing.scss';
 
 export default class ButtonRing extends React.Component {
@@ -13,6 +14,7 @@ export default class ButtonRing extends React.Component {
   ringIndex = null;
   reverseRingIndex = null;
   randomX = Math.random() * 100;
+  btnIds = [Utils.makeId(10), Utils.makeId(10), Utils.makeId(10), Utils.makeId(10)];
 
   // HACK: I couldn't figure out how to get react-motion to work without setting state in each button. >:-(
   btnRefs = null;
@@ -30,7 +32,6 @@ export default class ButtonRing extends React.Component {
 
     const config = this.props.config;
     this.ringIndex = config.ringIndex;
-    let key;
 
     this.btnRefs = [React.createRef(), React.createRef(), React.createRef(), React.createRef()];
 
@@ -39,12 +40,10 @@ export default class ButtonRing extends React.Component {
       delete tempConfig.buttonConfigs;
       tempConfig = { ...tempConfig, ...config.buttonConfigs[i], buttonIndex: i };
 
-      key = "button" + i;
-
       this.arcButtons[i] = <ArcButton
         ref={this.btnRefs[i]}
-        id={key}
-        key={key}
+        id={`button${i}`}
+        key={this.btnIds[i]}
         handleClick={this.props.handleClick}
         config={tempConfig}
       />;
@@ -53,13 +52,17 @@ export default class ButtonRing extends React.Component {
 
   update = () => {
 
+    console.log("update");
+
     const isSelectedRing = WISSWheel.selected_ring_index === this.props.config.ringIndex;
-    let selectedButtonIndex = WISSWheel.selected_button_index
+    let selectedButtonIndex = WISSWheel.selected_button_index;
+
+    this.reorderedButtons = this.arcButtons.concat();
+    this.reorderedButtons.push(this.reorderedButtons.splice(selectedButtonIndex, 1)[0]);
+
+    console.log(this.reorderedButtons);
 
     if (isSelectedRing) {
-      if (WISSWheel.selected_ring_index !== 1) {
-        selectedButtonIndex = 1;
-      }
 
       let mod = Math.abs(this.state.rotation % 360);
       let angles;
@@ -139,7 +142,7 @@ export default class ButtonRing extends React.Component {
             className={`wiss-button-ring wiss-button-ring${this.ringIndex} ${this.props.phaseClass}`}
             style={style}
           >
-            {this.arcButtons}
+            {this.reorderedButtons || this.arcButtons}
           </svg>
         )
       }}
