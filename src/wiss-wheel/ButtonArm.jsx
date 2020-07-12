@@ -55,8 +55,6 @@ export default class ButtonArm extends React.Component {
           const selectedRingIndex = this.props.appState.selectedRingIndex;
           const selectedButtonIndex = this.props.appState.selectedButtonIndex;
 
-          // console.log(selectedRingIndex,selectedButtonIndex);
-
           return (
             <g>
               <path
@@ -72,7 +70,6 @@ export default class ButtonArm extends React.Component {
                   startOffset={textOffset}
                   xlinkHref={this.xlink}
                   fill={textColor}
-                // style={{ textAnchor: "middle" }}
                 >
                   {config.label} {selectedRingIndex} {selectedButtonIndex} {this.props.tweenRadius}
                 </textPath>
