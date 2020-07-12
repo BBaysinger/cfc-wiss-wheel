@@ -5,7 +5,6 @@ import { easeExpOut } from 'd3-ease';
 
 import ButtonLabel from './ButtonLabel';
 import ButtonArm from './ButtonArm';
-import WISSWheel from './WISSWheel';
 import './ArcButton.scss';
 
 export default class ArcButton extends React.Component {
@@ -27,12 +26,12 @@ export default class ArcButton extends React.Component {
     this.props.handleClick(this.props.config.ringIndex, this.props.config.buttonIndex);
   }
 
-  update = () => {
-    this.setState({ inSelectedRing: WISSWheel.selected_ring_index === this.props.config.ringIndex })
-  }
-
-  componentDidMount() {
-
+  componentDidUpdate(prevProps) {
+    if (prevProps.appState.selectedRingIndex !== this.props.appState.selectedRingIndex) {
+      this.setState({
+        inSelectedRing: this.props.appState.selectedRingIndexf === this.props.config.ringIndex,
+      })
+    }
   }
 
   render() {
@@ -123,15 +122,14 @@ export default class ArcButton extends React.Component {
                   />
 
                   if (typeof this.props.config.label !== "undefined") {
-
                     // if (this.props.config.buttonIndex === 3) {
                     buttonArm = <ButtonArm
                       tweenRadius={tweenRadius}
                       config={this.props.config}
+                      appState={this.props.appState}
                     />;
-                    // }
-
                   }
+                  // }
                 };
                 return (
                   <g transform={`translate(400,400) rotate(${rotation})`}>

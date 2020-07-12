@@ -68,13 +68,14 @@ export default class WISSWheel extends React.Component {
 
   handleClick = (ringIndex, buttonIndex) => {
 
-    this.setState({ selectedRingIndex: ringIndex, selectedButtonIndex: buttonIndex });
     WISSWheel.selected_ring_index = ringIndex;
     WISSWheel.selected_button_index = buttonIndex;
 
-    for (var i = 0; i < 4; i++) {
-      this.ringRefs[i].current.update();
-    }
+    this.setState({ selectedRingIndex: ringIndex, selectedButtonIndex: buttonIndex });
+
+    // for (var i = 0; i < 4; i++) {
+    //   this.ringRefs[i].current.update();
+    // }
   }
 
   componentDidUpdate(prevProps) {
@@ -101,23 +102,26 @@ export default class WISSWheel extends React.Component {
   }
 
   render() {
-
     const rings = this.ringConfigs.map((config, i) => {
       return <ButtonRing
         ref={this.ringRefs[i]}
         phaseClass={this.state.anims[i]}
         style={{ display: "none" }}
-        id={"ring" + i}
-        key={"ring" + i}
+        id={`ring${i}`}
+        key={`ring${i}`}
         handleClick={this.handleClick}
         config={{ ...config, ringIndex: i }}
+        appState={{
+          selectedRingIndex: this.state.selectedRingIndex,
+          selectedButtonIndex: this.state.selectedButtonIndex,
+        }}
       />
     });
 
-    const style = {
-      zIndex: this.state.selectedRingIndex ? 100 : "auto",
-      opacity: 0.999999,
-    };
+    // const style = {
+    //   zIndex: this.state.selectedRingIndex ? 100 : "auto",
+    //   opacity: 0.999999,
+    // };
 
     return (
       <div>

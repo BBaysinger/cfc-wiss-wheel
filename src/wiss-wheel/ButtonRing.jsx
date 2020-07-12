@@ -4,13 +4,12 @@ import { Animate } from 'react-move';
 import { easeExpOut } from 'd3-ease';
 
 import ArcButton from './ArcButton';
-import WISSWheel from './WISSWheel';
 import Utils from './Utils.js';
 import './ButtonRing.scss';
 
 export default class ButtonRing extends React.Component {
 
-  arcButtons = [];
+  arcButtons = []; Î
   ringIndex = null;
   reverseRingIndex = null;
   randomX = Math.random() * 100;
@@ -23,7 +22,8 @@ export default class ButtonRing extends React.Component {
     isSelectedRing: false,
     rotation: 0,
     introStarted: false,
-    introCompleted: false
+    introCompleted: false,
+    appState: { selectedRingIndex: -1, selectedButtonIndex: -1 }
   };
 
   constructor(props) {
@@ -35,71 +35,6 @@ export default class ButtonRing extends React.Component {
 
     this.btnRefs = [React.createRef(), React.createRef(), React.createRef(), React.createRef()];
 
-    for (var i = 0; i < config.buttonConfigs.length; i++) {
-      let tempConfig = { ...config };
-      delete tempConfig.buttonConfigs;
-      tempConfig = { ...tempConfig, ...config.buttonConfigs[i], buttonIndex: i };
-
-      this.arcButtons[i] = <ArcButton
-        ref={this.btnRefs[i]}
-        id={`button${i}`}
-        key={this.btnIds[i]}
-        handleClick={this.props.handleClick}
-        config={tempConfig}
-      />;
-    }
-  }
-
-  update = () => {
-
-    console.log("update");
-
-    const isSelectedRing = WISSWheel.selected_ring_index === this.props.config.ringIndex;
-    let selectedButtonIndex = WISSWheel.selected_button_index;
-
-    this.reorderedButtons = this.arcButtons.concat();
-    this.reorderedButtons.push(this.reorderedButtons.splice(selectedButtonIndex, 1)[0]);
-
-    console.log(this.reorderedButtons);
-
-    if (isSelectedRing) {
-
-      let mod = Math.abs(this.state.rotation % 360);
-      let angles;
-
-      switch (mod) {
-        case 0:
-          angles = [360, 90, 180, 270];
-          break;
-        case 90:
-          angles = [270, 360, 90, 180];
-          break;
-        case 180:
-          angles = [180, 270, 360, 90];
-          break;
-        case 270:
-          angles = [90, 180, 270, 360];
-          break;
-        default:
-          console.error("Whoops, something's jacked!")
-      }
-
-      let delta = -angles[selectedButtonIndex];
-      let rotation = this.state.rotation + delta;
-
-      this.setState({ isSelectedRing: isSelectedRing, rotation: rotation });
-
-    } else {
-
-      this.setState({ isSelectedRing: isSelectedRing, rotation: 0 });
-
-    }
-
-    for (var i = 0; i < 4; i++) {
-      if (this.btnRefs[i].current) {
-        this.btnRefs[i].current.update();
-      }
-    }
   }
 
   componentDidMount() {
@@ -113,7 +48,86 @@ export default class ButtonRing extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+
+    const selectedRingIndex = this.props.appState.selectedRingIndex;
+    const selectedButtonIndex = this.props.appState.selectedButtonIndex;
+
+    // Make changes propogate downward.
+    if (
+      this.state.appState.selectedRingIndex !== selectedRingIndex ||
+      this.state.appState.selectedButtonIndex !== selectedButtonIndex
+    ) {
+
+      const isSelectedRing = selectedRingIndex === this.props.config.ringIndex;
+
+      // const isSelectedRing = WISSWheel.selected_ring_index === this.props.config.ringIndex;
+      // let selectedButtonIndex = WISSWheel.selected_button_index;
+
+      this.reorderedButtons = this.arcButtons.concat();
+      this.reorderedButtons.push(this.reorderedButtons.splice(selectedButtonIndex, 1)[0]);
+
+      if (isSelectedRing) {
+
+        let mod = Math.abs(this.state.rotation % 360);
+        let angles;
+
+        switch (mod) {
+          case 0:
+            angles = [360, 90, 180, 270];
+            break;
+          case 90:
+            angles = [270, 360, 90, 180];
+            break;
+          case 180:
+            angles = [180, 270, 360, 90];
+            break;
+          case 270:
+            angles = [90, 180, 270, 360];
+            break;
+          default:
+            console.error("Whoops, something's jacked!")
+        }
+
+        let delta = -angles[selectedButtonIndex];
+        let rotation = this.state.rotation + delta;
+
+        this.setState({ isSelectedRing: isSelectedRing, rotation: rotation, appState: this.props.appState });
+
+      } else {
+
+        this.setState({ isSelectedRing: isSelectedRing, rotation: 0, appState: this.props.appState });
+
+      }
+    }
+
+    // for (var i = 0; i < 4; i++) {
+    //   if (this.btnRefs[i].current) {
+    //     this.btnRefs[i].current.update();
+    //   }
+    // }
+
+  }
+
   render() {
+
+    const appState = this.props.appState;
+    const config = this.props.config;
+
+    for (var i = 0; i < config.buttonConfigs.length; i++) {
+      let tempConfig = { ...config };
+      delete tempConfig.buttonConfigs;
+      tempConfig = { ...tempConfig, ...config.buttonConfigs[i], buttonIndex: i };
+
+      this.arcButtons[i] = <ArcButton
+        ref={this.btnRefs[i]}
+        id={`button${i}`}
+        key={this.btnIds[i]}
+        handleClick={this.props.handleClick}
+        config={tempConfig}
+        appState={appState}
+      />;
+    }
 
     return <Animate
       start={() => ({

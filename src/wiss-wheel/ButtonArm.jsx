@@ -1,5 +1,8 @@
 import React from 'react';
 
+import { Animate } from 'react-move';
+import { easeExpOut } from 'd3-ease';
+
 import ArcButton from './ArcButton';
 import './ButtonArm.scss';
 
@@ -33,26 +36,51 @@ export default class ButtonArm extends React.Component {
     const textColor = config.textColor;
 
     return (
-      <g>
-        <path
-          className="wiss-button-arm"
-          id={this.id}
-          d={ButtonArm.armPath(ButtonArm.ARM_LENGTH, this.props.tweenRadius)}
-          stroke={ArcButton.randomColor()}
-          strokeWidth={20}
-          fill='none'
-        />
-        <text className="wiss-button-arm" dominantBaseline="central">
-          <textPath
-            startOffset={ButtonArm.textPos(this.props.tweenRadius)}
-            xlinkHref={this.xlink}
-            fill={textColor}
-          // style={{ textAnchor: "middle" }}
-          >
-            {config.label}
-          </textPath>
-        </text>
-      </g>
+
+      <Animate
+        start={() => ({
+          textOffset: ButtonArm.textPos(this.props.tweenRadius),
+        })}
+
+        update={() => {
+          return ({
+            textOffset: [this.props.extended ? ButtonArm.textPos(this.props.tweenRadius) : 600],
+            timing: { delay: 1000, duration: 750, ease: easeExpOut },
+          })
+        }}
+      >
+        {(state) => {
+
+          const { textOffset } = state;
+          const selectedRingIndex = this.props.appState.selectedRingIndex;
+          const selectedButtonIndex = this.props.appState.selectedButtonIndex;
+
+          // console.log(selectedRingIndex,selectedButtonIndex);
+
+          return (
+            <g>
+              <path
+                className="wiss-button-arm"
+                id={this.id}
+                d={ButtonArm.armPath(ButtonArm.ARM_LENGTH, this.props.tweenRadius)}
+                stroke={ArcButton.randomColor()}
+                strokeWidth={20}
+                fill='none'
+              />
+              <text className="wiss-button-arm" dominantBaseline="central">
+                <textPath
+                  startOffset={textOffset}
+                  xlinkHref={this.xlink}
+                  fill={textColor}
+                // style={{ textAnchor: "middle" }}
+                >
+                  {config.label} {selectedRingIndex} {selectedButtonIndex} {this.props.tweenRadius}
+                </textPath>
+              </text>
+            </g>
+          )
+        }}
+      </Animate>
     )
   }
 }
