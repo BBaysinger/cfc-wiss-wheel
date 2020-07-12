@@ -127,8 +127,7 @@ export default class ArcButton extends React.Component {
                     // if (this.props.config.buttonIndex === 3) {
                     buttonArm = <ButtonArm
                       tweenRadius={tweenRadius}
-                      ringIndex={ringIndex}
-                      buttonIndex={btnIndex}
+                      config={this.props.config}
                     />;
                     // }
 
