@@ -15,9 +15,6 @@ export default class ButtonRing extends React.Component {
   randomX = Math.random() * 100;
   btnIds = [Utils.makeId(10), Utils.makeId(10), Utils.makeId(10), Utils.makeId(10)];
 
-  // HACK: I couldn't figure out how to get react-motion to work without setting state in each button. >:-(
-  btnRefs = null;
-
   state = {
     isSelectedRing: false,
     rotation: 0,
@@ -32,8 +29,6 @@ export default class ButtonRing extends React.Component {
 
     const config = this.props.config;
     this.ringIndex = config.ringIndex;
-
-    this.btnRefs = [React.createRef(), React.createRef(), React.createRef(), React.createRef()];
 
   }
 
@@ -110,7 +105,6 @@ export default class ButtonRing extends React.Component {
       tempConfig = { ...tempConfig, ...config.buttonConfigs[i], buttonIndex: i };
 
       this.arcButtons[i] = <ArcButton
-        ref={this.btnRefs[i]}
         id={`button${i}`}
         key={this.btnIds[i]}
         handleClick={this.props.handleClick}

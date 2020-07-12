@@ -13,7 +13,6 @@ export default class WISSWheel extends React.Component {
   static VIEWBOX = -WISSWheel.HEIGHT / 2 + " " + -WISSWheel.WIDTH / 2 + " " + WISSWheel.HEIGHT + " " + WISSWheel.WIDTH;
 
   offsetInterval = null;
-  ringRefs = [];
   rings = null;
   ringOrder = [3, 2, 1, 0];
 
@@ -57,13 +56,9 @@ export default class WISSWheel extends React.Component {
     },
   ];
 
-  constructor(props) {
-
-    super(props);
-
-    this.ringRefs = [React.createRef(), React.createRef(), React.createRef(), React.createRef()];
-
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   handleClick = (ringIndex, buttonIndex) => {
 
@@ -113,7 +108,6 @@ export default class WISSWheel extends React.Component {
 
     const rings = this.ringConfigs.map((config, i) => {
       return <ButtonRing
-        ref={this.ringRefs[i]}
         phaseClass={this.state.anims[i]}
         style={{ display: "none" }}
         id={`ring${i}`}
