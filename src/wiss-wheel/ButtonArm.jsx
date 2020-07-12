@@ -45,10 +45,10 @@ export default class ButtonArm extends React.Component {
           }
         }}
         update={() => {
-          const txtOffset = this.props.isSelectedButton ? ButtonArm.textPos(this.props.tweenRadius) : 600;
+          const txtOffset = [this.props.isSelectedButton ? 600 : ButtonArm.textPos(this.props.tweenRadius)];
           return ({
             textOffset: txtOffset,
-            timing: { delay: 250, duration: 2000, ease: easeExpOut },
+            timing: { delay: 250, duration: 1000, ease: easeExpOut },
           })
         }}
       >
@@ -85,7 +85,7 @@ export default class ButtonArm extends React.Component {
                   xlinkHref={this.xlink}
                   fill={textColor}
                 >
-                  {/* {config.label} */}
+                  {config.label}
                 </textPath>
                 <textPath
                   startOffset={'700px'}
@@ -96,7 +96,7 @@ export default class ButtonArm extends React.Component {
                   {selectedRingIndex}
                   {selectedButtonIndex}
                   {this.props.tweenRadius} */}
-                  {textOffset}
+                  {/* {textOffset} */}
                 </textPath>
               </text>
             </g>

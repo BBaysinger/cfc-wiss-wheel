@@ -66,7 +66,7 @@ export default class ArcButton extends React.Component {
 
         update={() => {
           return ({
-            tweenRadius: this.state.inSelectedRing ? 200 : config.radius,
+            tweenRadius: [this.state.inSelectedRing ? 200 : config.radius],
             timing: { duration: 750, ease: easeExpOut },
           })
         }}
@@ -89,7 +89,6 @@ export default class ArcButton extends React.Component {
               {(state2) => {
 
                 const { clipMaskRotation } = state2;
-
                 // if (btnIndex === 1 && config.ringIndex === 3) {
                 if (true) {
                   // Keep rect here to analyze by populating into mulitiple points.
