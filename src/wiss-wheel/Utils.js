@@ -9,4 +9,12 @@ export default class Utils {
         }
         return result;
     }
+
+    static randRGBA(alpha) {
+        const randomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
+        const randomByte = () => randomNumber(0, 255);
+        const randomPercent = () => (randomNumber(50, 100) * 0.01).toFixed(2);
+        const alphaDude = typeof alpha !== 'undefined' ? alpha : randomPercent()
+        return `rgba(${[randomByte(), randomByte(), randomByte(), alphaDude].join(',')})`
+    }
 }

@@ -3,7 +3,7 @@ import React from 'react';
 import { Animate } from 'react-move';
 import { easeExpOut } from 'd3-ease';
 
-import ArcButton from './ArcButton';
+import Utils from './Utils';
 import './ButtonArm.scss';
 
 export default class ButtonArm extends React.Component {
@@ -95,9 +95,9 @@ export default class ButtonArm extends React.Component {
                 className="wiss-button-arm-test"
                 id={this.id + '_test'}
                 d={ButtonArm.armPath(ButtonArm.ARM_LENGTH, this.props.tweenRadius)}
-                stroke={ArcButton.randomColor()}
+                stroke={Utils.randRGBA(0.25)}
+                fill={Utils.randRGBA(0.25)}
                 strokeWidth={20}
-                fill='none'
               />
               <text className="wiss-button-arm" dominantBaseline="central">
                 <textPath
