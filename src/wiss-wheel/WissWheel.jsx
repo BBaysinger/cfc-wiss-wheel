@@ -91,19 +91,39 @@ export default class WISSWheel extends React.Component {
 
   render() {
 
+    let buttonArm = null;
+
+    const selectedRingIndex = this.state.selectedRingIndex;
+    const selectedButtonIndex = this.state.selectedButtonIndex;
+
     const appState = {
-      selectedRingIndex: this.state.selectedRingIndex,
-      selectedButtonIndex: this.state.selectedButtonIndex,
+      selectedRingIndex: selectedRingIndex,
+      selectedButtonIndex: selectedButtonIndex,
     }
 
-    const armConfig = {
-      buttonIndex: -1,
-      color: "#FFBF3C",
-      label: "High School",
-      radius: 200,
-      ringIndex: -1,
-      textColor: "#000",
-      thickness: 100,
+    if (selectedRingIndex !== -1) {
+
+      const ringConfig = this.ringConfigs[selectedRingIndex];
+      const buttonConfig = ringConfig.buttonConfigs[selectedButtonIndex];
+
+      const armConfig = {
+        buttonIndex: -1,
+        color: buttonConfig.color,
+        label: buttonConfig.label,
+        radius: 200,
+        ringIndex: -1,
+        textColor: buttonConfig.textColor,
+        thickness: 100,
+      }
+
+      buttonArm = <ButtonArm
+        isSelectedButton={true}
+        thickness={100}
+        tweenRadius={200}
+        config={armConfig}
+        appState={appState}
+      />
+
     }
 
     const rings = this.ringConfigs.map((config, i) => {
@@ -131,17 +151,13 @@ export default class WISSWheel extends React.Component {
             <div className={`wiss-wheel`}>
               {rings}
             </div>
-            <svg className="wiss-child">
+            <svg className="wiss-overlay-layer">
               <g transform="translate(400,400)">
                 <circle cx="0" cy="0" r="92" stroke="black" strokeWidth="0" fill="white" />
                 <image x="-40" y="-70" height="138" xlinkHref={Child} />
-                <ButtonArm
-                  isSelectedButton={true}
-                  thickness={100}
-                  tweenRadius={200}
-                  config={armConfig}
-                  appState={appState}
-                />;
+                <g transform="rotate(-90)">
+                  {buttonArm}
+                </g>
               </g>
             </svg>
           </div>
