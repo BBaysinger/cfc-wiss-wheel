@@ -8,8 +8,18 @@ import './ButtonArm.scss';
 
 export default class ButtonArm extends React.Component {
 
+  /** 
+   * 
+   */
   static ARM_LENGTH = 900;
+  /** 
+   * 
+   */
+  static TEST_MODE = false;
 
+  /** 
+   * 
+   */
   static armPath(leg, radius) {
     return `M${-leg},-${radius} L0,-${radius} a${radius},${radius} 0 0,1 ${radius},${radius}`;
   }
@@ -75,8 +85,35 @@ export default class ButtonArm extends React.Component {
 
           const { textOffset } = state1;
 
-          // const selectedRingIndex = this.props.appState.selectedRingIndex; // KEEP: For testing.
-          // const selectedButtonIndex = this.props.appState.selectedButtonIndex; // KEEP: For testing.
+          let testText = null;
+          let testPath = null;
+
+          if (ButtonArm.TEST_MODE) {
+
+            const selectedRingIndex = this.props.appState.selectedRingIndex; // KEEP: For testing.
+            const selectedButtonIndex = this.props.appState.selectedButtonIndex; // KEEP: For testing.
+
+            testPath = <path
+              className="wiss-button-arm-test"
+              id={this.id + '_test'}
+              d={ButtonArm.armPath(ButtonArm.ARM_LENGTH, this.props.tweenRadius)}
+              stroke={Utils.randRGBA(0.4)}
+              fill={Utils.randRGBA(0.2)}
+              strokeWidth={20}
+            />
+
+            testText = <textPath
+              startOffset={'700px'}
+              xlinkHref={this.xLinkTest}
+              fill={textColor}
+            >
+              {/* {config.label} */} {/* KEEP: For testing. */}
+              {selectedRingIndex} {/* KEEP: For testing. */}
+              {selectedButtonIndex} {/* KEEP: For testing. */}
+              {this.props.tweenRadius} {/* KEEP: For testing. */}
+              {/* {textOffset} */} {/* KEEP: For testing. */}
+            </textPath>
+          }
 
           const strokeColor = config.color;
           const thickness = this.props.thickness;
@@ -91,14 +128,7 @@ export default class ButtonArm extends React.Component {
                 strokeWidth={thickness}
                 fill='none'
               />
-              <path
-                className="wiss-button-arm-test"
-                id={this.id + '_test'}
-                d={ButtonArm.armPath(ButtonArm.ARM_LENGTH, this.props.tweenRadius)}
-                stroke={Utils.randRGBA(0.25)}
-                fill={Utils.randRGBA(0.25)}
-                strokeWidth={20}
-              />
+              {testPath}
               <text className="wiss-button-arm" dominantBaseline="central">
                 <textPath
                   startOffset={textOffset + 'px'}
@@ -107,17 +137,7 @@ export default class ButtonArm extends React.Component {
                 >
                   {config.label}
                 </textPath>
-                <textPath
-                  startOffset={'700px'}
-                  xlinkHref={this.xLinkTest}
-                  fill={textColor}
-                >
-                  {/* {config.label} */} {/* KEEP: For testing. */}
-                  {/* {selectedRingIndex} */} {/* KEEP: For testing. */}
-                  {/* {selectedButtonIndex} */} {/* KEEP: For testing. */}
-                  {this.props.tweenRadius} {/* KEEP: For testing. */}
-                  {/* {textOffset} */} {/* KEEP: For testing. */}
-                </textPath>
+                {testText}
               </text>
             </g>
           )

@@ -9,6 +9,8 @@ import './ArcButton.scss';
 
 export default class ArcButton extends React.Component {
 
+  static TEST_MODE = false;
+
   static arcPath(cx, cy, r, sweep = 1) {
     return `m -${r}, 0 a ${r},${r} 0 1,${sweep} ${r * 2},0`;
   }
@@ -123,17 +125,23 @@ export default class ArcButton extends React.Component {
                     style={style}
                   />
 
-                  // if (this.props.config.buttonIndex === 3) {
-                  if (typeof this.props.config.label !== "undefined") {
-                    buttonArm = <ButtonArm
-                      isSelectedButton={isSelectedButton}
-                      thickness={thickness}
-                      tweenRadius={tweenRadius}
-                      config={this.props.config}
-                      appState={this.props.appState}
-                    />;
+                  if (ArcButton.TEST_MODE) {
+                    // if (this.props.config.buttonIndex === 3) {
+                    if (typeof this.props.config.label !== "undefined") {
+                      buttonArm = (
+                        <g transform="rotate(-90)">
+                          <ButtonArm
+                            isSelectedButton={isSelectedButton}
+                            thickness={thickness}
+                            tweenRadius={tweenRadius}
+                            config={this.props.config}
+                            appState={this.props.appState}
+                          />
+                        </g>
+                      );
+                    }
+                    // }
                   }
-                  // }
                 };
                 return (
                   <g transform={`translate(400,400) rotate(${rotation})`}>
@@ -144,9 +152,7 @@ export default class ArcButton extends React.Component {
                     <g clipPath={clipRef}>
                       {arcPath}
                     </g>
-                    <g transform="rotate(-90)">
-                      {buttonArm}
-                    </g>
+                    {buttonArm}
                     <g clipPath={clipRef}>
                       <ButtonLabel config={config} />
                     </g>
