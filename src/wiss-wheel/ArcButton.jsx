@@ -50,6 +50,9 @@ export default class ArcButton extends React.Component {
     const circPathId = "circ" + idInts;
     const clipId = "clipRect" + idInts;
     const clipRef = `url(#${clipId})`;
+    const selectedRingIndex = this.props.appState.selectedRingIndex;
+    const selectedButtonIndex = this.props.appState.selectedButtonIndex;
+    const isSelectedButton = selectedButtonIndex === btnIndex && selectedRingIndex === ringIndex;
     /* This is maybe a little complicated, as these helped mask outer buttons to not show in gaps of smaller rings. */
     const style = {};
     let clip = null;
@@ -63,7 +66,7 @@ export default class ArcButton extends React.Component {
 
         update={() => {
           return ({
-            tweenRadius: [this.state.inSelectedRing ? 200 : config.radius],
+            tweenRadius: this.state.inSelectedRing ? 200 : config.radius,
             timing: { duration: 750, ease: easeExpOut },
           })
         }}
@@ -124,6 +127,7 @@ export default class ArcButton extends React.Component {
                   if (typeof this.props.config.label !== "undefined") {
                     // if (this.props.config.buttonIndex === 3) {
                     buttonArm = <ButtonArm
+                      isSelectedButton={isSelectedButton}
                       thickness={thickness}
                       tweenRadius={tweenRadius}
                       config={this.props.config}

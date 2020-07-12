@@ -67,7 +67,7 @@ export default class ButtonRing extends React.Component {
       if (isSelectedRing) {
 
         let mod = Math.abs(this.state.rotation % 360);
-        let angles;
+        let angles = null;
 
         switch (mod) {
           case 0:

@@ -14,8 +14,8 @@ export default class ButtonArm extends React.Component {
     return `M${-leg},-${radius} L0,-${radius} a${radius},${radius} 0 0,1 ${radius},${radius}`;
   }
 
-  static textPos(raduis) {
-    return ButtonArm.ARM_LENGTH + ((raduis * 2) * Math.PI) / 8;
+  static textPos(radius) {
+    return ButtonArm.ARM_LENGTH + ((radius * 2) * Math.PI) / 8;
   }
 
   id = null;
@@ -38,20 +38,24 @@ export default class ButtonArm extends React.Component {
     return (
 
       <Animate
-        start={() => ({
-          textOffset: ButtonArm.textPos(this.props.tweenRadius),
-        })}
-
+        start={() => {
+          const txtOffset = ButtonArm.textPos(this.props.tweenRadius);
+          return {
+            textOffset: txtOffset,
+          }
+        }}
         update={() => {
+          const txtOffset = this.props.isSelectedButton ? ButtonArm.textPos(this.props.tweenRadius) : 600;
           return ({
-            textOffset: [this.props.extended ? ButtonArm.textPos(this.props.tweenRadius) : 600],
-            timing: { delay: 1000, duration: 750, ease: easeExpOut },
+            textOffset: txtOffset,
+            timing: { delay: 250, duration: 2000, ease: easeExpOut },
           })
         }}
       >
-        {(state) => {
+        {(state1) => {
 
-          const { textOffset } = state;
+          const { textOffset } = state1;
+
           const selectedRingIndex = this.props.appState.selectedRingIndex;
           const selectedButtonIndex = this.props.appState.selectedButtonIndex;
           const strokeColor = config.color;
@@ -77,11 +81,22 @@ export default class ButtonArm extends React.Component {
               />
               <text className="wiss-button-arm" dominantBaseline="central">
                 <textPath
-                  startOffset={textOffset}
+                  startOffset={textOffset + 'px'}
                   xlinkHref={this.xlink}
                   fill={textColor}
                 >
-                  {config.label} {selectedRingIndex} {selectedButtonIndex} {this.props.tweenRadius}
+                  {/* {config.label} */}
+                </textPath>
+                <textPath
+                  startOffset={'700px'}
+                  xlinkHref={this.xlink}
+                  fill={textColor}
+                >
+                  {/* {config.label}
+                  {selectedRingIndex}
+                  {selectedButtonIndex}
+                  {this.props.tweenRadius} */}
+                  {textOffset}
                 </textPath>
               </text>
             </g>
