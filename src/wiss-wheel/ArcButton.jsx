@@ -29,7 +29,7 @@ export default class ArcButton extends React.Component {
   componentDidUpdate(prevProps) {
     if (prevProps.appState.selectedRingIndex !== this.props.appState.selectedRingIndex) {
       this.setState({
-        inSelectedRing: this.props.appState.selectedRingIndexf === this.props.config.ringIndex,
+        inSelectedRing: this.props.appState.selectedRingIndex === this.props.config.ringIndex,
       })
     }
   }

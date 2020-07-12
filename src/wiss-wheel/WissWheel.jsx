@@ -10,8 +10,8 @@ export default class WISSWheel extends React.Component {
   static HEIGHT = 800;
   static WIDTH = 800;
   static VIEWBOX = -WISSWheel.HEIGHT / 2 + " " + -WISSWheel.WIDTH / 2 + " " + WISSWheel.HEIGHT + " " + WISSWheel.WIDTH;
-  static selected_button_index = -1;
-  static selected_ring_index = -1;
+  // static selected_button_index = -1;
+  // static selected_ring_index = -1;
 
   offsetInterval = null;
   ringRefs = [];
@@ -68,14 +68,11 @@ export default class WISSWheel extends React.Component {
 
   handleClick = (ringIndex, buttonIndex) => {
 
-    WISSWheel.selected_ring_index = ringIndex;
-    WISSWheel.selected_button_index = buttonIndex;
+    // WISSWheel.selected_ring_index = ringIndex;
+    // WISSWheel.selected_button_index = buttonIndex;
 
     this.setState({ selectedRingIndex: ringIndex, selectedButtonIndex: buttonIndex });
 
-    // for (var i = 0; i < 4; i++) {
-    //   this.ringRefs[i].current.update();
-    // }
   }
 
   componentDidUpdate(prevProps) {

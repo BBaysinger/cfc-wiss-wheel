@@ -61,9 +61,6 @@ export default class ButtonRing extends React.Component {
 
       const isSelectedRing = selectedRingIndex === this.props.config.ringIndex;
 
-      // const isSelectedRing = WISSWheel.selected_ring_index === this.props.config.ringIndex;
-      // let selectedButtonIndex = WISSWheel.selected_button_index;
-
       this.reorderedButtons = this.arcButtons.concat();
       this.reorderedButtons.push(this.reorderedButtons.splice(selectedButtonIndex, 1)[0]);
 
@@ -100,13 +97,6 @@ export default class ButtonRing extends React.Component {
 
       }
     }
-
-    // for (var i = 0; i < 4; i++) {
-    //   if (this.btnRefs[i].current) {
-    //     this.btnRefs[i].current.update();
-    //   }
-    // }
-
   }
 
   render() {
@@ -161,7 +151,6 @@ export default class ButtonRing extends React.Component {
         )
       }}
     </Animate>
-
   }
 }
 
