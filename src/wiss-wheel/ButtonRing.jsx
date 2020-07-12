@@ -48,7 +48,6 @@ export default class ButtonRing extends React.Component {
     const selectedRingIndex = this.props.appState.selectedRingIndex;
     const selectedButtonIndex = this.props.appState.selectedButtonIndex;
 
-    // Make changes propogate downward.
     if (
       this.state.appState.selectedRingIndex !== selectedRingIndex ||
       this.state.appState.selectedButtonIndex !== selectedButtonIndex
@@ -84,10 +83,11 @@ export default class ButtonRing extends React.Component {
         let delta = -angles[selectedButtonIndex];
         let rotation = this.state.rotation + delta;
 
+        // Trigger rerender of descendents by changing state (changing props doesn't do that).
         this.setState({ isSelectedRing: isSelectedRing, rotation: rotation, appState: this.props.appState });
 
       } else {
-
+        // Trigger rerender of descendents by changing state (changing props doesn't do that).
         this.setState({ isSelectedRing: isSelectedRing, rotation: 0, appState: this.props.appState });
 
       }
