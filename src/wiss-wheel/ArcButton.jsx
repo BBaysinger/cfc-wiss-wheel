@@ -123,8 +123,8 @@ export default class ArcButton extends React.Component {
                     style={style}
                   />
 
+                  // if (this.props.config.buttonIndex === 3) {
                   if (typeof this.props.config.label !== "undefined") {
-                    // if (this.props.config.buttonIndex === 3) {
                     buttonArm = <ButtonArm
                       isSelectedButton={isSelectedButton}
                       thickness={thickness}

@@ -1,9 +1,10 @@
 import React from 'react';
 
 import ButtonRing from './ButtonRing';
+import Child from '../images/child.svg';
+import ButtonArm from './ButtonArm';
 import './WISSWheel.scss';
 import './wheel-animation.scss';
-import Child from '../images/child.svg';
 
 export default class WISSWheel extends React.Component {
 
@@ -94,6 +95,22 @@ export default class WISSWheel extends React.Component {
   }
 
   render() {
+
+    const appState = {
+      selectedRingIndex: this.state.selectedRingIndex,
+      selectedButtonIndex: this.state.selectedButtonIndex,
+    }
+
+    const armConfig = {
+      buttonIndex: -1,
+      color: "#FFBF3C",
+      label: "High School",
+      radius: 200,
+      ringIndex: -1,
+      textColor: "#000",
+      thickness: 100,
+    }
+
     const rings = this.ringConfigs.map((config, i) => {
       return <ButtonRing
         ref={this.ringRefs[i]}
@@ -103,10 +120,7 @@ export default class WISSWheel extends React.Component {
         key={`ring${i}`}
         handleClick={this.handleClick}
         config={{ ...config, ringIndex: i }}
-        appState={{
-          selectedRingIndex: this.state.selectedRingIndex,
-          selectedButtonIndex: this.state.selectedButtonIndex,
-        }}
+        appState={appState}
       />
     });
 
@@ -127,6 +141,13 @@ export default class WISSWheel extends React.Component {
               <g transform="translate(400,400)">
                 <circle cx="0" cy="0" r="92" stroke="black" strokeWidth="0" fill="white" />
                 <image x="-40" y="-70" height="138" xlinkHref={Child} />
+                <ButtonArm
+                  isSelectedButton={true}
+                  thickness={100}
+                  tweenRadius={200}
+                  config={armConfig}
+                  appState={appState}
+                />;
               </g>
             </svg>
           </div>
@@ -135,3 +156,4 @@ export default class WISSWheel extends React.Component {
     )
   }
 }
+
