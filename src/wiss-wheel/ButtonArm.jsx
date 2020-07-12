@@ -54,11 +54,21 @@ export default class ButtonArm extends React.Component {
           const { textOffset } = state;
           const selectedRingIndex = this.props.appState.selectedRingIndex;
           const selectedButtonIndex = this.props.appState.selectedButtonIndex;
+          const strokeColor = config.color;
+          const thickness = this.props.thickness;
 
           return (
             <g>
               <path
                 className="wiss-button-arm"
+                id={this.id}
+                d={ButtonArm.armPath(ButtonArm.ARM_LENGTH, this.props.tweenRadius)}
+                stroke={strokeColor}
+                strokeWidth={thickness}
+                fill='none'
+              />
+              <path
+                className="wiss-button-arm-test"
                 id={this.id}
                 d={ButtonArm.armPath(ButtonArm.ARM_LENGTH, this.props.tweenRadius)}
                 stroke={ArcButton.randomColor()}
