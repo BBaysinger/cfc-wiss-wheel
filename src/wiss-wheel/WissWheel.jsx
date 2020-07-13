@@ -15,7 +15,7 @@ export default class WISSWheel extends React.Component {
   offsetInterval = null;
   rings = null;
   ringOrder = [3, 2, 1, 0];
-  armConfigs = [{}, {}];
+  armConfigs = [{}, {}, {}];
   count = 0;
 
   state = {
@@ -81,7 +81,7 @@ export default class WISSWheel extends React.Component {
       uid: Utils.makeId(6),
     });
 
-    this.armConfigs = configs.slice(configs.length - 2);
+    this.armConfigs = configs.slice(configs.length - 3);
 
     this.setState({ selectedRingIndex: ringIndex, selectedButtonIndex: buttonIndex });
 
@@ -132,16 +132,17 @@ export default class WISSWheel extends React.Component {
       />
     });
 
-    const buttonArms = this.armConfigs.map((config, index) => {
+    const buttonArms = this.armConfigs.map((config, slot) => {
       if (config) {
-        const idInt = (this.count + index) % 2;
-        const id = `FixedArm${idInt}`;
+        const index = (this.count + slot) % 3;
+        const id = `FixedArm${index}`;
         config.idMod = id;
         return <ButtonArm
           thickness={100}
           tweenRadius={200}
           config={config}
           index={index}
+          slot={slot}
           appState={appState}
           key={id}
           uid={id}
@@ -150,6 +151,8 @@ export default class WISSWheel extends React.Component {
         return null;
       }
     });
+
+    buttonArms.shift();
 
     return (
       <div>

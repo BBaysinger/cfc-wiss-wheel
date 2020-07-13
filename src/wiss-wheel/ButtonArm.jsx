@@ -11,11 +11,11 @@ export default class ButtonArm extends React.Component {
   /** 
    * 
    */
-  static ARM_LENGTH = 900;
+  static ARM_LENGTH = 1000;
   /** 
    * 
    */
-  static TEST_MODE = false;
+  static TEST_MODE = true;
 
   /** 
    * 
@@ -48,7 +48,11 @@ export default class ButtonArm extends React.Component {
   // }
 
   componentDidMount() {
-    this.setState({});
+    this.setState({ isMounted: true });
+  }
+
+  componentWillUnmount() {
+    this.setState({ isMounted: false });
   }
 
   render() {
@@ -70,20 +74,22 @@ export default class ButtonArm extends React.Component {
     const selectedButtonIndex = appState.selectedButtonIndex;
 
     this.isSelected = btnIndex === selectedButtonIndex && ringIndex === selectedRingIndex;
+
+    const intermediatePos = 700;
+    const startPos = this.state ? intermediatePos : 400;
+
     return (
 
       <Animate
         start={() => {
-          const txtOffset = 600;
           return {
-            textOffset: txtOffset,
+            textOffset: this.isSelected ? ButtonArm.textPos(this.props.tweenRadius) : startPos,
           }
         }}
         update={() => {
-          if (this.id.indexOf('Fixed0') !== -1) { console.log(this.isSelected, this.id) }
-          const txtOffset = [this.isSelected ? 600 : ButtonArm.textPos(this.props.tweenRadius)];
+          // if (this.props.index === 0) console.log(this.state);
           return ({
-            textOffset: txtOffset,
+            textOffset: [this.isSelected ? intermediatePos : 200],
             timing: { delay: 250, duration: 1000, ease: easeExpOut },
           })
         }}
@@ -126,7 +132,7 @@ export default class ButtonArm extends React.Component {
           const strokeColor = config.color;
           const thickness = this.props.thickness;
 
-          const translate = typeof this.props.index !== 'undefined' ? `translate(0,${this.props.index * 110})` : '';
+          const translate = typeof this.props.slot !== 'undefined' ? `translate(0,${this.props.slot * 110})` : '';
 
           return (
             <g transform={translate}>
@@ -149,7 +155,7 @@ export default class ButtonArm extends React.Component {
                 </textPath>
                 {testText}
               </text>
-              <rect x="-800" y="-400" width="1200" height="400" style={{ fill: "rgba(0,50,200,0.5)" }} />
+              <rect x="-800" y="-400" width="1200" height="400" style={{ fill: "rgba(0,0,0,0.25)" }} />
             </g>
           )
         }}
