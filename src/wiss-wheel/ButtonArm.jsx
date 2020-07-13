@@ -43,10 +43,6 @@ export default class ButtonArm extends React.Component {
    */
   isSelected = false;
 
-  // constructor(props) {
-  //   super(props);
-  // }
-
   componentDidMount() {
     this.setState({ isMounted: true });
   }
@@ -79,9 +75,10 @@ export default class ButtonArm extends React.Component {
     this.isSelected = btnIndex === selectedButtonIndex && ringIndex === selectedRingIndex;
 
     const maskYIntermediatePos = -780;
-    const maskYStartPos = this.state ? maskYIntermediatePos : 0;
+    const maskYStartPos = this.state ? maskYIntermediatePos : -1200;
     const maskHeightIntermediatePos = 700;
     const maskHeightStartPos = this.state ? maskHeightIntermediatePos : 400;
+
     const textIntermediatePos = 500;
     const textStartPos = this.state ? textIntermediatePos : 400;
 
@@ -98,7 +95,7 @@ export default class ButtonArm extends React.Component {
         update={() => {
           // if (this.props.index === 0) console.log(this.state);
           return ({
-            maskY: [this.isSelected ? maskYIntermediatePos : 200],
+            maskY: [this.isSelected ? maskYIntermediatePos : -1100],
             maskHeight: [this.isSelected ? maskHeightIntermediatePos : 200],
             textOffset: [this.isSelected ? textIntermediatePos : 200],
             timing: { delay: 250, duration: 1000, ease: easeExpOut },
@@ -130,11 +127,11 @@ export default class ButtonArm extends React.Component {
               fill={textColor}
             >
 
-              {/* {this.props.uid}-{this.id} */}
+              {this.props.uid}-{this.id}
               {/* {config.label} {/* KEEP: For testing. */}
               {/* {selectedRingIndex} {/* KEEP: For testing. */}
               {/* {selectedButtonIndex} {/* KEEP: For testing. */}
-              {/* {this.props.tweenRadius} {/* KEEP: For testing. */}
+              {this.props.tweenRadius} {/* KEEP: For testing.
               {/* {textOffset} {/* KEEP: For testing. */}
 
             </textPath>
@@ -143,8 +140,12 @@ export default class ButtonArm extends React.Component {
           const strokeColor = config.color;
           const thickness = this.props.thickness;
 
-          const translate = typeof this.props.slot !== 'undefined' ? `translate(0,0)` : '';
-          // const translate = typeof this.props.slot !== 'undefined' ? `translate(${this.props.slot * 110},0)` : '';
+          let translate = '';
+
+          if (ButtonArm.TEST_MODE) {
+            // const translate = typeof this.props.slot !== 'undefined' ? `translate(0,0)` : '';
+            translate = typeof this.props.slot !== 'undefined' ? `translate(0,${this.props.slot * 110})` : '';
+          }
 
           return (
             <g transform={translate}>

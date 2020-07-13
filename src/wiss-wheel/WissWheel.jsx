@@ -58,10 +58,6 @@ export default class WISSWheel extends React.Component {
     },
   ];
 
-  // constructor(props) {
-  //   super(props);
-  // }
-
   handleClick = (ringIndex, buttonIndex) => {
 
     this.count++;
