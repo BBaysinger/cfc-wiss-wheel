@@ -3,8 +3,9 @@ import React from 'react';
 import { Animate } from 'react-move';
 import { easeExpOut } from 'd3-ease';
 
-import ButtonLabel from './ButtonLabel';
-import ButtonArm from './ButtonArm';
+import ButtonLabel from './ButtonLabel.jsx';
+import ButtonArm from './ButtonArm.jsx';
+
 import './ArcButton.scss';
 
 export default class ArcButton extends React.Component {

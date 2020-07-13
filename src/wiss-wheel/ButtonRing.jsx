@@ -3,8 +3,9 @@ import React from 'react';
 import { Animate } from 'react-move';
 import { easeExpOut } from 'd3-ease';
 
-import ArcButton from './ArcButton';
+import ArcButton from './ArcButton.jsx';
 import Utils from './Utils.js';
+
 import './ButtonRing.scss';
 
 export default class ButtonRing extends React.Component {

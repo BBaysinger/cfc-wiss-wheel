@@ -4,10 +4,6 @@ import './ButtonLabel.scss';
 
 export default class ButtonLabel extends React.Component {
 
-  // constructor(props) {
-  //   super(props);
-  // }
-
   render() {
 
     const config = this.props.config;

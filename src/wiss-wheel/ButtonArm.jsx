@@ -3,7 +3,8 @@ import React from 'react';
 import { Animate } from 'react-move';
 import { easeExpOut } from 'd3-ease';
 
-import Utils from './Utils';
+import Utils from './Utils.js';
+
 import './ButtonArm.scss';
 
 export default class ButtonArm extends React.Component {

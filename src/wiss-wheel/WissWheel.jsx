@@ -1,11 +1,12 @@
 import React from 'react';
 
-import ButtonRing from './ButtonRing';
+import ButtonRing from './ButtonRing.jsx';
 import Child from '../images/child.svg';
-import ButtonArm from './ButtonArm';
+import ButtonArm from './ButtonArm.jsx';
+import Utils from './Utils.js';
+
 import './WISSWheel.scss';
 import './wheel-animation.scss';
-import Utils from './Utils';
 
 export default class WISSWheel extends React.Component {
 

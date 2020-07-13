@@ -8,10 +8,6 @@ export default class ButtonBar extends React.Component {
     alert("Oops, not set.");
   };
 
-  // constructor(props) {
-  //   super(props);
-  // }
-
   componentDidMount() {
     if (this.props.nextAnim) {
       this.nextAnim = this.props.nextAnim;
