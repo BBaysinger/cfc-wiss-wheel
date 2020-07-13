@@ -135,15 +135,16 @@ export default class WISSWheel extends React.Component {
     const buttonArms = this.armConfigs.map((config, index) => {
       if (config) {
         const idInt = (this.count + index) % 2;
-        config.idMod = `Fixed${idInt}`;
+        const id = `FixedArm${idInt}`;
+        config.idMod = id;
         return <ButtonArm
           thickness={100}
           tweenRadius={200}
           config={config}
           index={index}
           appState={appState}
-          key={config.uid}
-          uid={config.uid}
+          key={id}
+          uid={id}
         />
       } else {
         return null;

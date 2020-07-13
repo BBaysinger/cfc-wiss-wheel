@@ -55,16 +55,13 @@ export default class ButtonArm extends React.Component {
 
     const config = this.props.config;
 
-    // Prevent ID collisions, since these are used within arc buttons (mostly to output text).
-    const idMod = (typeof config.idMod !== 'undefined') ? config.idMod : '';
-
     const btnIndex = config.buttonIndex;
     const ringIndex = config.ringIndex;
 
-    this.id = `wissArm_${ringIndex}_${btnIndex}_${idMod}`;
+    this.id = (config.idMod) ? config.idMod : `wissArm_${ringIndex}_${btnIndex}`;
 
     // Distinguish between primary and testing paths (both contained here).
-    this.testId = `wissArm_${ringIndex}_${btnIndex}_TEST_${idMod}`;
+    this.testId = `${this.id}_TEST`;
 
     const textColor = config.textColor;
     const appState = this.props.appState;
@@ -84,8 +81,7 @@ export default class ButtonArm extends React.Component {
           }
         }}
         update={() => {
-          console.log(this.id);
-          if (this.id === "Arm0") { console.log(this.isSelected) }
+          if (this.id.indexOf('Fixed0') !== -1) { console.log(this.isSelected, this.id) }
           const txtOffset = [this.isSelected ? 600 : ButtonArm.textPos(this.props.tweenRadius)];
           return ({
             textOffset: txtOffset,
