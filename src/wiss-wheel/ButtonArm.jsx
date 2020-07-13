@@ -23,7 +23,9 @@ export default class ButtonArm extends React.Component {
   static armPath(leg, radius) {
     return `M${-leg},-${radius} L0,-${radius} a${radius},${radius} 0 0,1 ${radius},${radius}`;
   }
-
+  /** 
+   * 
+   */
   static textPos(radius) {
     return ButtonArm.ARM_LENGTH + ((radius * 2) * Math.PI) / 8;
   }
@@ -139,6 +141,7 @@ export default class ButtonArm extends React.Component {
                 </textPath>
                 {testText}
               </text>
+              <rect x="-800" y="-400" width="1200" height="400" style={{ fill: "rgba(0,50,200,0.5)" }} />
             </g>
           )
         }}

@@ -1,13 +1,19 @@
 @import "../global.scss";
 
 .wiss-interactive-wheel {
-    font-family: inherit;
     position: relative;
     height: 800px;
     width: 800px;
-    overflow: hidden;
     user-select: none;
     pointer-events: none;
+    overflow: visible;
+
+    .wiss-wheel-clipping {
+        overflow: hidden;
+        position: absolute;
+        height: 800px;
+        width: 800px;
+    }
 
     svg {
         position: absolute;
@@ -15,9 +21,17 @@
         top: 0px;
         height: 800px;
         width: 800px;
+        pointer-events: none;
+        user-select: none;
     }
 
     .wiss-overlay-layer {
+        z-index: 101;
+    }
+
+    .wiss-arm-layer {
         z-index: 100;
+        width: 800px;
+        height: 1200px;
     }
 }

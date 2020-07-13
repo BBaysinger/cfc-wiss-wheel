@@ -10,7 +10,7 @@ export default class WISSWheel extends React.Component {
 
   static HEIGHT = 800;
   static WIDTH = 800;
-  static VIEWBOX = -WISSWheel.HEIGHT / 2 + " " + -WISSWheel.WIDTH / 2 + " " + WISSWheel.HEIGHT + " " + WISSWheel.WIDTH;
+  // static VIEWBOX = -WISSWheel.HEIGHT / 2 + " " + -WISSWheel.WIDTH / 2 + " " + WISSWheel.HEIGHT + " " + WISSWheel.WIDTH;
 
   offsetInterval = null;
   rings = null;
@@ -91,8 +91,6 @@ export default class WISSWheel extends React.Component {
 
   render() {
 
-    let buttonArm = null;
-
     const selectedRingIndex = this.state.selectedRingIndex;
     const selectedButtonIndex = this.state.selectedButtonIndex;
 
@@ -101,29 +99,17 @@ export default class WISSWheel extends React.Component {
       selectedButtonIndex: selectedButtonIndex,
     }
 
-    if (selectedRingIndex !== -1) {
+    const ringConfig = this.ringConfigs[selectedRingIndex];
+    const buttonConfig = (ringConfig) ? ringConfig.buttonConfigs[selectedButtonIndex] : {};
 
-      const ringConfig = this.ringConfigs[selectedRingIndex];
-      const buttonConfig = ringConfig.buttonConfigs[selectedButtonIndex];
-
-      const armConfig = {
-        buttonIndex: -1,
-        color: buttonConfig.color,
-        label: buttonConfig.label,
-        radius: 200,
-        ringIndex: -1,
-        textColor: buttonConfig.textColor,
-        thickness: 100,
-      }
-
-      buttonArm = <ButtonArm
-        isSelectedButton={true}
-        thickness={100}
-        tweenRadius={200}
-        config={armConfig}
-        appState={appState}
-      />
-
+    const armConfig = {
+      buttonIndex: -1,
+      color: buttonConfig.color,
+      label: buttonConfig.label,
+      radius: 200,
+      ringIndex: -1,
+      textColor: buttonConfig.textColor,
+      thickness: 100,
     }
 
     const rings = this.ringConfigs.map((config, i) => {
@@ -143,26 +129,36 @@ export default class WISSWheel extends React.Component {
         <div>
           Anim ID: {this.props.animState}
         </div>
-        <div className={`wiss-interactive-wheel`}
-          xmlns="http://www.w3.org/2000/svg"
+        <div className={'wiss-interactive-wheel'}
           width={WISSWheel.HEIGHT}
           height={WISSWheel.WIDTH}>
-          <div>
-            <div className={`wiss-wheel`}>
+          <div className="wiss-wheel-clipping">
+            <div className={'wiss-wheel-clipping'}>
               {rings}
             </div>
             <svg className="wiss-overlay-layer">
               <g transform="translate(400,400)">
                 <circle cx="0" cy="0" r="92" stroke="black" strokeWidth="0" fill="white" />
                 <image x="-40" y="-70" height="138" xlinkHref={Child} />
-                <g transform="rotate(-90)">
-                  {buttonArm}
-                </g>
               </g>
             </svg>
           </div>
+          <svg
+            className="wiss-arm-layer"
+            viewBox={'-400 -400 800 1200'}
+          >
+            <g transform="rotate(-90)">
+              <ButtonArm
+                isSelectedButton={true}
+                thickness={100}
+                tweenRadius={200}
+                config={armConfig}
+                appState={appState}
+              />
+            </g>
+          </svg>
         </div>
-      </div>
+      </div >
     )
   }
 }
