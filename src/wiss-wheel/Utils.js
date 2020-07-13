@@ -19,6 +19,6 @@ export default class Utils {
     }
 
     static log(...args) {
-        console.log(JSON.stringify(args));
+        console['log'](JSON.stringify(args));
     }
 }

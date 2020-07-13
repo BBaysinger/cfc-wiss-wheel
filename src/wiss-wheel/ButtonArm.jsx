@@ -38,12 +38,20 @@ export default class ButtonArm extends React.Component {
    * 
    */
   testId = null;
+  /** 
+   * 
+   */
+  isSelected = false;
 
   // constructor(props) {
   //   super(props);
   // }
 
-  componentDidMount() {
+  componentDidUpdate() {
+
+  }
+
+  render() {
 
     const config = this.props.config;
 
@@ -58,33 +66,27 @@ export default class ButtonArm extends React.Component {
     // Distinguish between primary and testing paths (both contained here).
     this.testId = `wissArm_${ringIndex}_${btnIndex}_TEST_${idMod}`;
 
-  }
-
-  render() {
-
-    const config = this.props.config;
     const textColor = config.textColor;
     const appState = this.props.appState;
-
-    const btnIndex = config.buttonIndex;
-    const ringIndex = config.ringIndex;
 
     const selectedRingIndex = appState.selectedRingIndex;
     const selectedButtonIndex = appState.selectedButtonIndex;
 
-    const isSelected = btnIndex === selectedButtonIndex && ringIndex === selectedRingIndex;
+    this.isSelected = btnIndex === selectedButtonIndex && ringIndex === selectedRingIndex;
 
     return (
 
       <Animate
         start={() => {
-          const txtOffset = ButtonArm.textPos(this.props.tweenRadius);
+          const txtOffset = 600;
           return {
             textOffset: txtOffset,
           }
         }}
         update={() => {
-          const txtOffset = [isSelected ? 600 : ButtonArm.textPos(this.props.tweenRadius)];
+          console.log(this.id);
+          if (this.id === "Arm0") { console.log(this.isSelected) }
+          const txtOffset = [this.isSelected ? 600 : ButtonArm.textPos(this.props.tweenRadius)];
           return ({
             textOffset: txtOffset,
             timing: { delay: 250, duration: 1000, ease: easeExpOut },
@@ -117,11 +119,15 @@ export default class ButtonArm extends React.Component {
               xlinkHref={`#${this.testId}`}
               fill={textColor}
             >
-              {/* {config.label} */} {/* KEEP: For testing. */}
-              {selectedRingIndex} {/* KEEP: For testing. */}
-              {selectedButtonIndex} {/* KEEP: For testing. */}
-              {this.props.tweenRadius} {/* KEEP: For testing. */}
-              {/* {textOffset} */} {/* KEEP: For testing. */}
+
+              {this.props.uid}-{this.id}
+
+              {/* {config.label} {/* KEEP: For testing. */}
+              {/* {selectedRingIndex} {/* KEEP: For testing. */}
+              {/* {selectedButtonIndex} {/* KEEP: For testing. */}
+              {/* {this.props.tweenRadius} {/* KEEP: For testing. */}
+              {/* {textOffset} {/* KEEP: For testing. */}
+
             </textPath>
           }
 
