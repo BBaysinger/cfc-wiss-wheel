@@ -63,34 +63,25 @@ export default class WISSWheel extends React.Component {
 
   handleClick = (ringIndex, buttonIndex) => {
 
+    const ringConfig = this.ringConfigs[ringIndex];
+    const buttonConfig = ringConfig.buttonConfigs[buttonIndex];
+
+    this.armConfigs.unshift({
+      buttonIndex: buttonIndex,
+      color: buttonConfig.color,
+      label: buttonConfig.label,
+      radius: 200,
+      ringIndex: ringIndex,
+      textColor: buttonConfig.textColor,
+      thickness: 100,
+      uid: Utils.makeId(6),
+    });
+
     this.setState({ selectedRingIndex: ringIndex, selectedButtonIndex: buttonIndex });
 
   }
 
   componentDidUpdate(prevProps, prevState) {
-
-    const selectedRingIndex = this.state.selectedRingIndex;
-    const selectedButtonIndex = this.state.selectedButtonIndex;
-    const ringConfig = this.ringConfigs[selectedRingIndex];
-    const buttonConfig = ringConfig.buttonConfigs[selectedButtonIndex];
-    const figs = this.armConfigs;
-
-    if (ringConfig) {
-      figs.unshift({
-        buttonIndex: selectedButtonIndex,
-        color: buttonConfig.color,
-        label: buttonConfig.label,
-        radius: 200,
-        ringIndex: selectedButtonIndex,
-        textColor: buttonConfig.textColor,
-        thickness: 100,
-        uid: Utils.makeId(6),
-      });
-    }
-
-    this.armConfigs = figs.slice(0, 2);
-
-    console.log(this.armConfigs);
 
     if (this.props.animState !== prevProps.animState) {
       this.animState = this.props.animState;
@@ -117,7 +108,12 @@ export default class WISSWheel extends React.Component {
 
     const selectedRingIndex = this.state.selectedRingIndex;
     const selectedButtonIndex = this.state.selectedButtonIndex;
-    const figs = this.armConfigs;
+
+    Utils.log(235, this.armConfigs.length);
+
+    this.armConfigs = this.armConfigs.slice(0, 2);
+
+    Utils.log(234, this.armConfigs);
 
     const appState = {
       selectedRingIndex: selectedRingIndex,
@@ -136,8 +132,8 @@ export default class WISSWheel extends React.Component {
       />
     });
 
-    const buttonArms = (figs) ? figs.map((config, index) => {
-      figs[index].idMod = `Arm${index}`;
+    const buttonArms = this.armConfigs.map((config, index) => {
+      this.armConfigs[index].idMod = `Arm${index}`;
       return <ButtonArm
         isSelectedButton={true}
         thickness={100}
@@ -146,7 +142,7 @@ export default class WISSWheel extends React.Component {
         appState={appState}
         key={config.uid}
       />
-    }) : [];
+    });
 
     return (
       <div>
@@ -176,7 +172,7 @@ export default class WISSWheel extends React.Component {
             </g>
           </svg>
         </div>
-      </div >
+      </div>
     )
   }
 }

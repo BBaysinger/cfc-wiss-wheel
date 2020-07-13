@@ -17,4 +17,8 @@ export default class Utils {
         const alphaDude = typeof alpha !== 'undefined' ? alpha : randomPercent()
         return `rgba(${[randomByte(), randomByte(), randomByte(), alphaDude].join(',')})`
     }
+
+    static log(...args) {
+        console.log(JSON.stringify(args));
+    }
 }

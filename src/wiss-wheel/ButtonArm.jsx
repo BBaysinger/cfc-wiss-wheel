@@ -54,15 +54,12 @@ export default class ButtonArm extends React.Component {
     const ringIndex = config.ringIndex;
 
     this.id = `wissArm_${ringIndex}_${btnIndex}_${idMod}`;
+
     // Distinguish between primary and testing paths (both contained here).
     this.testId = `wissArm_${ringIndex}_${btnIndex}_TEST_${idMod}`;
     this.xLink = `#${this.id}`;
     this.xLinkTest = `#${this.testId}`;
   }
-
-  // componentDidUpdate(prevProps) {
-
-  // }
 
   render() {
 
