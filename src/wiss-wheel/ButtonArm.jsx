@@ -64,6 +64,15 @@ export default class ButtonArm extends React.Component {
 
     const config = this.props.config;
     const textColor = config.textColor;
+    const appState = this.props.appState;
+
+    const btnIndex = config.buttonIndex;
+    const ringIndex = config.ringIndex;
+
+    const selectedRingIndex = appState.selectedRingIndex;
+    const selectedButtonIndex = appState.selectedButtonIndex;
+
+    const isSelected = btnIndex === selectedButtonIndex && ringIndex === selectedRingIndex;
 
     return (
 
@@ -75,7 +84,7 @@ export default class ButtonArm extends React.Component {
           }
         }}
         update={() => {
-          const txtOffset = [this.props.isSelectedButton ? 600 : ButtonArm.textPos(this.props.tweenRadius)];
+          const txtOffset = [isSelected ? 600 : ButtonArm.textPos(this.props.tweenRadius)];
           return ({
             textOffset: txtOffset,
             timing: { delay: 250, duration: 1000, ease: easeExpOut },
