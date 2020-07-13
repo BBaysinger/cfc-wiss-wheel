@@ -41,7 +41,7 @@ export default class ArcButton extends React.Component {
     const config = this.props.config;
 
     // TODO: Make most of this into class properties?
-    const thickness = (this.state.inSelectedRing) ? 100 : config.thickness;
+    const thickness = (this.state.inSelectedRing) ? 101 : config.thickness;
     const color = config.color;
     const radius = config.radius;
     const ringIndex = config.ringIndex;
@@ -93,8 +93,10 @@ export default class ArcButton extends React.Component {
                   // Keep rect here to analyze by populating into mulitiple points.
                   clip = <rect
                     className="wiss-button-clip"
-                    width={Math.max(250, outerRadius)}
-                    height={Math.max(250, outerRadius)}
+                    x="-1"
+                    y="-1"
+                    width={Math.max(250, outerRadius + 1)}
+                    height={Math.max(250, outerRadius + 1)}
                     transform={`rotate(${clipMaskRotation})`}
                     style={{
                       opacity: 0.6,
