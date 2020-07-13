@@ -1,9 +1,9 @@
 import React from 'react';
 
-import ButtonBar from './wiss-wheel/ButtonBar';
-import './App.scss';
+import WISSWheel from "./wiss-wheel/WISSWheel.jsx";
+import ButtonBar from './wiss-wheel/ButtonBar.jsx';
 
-import WISSWheel from "./wiss-wheel/WISSWheel";
+import './App.scss';
 
 export default class App extends React.Component {
 
