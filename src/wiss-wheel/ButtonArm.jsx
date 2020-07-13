@@ -15,7 +15,7 @@ export default class ButtonArm extends React.Component {
   /** 
    * 
    */
-  static TEST_MODE = true;
+  static TEST_MODE = false;
 
   /** 
    * 
@@ -75,21 +75,24 @@ export default class ButtonArm extends React.Component {
 
     this.isSelected = btnIndex === selectedButtonIndex && ringIndex === selectedRingIndex;
 
-    const intermediatePos = 700;
-    const startPos = this.state ? intermediatePos : 400;
+    const maskIntermediatePos = 700;
+    const maskStartPos = this.state ? maskIntermediatePos : 400;
+
+    const textIntermediatePos = 700;
+    const textStartPos = this.state ? textIntermediatePos : 400;
 
     return (
 
       <Animate
         start={() => {
           return {
-            textOffset: this.isSelected ? ButtonArm.textPos(this.props.tweenRadius) : startPos,
+            textOffset: this.isSelected ? ButtonArm.textPos(this.props.tweenRadius) : textStartPos,
           }
         }}
         update={() => {
           // if (this.props.index === 0) console.log(this.state);
           return ({
-            textOffset: [this.isSelected ? intermediatePos : 200],
+            textOffset: [this.isSelected ? textIntermediatePos : 200],
             timing: { delay: 250, duration: 1000, ease: easeExpOut },
           })
         }}
@@ -118,7 +121,7 @@ export default class ButtonArm extends React.Component {
               fill={textColor}
             >
 
-              {this.props.uid}-{this.id}
+              {/* {this.props.uid}-{this.id} */}
 
               {/* {config.label} {/* KEEP: For testing. */}
               {/* {selectedRingIndex} {/* KEEP: For testing. */}
