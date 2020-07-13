@@ -65,8 +65,9 @@ export default class WISSWheel extends React.Component {
 
     const ringConfig = this.ringConfigs[ringIndex];
     const buttonConfig = ringConfig.buttonConfigs[buttonIndex];
+    const configs = this.armConfigs;
 
-    this.armConfigs.unshift({
+    configs.push({
       buttonIndex: buttonIndex,
       color: buttonConfig.color,
       label: buttonConfig.label,
@@ -76,6 +77,8 @@ export default class WISSWheel extends React.Component {
       thickness: 100,
       uid: Utils.makeId(6),
     });
+
+    this.armConfigs = configs.slice(configs.length - 2);
 
     this.setState({ selectedRingIndex: ringIndex, selectedButtonIndex: buttonIndex });
 
@@ -109,12 +112,6 @@ export default class WISSWheel extends React.Component {
     const selectedRingIndex = this.state.selectedRingIndex;
     const selectedButtonIndex = this.state.selectedButtonIndex;
 
-    Utils.log(235, this.armConfigs.length);
-
-    this.armConfigs = this.armConfigs.slice(0, 2);
-
-    Utils.log(234, this.armConfigs);
-
     const appState = {
       selectedRingIndex: selectedRingIndex,
       selectedButtonIndex: selectedButtonIndex,
@@ -139,6 +136,7 @@ export default class WISSWheel extends React.Component {
         thickness={100}
         tweenRadius={200}
         config={config}
+        index={index}
         appState={appState}
         key={config.uid}
       />

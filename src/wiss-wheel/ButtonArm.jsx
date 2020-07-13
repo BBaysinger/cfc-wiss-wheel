@@ -120,8 +120,10 @@ export default class ButtonArm extends React.Component {
           const strokeColor = config.color;
           const thickness = this.props.thickness;
 
+          const translate = typeof this.props.index !== 'undefined' ? `translate(0,${this.props.index * 110})` : '';
+
           return (
-            <g>
+            <g transform={translate}>
               <path
                 className="wiss-button-arm"
                 id={this.id}
