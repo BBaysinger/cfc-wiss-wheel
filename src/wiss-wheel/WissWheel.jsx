@@ -10,7 +10,6 @@ export default class WISSWheel extends React.Component {
 
   static HEIGHT = 800;
   static WIDTH = 800;
-  // static VIEWBOX = -WISSWheel.HEIGHT / 2 + " " + -WISSWheel.WIDTH / 2 + " " + WISSWheel.HEIGHT + " " + WISSWheel.WIDTH;
 
   offsetInterval = null;
   rings = null;
@@ -110,6 +109,7 @@ export default class WISSWheel extends React.Component {
       ringIndex: -1,
       textColor: buttonConfig.textColor,
       thickness: 100,
+      idMod: 'Primary',
     }
 
     const rings = this.ringConfigs.map((config, i) => {

@@ -38,25 +38,28 @@ export default class ButtonArm extends React.Component {
    * 
    */
   xlink = null;
-  /** 
-   * Important as a way to output info for testing rings/buttons.
-   */
-  testIdMod = '';
 
   // constructor(props) {
   //   super(props);
   // }
 
   componentDidMount() {
-    // Prevent ID collisions, since these are used within arc buttons (mostly to output text).
-    const idMod = this.props.idMod;
-    // Distinguish between primary and testing paths (both contained here).
-    const testIdMod = '_TEST';
-    const btnIndex = this.props.config.buttonIndex;
-    const ringIndex = this.props.config.ringIndex;
 
-    this.id = `wissArm${ringIndex}-${btnIndex}${idMod}`;
-    this.testId = `wissArm${ringIndex}-${btnIndex}${testIdMod}${idMod}`;
+    const config = this.props.config;
+
+    console.log(config);
+
+    // Prevent ID collisions, since these are used within arc buttons (mostly to output text).
+    const idMod = (typeof config.idMod !== 'undefined') ? config.idMod : '';
+
+    const btnIndex = config.buttonIndex;
+    const ringIndex = config.ringIndex;
+
+    console.log(idMod, JSON.stringify(config));
+
+    this.id = `wissArm_${ringIndex}_${btnIndex}_${idMod}`;
+    // Distinguish between primary and testing paths (both contained here).
+    this.testId = `wissArm_${ringIndex}_${btnIndex}_TEST_${idMod}`;
     this.xLink = `#${this.id}`;
     this.xLinkTest = `#${this.testId}`;
   }
