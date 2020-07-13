@@ -15,7 +15,7 @@ export default class ButtonArm extends React.Component {
   /** 
    * 
    */
-  static TEST_MODE = false;
+  static TEST_MODE = true;
 
   /** 
    * 
@@ -37,7 +37,7 @@ export default class ButtonArm extends React.Component {
   /** 
    * 
    */
-  xlink = null;
+  testId = null;
 
   // constructor(props) {
   //   super(props);
@@ -57,8 +57,7 @@ export default class ButtonArm extends React.Component {
 
     // Distinguish between primary and testing paths (both contained here).
     this.testId = `wissArm_${ringIndex}_${btnIndex}_TEST_${idMod}`;
-    this.xLink = `#${this.id}`;
-    this.xLinkTest = `#${this.testId}`;
+
   }
 
   render() {
@@ -97,7 +96,7 @@ export default class ButtonArm extends React.Component {
 
             testPath = <path
               className="wiss-button-arm-test"
-              id={this.id + '_test'}
+              id={this.testId}
               d={ButtonArm.armPath(ButtonArm.ARM_LENGTH, this.props.tweenRadius)}
               stroke={Utils.randRGBA(0.4)}
               fill={Utils.randRGBA(0.2)}
@@ -106,7 +105,7 @@ export default class ButtonArm extends React.Component {
 
             testText = <textPath
               startOffset={'700px'}
-              xlinkHref={this.xLinkTest}
+              xlinkHref={`#${this.testId}`}
               fill={textColor}
             >
               {/* {config.label} */} {/* KEEP: For testing. */}
@@ -136,7 +135,7 @@ export default class ButtonArm extends React.Component {
               <text className="wiss-button-arm" dominantBaseline="central">
                 <textPath
                   startOffset={textOffset + 'px'}
-                  xlinkHref={this.xLink}
+                  xlinkHref={`#${this.id}`}
                   fill={textColor}
                 >
                   {config.label}
