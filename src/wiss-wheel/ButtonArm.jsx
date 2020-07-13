@@ -15,7 +15,7 @@ export default class ButtonArm extends React.Component {
   /** 
    * 
    */
-  static TEST_MODE = true;
+  static TEST_MODE = false;
 
   /** 
    * 
@@ -47,8 +47,8 @@ export default class ButtonArm extends React.Component {
   //   super(props);
   // }
 
-  componentDidUpdate() {
-
+  componentDidMount() {
+    this.setState({});
   }
 
   render() {
@@ -70,7 +70,6 @@ export default class ButtonArm extends React.Component {
     const selectedButtonIndex = appState.selectedButtonIndex;
 
     this.isSelected = btnIndex === selectedButtonIndex && ringIndex === selectedRingIndex;
-
     return (
 
       <Animate
@@ -97,9 +96,6 @@ export default class ButtonArm extends React.Component {
           let testPath = null;
 
           if (ButtonArm.TEST_MODE) {
-
-            const selectedRingIndex = this.props.appState.selectedRingIndex; // KEEP: For testing.
-            const selectedButtonIndex = this.props.appState.selectedButtonIndex; // KEEP: For testing.
 
             testPath = <path
               className="wiss-button-arm-test"

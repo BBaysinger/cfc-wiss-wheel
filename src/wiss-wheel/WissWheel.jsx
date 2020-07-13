@@ -15,7 +15,7 @@ export default class WISSWheel extends React.Component {
   offsetInterval = null;
   rings = null;
   ringOrder = [3, 2, 1, 0];
-  armConfigs = [null];
+  armConfigs = [{}, {}];
   count = 0;
 
   state = {
