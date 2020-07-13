@@ -5,6 +5,7 @@ import Child from '../images/child.svg';
 import ButtonArm from './ButtonArm';
 import './WISSWheel.scss';
 import './wheel-animation.scss';
+import Utils from './Utils';
 
 export default class WISSWheel extends React.Component {
 
@@ -14,6 +15,7 @@ export default class WISSWheel extends React.Component {
   offsetInterval = null;
   rings = null;
   ringOrder = [3, 2, 1, 0];
+  armConfigs = [];
 
   state = {
     phases: ['', '', '', ''],
@@ -65,7 +67,30 @@ export default class WISSWheel extends React.Component {
 
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
+
+    const selectedRingIndex = this.state.selectedRingIndex;
+    const selectedButtonIndex = this.state.selectedButtonIndex;
+    const ringConfig = this.ringConfigs[selectedRingIndex];
+    const buttonConfig = ringConfig.buttonConfigs[selectedButtonIndex];
+    const figs = this.armConfigs;
+
+    if (ringConfig) {
+      figs.unshift({
+        buttonIndex: selectedButtonIndex,
+        color: buttonConfig.color,
+        label: buttonConfig.label,
+        radius: 200,
+        ringIndex: selectedButtonIndex,
+        textColor: buttonConfig.textColor,
+        thickness: 100,
+        uid: Utils.makeId(6),
+      });
+    }
+
+    this.armConfigs = figs.slice(0, 2);
+
+    console.log(this.armConfigs);
 
     if (this.props.animState !== prevProps.animState) {
       this.animState = this.props.animState;
@@ -92,24 +117,11 @@ export default class WISSWheel extends React.Component {
 
     const selectedRingIndex = this.state.selectedRingIndex;
     const selectedButtonIndex = this.state.selectedButtonIndex;
+    const figs = this.armConfigs;
 
     const appState = {
       selectedRingIndex: selectedRingIndex,
       selectedButtonIndex: selectedButtonIndex,
-    }
-
-    const ringConfig = this.ringConfigs[selectedRingIndex];
-    const buttonConfig = (ringConfig) ? ringConfig.buttonConfigs[selectedButtonIndex] : {};
-
-    const armConfig = {
-      buttonIndex: -1,
-      color: buttonConfig.color,
-      label: buttonConfig.label,
-      radius: 200,
-      ringIndex: -1,
-      textColor: buttonConfig.textColor,
-      thickness: 100,
-      idMod: 'Primary',
     }
 
     const rings = this.ringConfigs.map((config, i) => {
@@ -123,6 +135,18 @@ export default class WISSWheel extends React.Component {
         appState={appState}
       />
     });
+
+    const buttonArms = (figs) ? figs.map((config, index) => {
+      figs[index].idMod = `Arm${index}`;
+      return <ButtonArm
+        isSelectedButton={true}
+        thickness={100}
+        tweenRadius={200}
+        config={config}
+        appState={appState}
+        key={config.uid}
+      />
+    }) : [];
 
     return (
       <div>
@@ -148,13 +172,7 @@ export default class WISSWheel extends React.Component {
             viewBox={'-400 -400 800 1200'}
           >
             <g transform="rotate(-90)">
-              <ButtonArm
-                isSelectedButton={true}
-                thickness={100}
-                tweenRadius={200}
-                config={armConfig}
-                appState={appState}
-              />
+              {buttonArms}
             </g>
           </svg>
         </div>
