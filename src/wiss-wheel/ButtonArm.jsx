@@ -94,7 +94,6 @@ export default class ButtonArm extends React.Component {
           }
         }}
         update={() => {
-          // if (this.props.index === 0) console.log(this.state);
           return ({
             maskY: [this.isSelected ? maskYIntermediatePos : -1100],
             maskHeight: [this.isSelected ? maskHeightIntermediatePos : 200],

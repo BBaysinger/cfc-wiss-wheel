@@ -20,11 +20,11 @@ export default class App extends React.Component {
   }
 
   render() {
-    return <div className="App">
-      <header className="App-header">
+    return <div className="wiss-app-parent">
+      <header className="wiss-app-header">
         {/* What is Second Step (WISS) Interactive Component */}
       </header>
-      <div className="app-container">
+      <div className="wiss-app">
         <WISSWheel animState={this.state.animState} />
         <ButtonBar nextAnim={this.nextAnim} />
       </div>

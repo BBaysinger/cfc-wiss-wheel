@@ -23,32 +23,27 @@ export default class ArcButton extends React.Component {
   state = {
     inSelectedRing: false,
     intro: false,
+    radius: 0,
+    thickness: 0
   };
 
   handleClick = () => {
-    this.props.handleClick(this.props.config.ringIndex, this.props.config.buttonIndex);
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.appState.selectedRingIndex !== this.props.appState.selectedRingIndex) {
-      this.setState({
-        inSelectedRing: this.props.appState.selectedRingIndex === this.props.config.ringIndex,
-      })
+    if (typeof this.props.config.redirectClick !== "undefined") {
+      this.props.handleClick(this.props.config.ringIndex, this.props.config.redirectClick);
+    } else {
+      this.props.handleClick(this.props.config.ringIndex, this.props.config.buttonIndex);
     }
   }
 
   render() {
 
     const config = this.props.config;
-
-    // TODO: Make most of this into class properties?
-    const thickness = (this.state.inSelectedRing) ? 101 : config.thickness;
+    const thickness = this.props.thickness;
+    const radius = this.props.radius;
     const color = config.color;
-    const radius = config.radius;
     const ringIndex = config.ringIndex;
     const btnIndex = this.props.config.buttonIndex;
     const randColor = ArcButton.randomColor();
-    const outerRadius = radius + (thickness / 2);
     const idInts = ringIndex + "-" + btnIndex;
     const circPathId = "circ" + idInts;
     const clipId = "clipRect" + idInts;
@@ -61,12 +56,12 @@ export default class ArcButton extends React.Component {
 
       <Animate
         start={() => ({
-          tweenRadius: config.radius,
+          tweenRadius: radius,
         })}
 
         update={() => {
           return ({
-            tweenRadius: [this.state.inSelectedRing ? 200 : config.radius],
+            tweenRadius: [this.state.inSelectedRing && !this.props.appState.returnAll ? 200 : radius],
             timing: { duration: 750, ease: easeExpOut },
           })
         }}
@@ -76,7 +71,7 @@ export default class ArcButton extends React.Component {
           return (
             <Animate
               start={() => ({
-                clipMaskRotation: -270,
+                clipMaskRotation: -271,
               })}
 
               update={() => {
@@ -90,22 +85,23 @@ export default class ArcButton extends React.Component {
 
                 const { clipMaskRotation } = state2;
                 // if (btnIndex === 1 && config.ringIndex === 3) {
-                if (true) {
-                  // Keep rect here to analyze by populating into mulitiple points.
-                  clip = <rect
-                    className="wiss-button-clip"
-                    x="-1"
-                    y="-1"
-                    width={Math.max(250, outerRadius + 1)}
-                    height={Math.max(250, outerRadius + 1)}
-                    transform={`rotate(${clipMaskRotation})`}
-                    style={{
-                      opacity: 0.6,
-                      fill: randColor,
-                    }}
-                  />
-                }
-
+                // if (btnIndex === 1) {
+                // Keep rect here to analyze by populating into mulitiple points.
+                clip = <rect
+                  className="wiss-button-clip"
+                  x="-1"
+                  y="-1"
+                  width="400"
+                  height="400"
+                  // width={Math.max(251, outerRadius + 1)}
+                  // height={Math.max(251, outerRadius + 1)}
+                  transform={`rotate(${clipMaskRotation})`}
+                  style={{
+                    opacity: 0.0,
+                    fill: randColor,
+                  }}
+                />
+                // }
                 const { tweenRadius } = state1;
                 const style = (color === "#FFFFFF") ? { pointerEvents: 'none' } : {};
                 const rotation = btnIndex * 90;
@@ -120,12 +116,12 @@ export default class ArcButton extends React.Component {
                     id={circPathId}
                     d={ArcButton.arcPath(0, 0, tweenRadius)}
                     stroke={color}
-                    strokeWidth={thickness}
+                    strokeWidth={thickness + 2}
                     fill="none"
                     style={style}
                   />
 
-                  if (ArcButton.TEST_MODE) {
+                  if (ArcButton.TEST_MODE && false) {
                     // if (this.props.config.buttonIndex === 3) {
                     if (typeof this.props.config.label !== "undefined") {
                       buttonArm = (
@@ -139,7 +135,6 @@ export default class ArcButton extends React.Component {
                         </g>
                       );
                     }
-                    // }
                   }
                 };
                 return (

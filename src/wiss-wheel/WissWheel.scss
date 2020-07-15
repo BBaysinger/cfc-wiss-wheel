@@ -1,13 +1,21 @@
 @import "../global.scss";
 
 .wiss-interactive-wheel {
-    position: relative;
+    position: absolute;
+    display: block;
     height: 800px;
     width: 800px;
     user-select: none;
     pointer-events: none;
     overflow: visible;
-    transform: scale(0.75) translateY(-200px);
+    transform-origin: top left;
+    transform: scale(0.75);
+    pointer-events: none;
+    margin-bottom: -280px;
+
+    @media only screen and (min-width: 1024px) {
+        transform:  translate(100vw, 0) rotate(90deg) scale(0.75) ;
+    }
 
     .wiss-wheel-clipping {
         overflow: hidden;
@@ -24,6 +32,12 @@
         width: 800px;
         pointer-events: none;
         user-select: none;
+    }
+
+    .wiss-child {
+        @media only screen and (min-width: 1024px) {
+            transform: rotate(-90deg);
+        }
     }
 
     .wiss-overlay-layer {

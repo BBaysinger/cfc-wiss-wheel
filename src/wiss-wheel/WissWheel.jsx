@@ -4,6 +4,7 @@ import ButtonRing from './ButtonRing.jsx';
 import Child from '../images/child.svg';
 import ButtonArm from './ButtonArm.jsx';
 import Utils from './Utils.js';
+import ContentBody from './ContentBody.jsx';
 
 import './WISSWheel.scss';
 import './wheel-animation.scss';
@@ -24,15 +25,16 @@ export default class WISSWheel extends React.Component {
     anims: ['', '', '', ''],
     selectedRingIndex: -1,
     selectedButtonIndex: -1,
+    returnAll: false,
   }
 
   ringConfigs = [
     {
       radius: 121, thickness: 59, buttonConfigs: [
-        { color: "#58595B" },
+        { color: "#58595B", redirectClick: 1 },
         { color: "#58595B", textColor: '#fff', label: "Families" },
-        { color: "#58595B" },
-        { color: "#58595B" },
+        { color: "#58595B", redirectClick: 1 },
+        { color: "#58595B", redirectClick: 1 },
       ]
     },
     {
@@ -47,8 +49,8 @@ export default class WISSWheel extends React.Component {
       radius: 287.5, thickness: 75, buttonConfigs: [
         { color: "#FFFFFF" },
         { color: "#B1B3B6", textColor: '#fff', label: "SEL for Adults" },
-        { color: "#B1B3B6" },
-        { color: "#B1B3B6" },
+        { color: "#B1B3B6", redirectClick: 1 },
+        { color: "#B1B3B6", redirectClick: 1 },
       ]
     },
     {
@@ -61,13 +63,17 @@ export default class WISSWheel extends React.Component {
 
   handleClick = (ringIndex, buttonIndex) => {
 
+    if (ringIndex === this.state.selectedRingIndex && buttonIndex === this.state.selectedButtonIndex) {
+      return;
+    }
+
     this.count++;
 
     const ringConfig = this.ringConfigs[ringIndex];
     const buttonConfig = ringConfig.buttonConfigs[buttonIndex];
-    const configs = this.armConfigs;
+    const armConfigs = this.armConfigs;
 
-    configs.push({
+    armConfigs.push({
       buttonIndex: buttonIndex,
       color: buttonConfig.color,
       label: buttonConfig.label,
@@ -78,10 +84,19 @@ export default class WISSWheel extends React.Component {
       uid: Utils.makeId(6),
     });
 
-    this.armConfigs = configs.slice(configs.length - 3);
+    this.armConfigs = armConfigs.slice(armConfigs.length - 3);
 
-    this.setState({ selectedRingIndex: ringIndex, selectedButtonIndex: buttonIndex });
+    this.setState({ selectedRingIndex: ringIndex, selectedButtonIndex: buttonIndex, returnAll: false });
 
+    if (ringIndex !== 1) {
+      setTimeout(() => {
+        this.setState({ returnAll: true });
+      }, 800)
+    }
+  }
+
+  someFunction() {
+    // Function content.
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -126,6 +141,7 @@ export default class WISSWheel extends React.Component {
         handleClick={this.handleClick}
         config={{ ...config, ringIndex: i }}
         appState={appState}
+        returnAll={this.state.returnAll}
       />
     });
 
@@ -153,9 +169,6 @@ export default class WISSWheel extends React.Component {
 
     return (
       <div>
-        <div>
-          Anim ID: {this.props.animState}
-        </div>
         <div className={'wiss-interactive-wheel'}
           width={WISSWheel.HEIGHT}
           height={WISSWheel.WIDTH}>
@@ -165,8 +178,7 @@ export default class WISSWheel extends React.Component {
             </div>
             <svg className="wiss-overlay-layer">
               <g transform="translate(400,400)">
-                <circle cx="0" cy="0" r="92" stroke="black" strokeWidth="0" fill="white" />
-                <image x="-40" y="-70" height="138" xlinkHref={Child} />
+                <image className="wiss-child" x="-40" y="-70" height="138" xlinkHref={Child} />
               </g>
             </svg>
           </div>
@@ -179,6 +191,12 @@ export default class WISSWheel extends React.Component {
             </g>
           </svg>
         </div>
+        <ContentBody
+          selectedRingIndex={this.state.selectedRingIndex}
+          selectedButtonIndex={this.state.selectedButtonIndex}
+          someFunction={this.someFunction}
+        >
+        </ContentBody>
       </div>
     )
   }

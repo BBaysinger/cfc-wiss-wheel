@@ -1,16 +1,16 @@
-@mixin staggered_transitions($nth: 1, $items: 2, $initial: 0, $step: 0.1) {
+@mixin staggered_opacity($nth: 1, $items: 3, $initial: 0, $step: 0.1) {
 	@for $i from $nth through $items {
-		&:nth-of-type(#{$i}) .wiss-button-clip {
-			transition-delay: #{$initial}s;
+		&:nth-of-type(#{$i}) {
+			opacity: #{$initial};
 		}
 		$initial: $initial + $step;
 	}
 }
 
-@mixin staggered_rotations($nth: 1, $items: 4, $initial: 0, $step: 90) {
+@mixin staggered_top($nth: 1, $items: 3, $initial: 0, $step: 0.1) {
 	@for $i from $nth through $items {
 		&:nth-of-type(#{$i}) {
-			transform: rotate(#{$initial}deg);
+			top: #{$initial}s;
 		}
 		$initial: $initial + $step;
 	}
