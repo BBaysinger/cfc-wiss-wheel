@@ -3,9 +3,9 @@ import React from 'react';
 import WISSWheel from "./wiss-wheel/WISSWheel.jsx";
 import ButtonBar from './wiss-wheel/ButtonBar.jsx';
 
-import './App.scss';
+import './WissApp.scss';
 
-export default class App extends React.Component {
+export default class WissApp extends React.Component {
 
   state = {
     animState: null,
