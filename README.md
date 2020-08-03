@@ -1,3 +1,5 @@
+Interactive component for Committee for Children's Second Step marketing site. Still in progress.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
