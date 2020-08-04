@@ -1,24 +1,35 @@
-import React from 'react';
+import React from 'react'
 
-import './ButtonLabel.scss';
-
+/**
+ *
+ *
+ * @author Bradley Baysinger
+ * @since  x.x.x
+ * @version N/A
+ */
 export default class ButtonLabel extends React.Component {
-
   render() {
+    const config = this.props.config
 
-    const config = this.props.config;
-
-    const idInts = config.ringIndex + "-" + config.buttonIndex;
-    const circPathId = "circ" + idInts;
-    const label = config.label;
-    const textColor = config.textColor;
+    const idInts = config.ringIndex + '-' + config.buttonIndex
+    const circPathId = 'circ' + idInts
+    const label = config.label
+    const textColor = config.textColor
 
     return (
-      <text className="wiss-arc-button-label" transform="rotate(-45)" dominantBaseline="central">
-        <textPath startOffset="50%"
+      <text
+        className="wiss-arc-button-label"
+        transform="rotate(-45)"
+        dominantBaseline="central"
+      >
+        <textPath
+          startOffset="50%"
           xlinkHref={`#${circPathId}`}
           fill={textColor}
-        >{label}</textPath>
+        >
+          {label}
+          {/* {config.buttonIndex} */}
+        </textPath>
       </text>
     )
   }

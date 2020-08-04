@@ -1,215 +1,176 @@
-import React from 'react';
+import React from 'react'
 
-import { Animate } from 'react-move';
-import { easeQuadOut } from 'd3-ease';
+import { Animate } from 'react-move'
+import { easeQuadOut } from 'd3-ease'
 
-import ArcButton from './ArcButton.jsx';
-import Utils from './Utils.js';
+import ArcButton from './ArcButton.jsx'
+import Utils from './Utils.js'
 
-import './ButtonRing.scss';
-
+/**
+ *
+ *
+ * @author Bradley Baysinger
+ * @since  x.x.x
+ * @version N/A
+ */
 export default class ButtonRing extends React.Component {
+  static HORIZONTAL_LAYOUT_BREAKPOINT = 991
 
-  arcButtons = [];
-  ringIndex = null;
-  reverseRingIndex = null;
-  randomX = Math.random() * 100;
-  btnIds = [0, 0, 0, 0].map(() => Utils.makeId(10));
+  ringIndex = null
+  reverseRingIndex = null
+  randomX = Math.random() * 100
+  btnIds = [0, 0, 0, 0].map(() => Utils.makeId(10))
+  once = false
 
-  state = {
-    isSelectedRing: false,
-    rotation: 0,
-    rotationModifier: 0,
-    introStarted: false,
-    introCompleted: false,
-    appState: { selectedRingIndex: -1, selectedButtonIndex: -1 },
-    ringDiff: 0,
-    returnAll: false,
-  };
+  state = { orientationShim: 0 }
 
   constructor(props) {
+    super(props)
 
-    super(props);
+    const config = this.props.config
+    this.ringIndex = config.ringIndex
+  }
 
-    const config = this.props.config;
-    this.ringIndex = config.ringIndex;
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize)
+  }
 
+  handleResize = () => {
+    // let orientation = window.innerWidth > 990 && this.ringIndex === 1 ? -90 : 0
+    let orientation = this.ringIndex === 1 ? 0 : 0
+
+    if (this.state.orientationShim !== orientation) {
+      this.setState({ orientationShim: orientation })
+    }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    // if (!this.once) {
+    //   this.once = true
+    //   return true
+    // }
+    // if (
+    //   nextProps.rotation !== this.props.rotation ||
+    //   nextProps.thickness !== this.props.thickness ||
+    //   nextProps.radius !== this.props.radius //  ||
+    //   // nextProps.returnAll !== this.props.returnAll
+    // ) {
+    //   return true
+    // } else {
+    //   return false
+    // }
+    return true
   }
 
   componentDidMount() {
-    if (!this.state.introStarted) {
-      setTimeout(() => {
-        this.setState({ introStarted: true });
-        setTimeout(() => {
-          this.setState({ introCompleted: true });
-        }, 1000);
-      }, 0);
-    }
+    window.addEventListener('resize', this.handleResize)
+    this.handleResize()
   }
 
   get rotation() {
-    return this.state.rotation + this.state.rotationModifier;
+    return this.props.rotation + this.state.orientationShim
   }
 
-  componentDidUpdate(prevProps, prevState) {
-
-    const selectedRingIndex = this.props.appState.selectedRingIndex;
-    const selectedButtonIndex = this.props.appState.selectedButtonIndex;
-    let stateMod = null;
-
-    if (prevProps.returnAll !== this.props.returnAll) {
-      stateMod = { returnAll: this.props.returnAll }
-    }
-
-    if (
-      this.state.appState.selectedRingIndex !== selectedRingIndex ||
-      this.state.appState.selectedButtonIndex !== selectedButtonIndex
-    ) {
-
-      const ringIndex = this.props.config.ringIndex;
-      const isSelectedRing = selectedRingIndex === ringIndex;
-
-      let rotation = this.state.rotation;
-
-      const ringDiff = (this.props.appState.selectedRingIndex !== -1) ?
-        Math.abs(this.props.appState.selectedRingIndex - this.ringIndex) : 0;
-
-      if (isSelectedRing) {
-
-        if (this.ringIndex === 1) {
-
-          let mod = Math.abs(this.state.rotation % 360);
-          let angles = null;
-
-          switch (mod) {
-            case 0:
-              angles = [360, 90, 180, 270];
-              break;
-            case 90:
-              angles = [270, 360, 90, 180];
-              break;
-            case 180:
-              angles = [180, 270, 360, 90];
-              break;
-            case 270:
-              angles = [90, 180, 270, 360];
-              break;
-            default:
-              console.error("Whoops, something's jacked!")
-          }
-
-          let delta = angles[selectedButtonIndex];
-          rotation = this.state.rotation - delta;
-          this.setState({
-            isSelectedRing: isSelectedRing,
-            rotation: rotation,
-            rotationModifier: 0,
-            appState: this.props.appState,
-            ringDiff: ringDiff,
-            duration: 8 * delta + 1200,
-            ...stateMod
-          });
-        } else {
-          rotation = this.state.rotation - 720;
-          this.setState({
-            isSelectedRing: isSelectedRing,
-            rotation: rotation,
-            appState: this.props.appState,
-            ringDiff: ringDiff,
-            duration: 500 * ringDiff + 2000,
-            ...stateMod
-          });
-        }
-      } else {
-        rotation = this.state.rotation - 360;
-        this.setState({
-          isSelectedRing: isSelectedRing,
-          rotation: rotation,
-          appState: this.props.appState,
-          ringDiff: ringDiff,
-          duration: 300 * ringDiff + 1200,
-          ...stateMod
-        });
-      }
-    } else if (stateMod) {
-      this.setState({ ...stateMod });
-    }
+  handleButtonClick = (ringIndex, buttonIndex) => {
+    this.props.handleRingClick(this.ringIndex, buttonIndex, this.state.rotation)
   }
 
   render() {
+    const appState = this.props.appState
+    const config = this.props.config
 
-    const appState = this.props.appState;
-    const config = this.props.config;
-    const ringDiff = this.state.ringDiff;
+    return (
+      <Animate
+        start={() => ({
+          radius:
+            !this.props.isSelectedRing || this.props.returnAll
+              ? config.radius
+              : 200,
+          thickness: config.thickness,
+        })}
+        update={() => {
+          return {
+            radius: [
+              this.props.isSelectedRing && !this.props.returnAll
+                ? 200
+                : config.radius,
+            ],
+            thickness: [
+              this.props.isSelectedRing && !this.props.returnAll
+                ? 100
+                : config.thickness,
+            ],
+            timing: { delay: 0, animDuration: 0 },
+          }
+        }}
+      >
+        {state1 => {
+          const { radius, thickness } = state1
 
-    return <Animate
-      start={() => ({
-        radius: !this.state.isSelectedRing || this.state.returnAll ? config.radius : 200,
-        thickness: config.thickness,
-      })}
+          return (
+            <Animate
+              start={() => ({
+                rotation: -90,
+              })}
+              update={() => {
+                return {
+                  rotation: [
+                    !this.props.animPhase === 'wiss-introComplete'
+                      ? this.rotation
+                      : this.rotation,
+                  ],
+                  timing: {
+                    duration: this.props.animDuration,
+                    ease: easeQuadOut,
+                  },
+                }
+              }}
+            >
+              {state2 => {
+                const { rotation } = state2
 
-      update={() => {
-        return {
-          radius: [this.state.isSelectedRing && !this.state.returnAll ? 200 : config.radius],
-          thickness: [this.state.isSelectedRing && !this.state.returnAll ? 100 : config.thickness],
-          timing: { delay: 0, duration: 0},
-        };
-      }}
-    >
-      {(state1) => {
+                const style = {
+                  zIndex: this.props.isSelectedRing ? 100 : 'auto',
+                  transform: `rotate(${rotation}deg)`,
+                }
 
-        const { radius, thickness } = state1;
+                const btns = config.buttonConfigs.map((config, i) => {
+                  let tempConfig = { ...config }
+                  delete tempConfig.buttonConfigs
+                  tempConfig = {
+                    ...tempConfig,
+                    ...config,
+                    ringIndex: this.ringIndex,
+                    buttonIndex: i,
+                  }
 
-        return <Animate
-          start={() => ({
-            rotation: -90,
-          })}
+                  return (
+                    <ArcButton
+                      id={`button${i}`}
+                      radius={radius}
+                      thickness={thickness}
+                      key={this.btnIds[i]}
+                      handleClick={this.handleButtonClick}
+                      config={tempConfig}
+                      animPhase={this.props.animPhase}
+                      appState={this.props.appState}
+                    />
+                  )
+                })
 
-          update={() => {
-            return {
-              rotation: [this.state.introStarted ? this.rotation : -90],
-              timing: { delay: this.state.introCompleted ? ringDiff * 100 : 2200, duration: this.state.duration, ease: easeQuadOut },
-            };
-          }}
-        >
-          {(state2) => {
-
-            const { rotation } = state2;
-
-            const style = {
-              zIndex: this.state.isSelectedRing ? 100 : "auto",
-              opacity: 0.999999,
-              transform: `rotate(${rotation}deg)`,
-            };
-
-            const btns = config.buttonConfigs.map((config, i) => {
-              let tempConfig = { ...config };
-              delete tempConfig.buttonConfigs;
-              tempConfig = { ...tempConfig, ...config, ringIndex: this.ringIndex, buttonIndex: i };
-
-              return <ArcButton
-                id={`button${i}`}
-                radius={radius}
-                thickness={thickness}
-                key={this.btnIds[i]}
-                handleClick={this.props.handleClick}
-                config={tempConfig}
-                appState={appState}
-              />;
-            });
-
-            return (
-              <svg
-                className={`wiss-button-ring wiss-button-ring${this.ringIndex} ${this.props.phaseClass}`}
-                style={style}
-              >
-                {btns}
-              </svg>
-            )
-          }}
-        </Animate>
-      }}
-    </Animate>
+                return (
+                  <svg
+                    className={`wiss-button-ring wiss-button-ring${this.ringIndex}`}
+                    style={style}
+                  >
+                    {btns}
+                  </svg>
+                )
+              }}
+            </Animate>
+          )
+        }}
+      </Animate>
+    )
   }
 }
-

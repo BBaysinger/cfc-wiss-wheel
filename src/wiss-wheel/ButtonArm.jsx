@@ -1,168 +1,216 @@
-import React from 'react';
+import React from 'react'
 
-import { Animate } from 'react-move';
-import { easeExpOut } from 'd3-ease';
+import { Animate } from 'react-move'
+import { easeCubicOut } from 'd3-ease'
 
-import Utils from './Utils.js';
+import Utils from './Utils.js'
 
-import './ButtonArm.scss';
-
+/**
+ * The arm that flies off the wheel, either vertically or horizontally.
+ *
+ * TODO: The numbers in here are hard to understand, and should be named better.
+ * Good luck to anyone cracking in later on, but this was devved under a time crunch.
+ *
+ * Y coordinates are from the left. It's just how the path was originally drawn.
+ *
+ * @author Bradley Baysinger
+ * @since  x.x.x
+ * @version N/A
+ */
 export default class ButtonArm extends React.Component {
-
-  /** 
-   * 
+  /**
+   *
    */
-  static ARM_LENGTH = 1000;
-  /** 
-   * 
+  static ARM_LAYER_HEIGHT = 1657
+  /**
+   *
    */
-  static TEST_MODE = false;
-
-  /** 
-   * 
+  static ARM_LAYER_WIDTH = 850
+  /**
+   *
+   */
+  static TEST_MODE = false
+  /**
+   *
+   */
+  state = {}
+  /**
+   *
    */
   static armPath(leg, radius) {
-    return `M${-leg},-${radius} L0,-${radius} a${radius},${radius} 0 0,1 ${radius},${radius}`;
+    return `M${-leg},-${radius} L0,-${radius} a${radius},${radius} 0 0,1 ${radius},${radius}`
   }
-  /** 
-   * 
+  /**
+   * Maybe not needed if the arms with always be the same length.
    */
   static textPos(radius) {
-    return ButtonArm.ARM_LENGTH + ((radius * 2) * Math.PI) / 8;
+    return ButtonArm.RESTING_ARM_BOTTOM + (radius * 2 * Math.PI) / 8
   }
-
-  /** 
-   * 
+  /**
+   *
    */
-  id = null;
-  /** 
-   * 
-   */
-  testId = null;
-  /** 
-   * 
-   */
-  isSelected = false;
-
-  componentDidMount() {
-    this.setState({ isMounted: true });
+  get restingTextPos() {
+    let retVal
+    if (this.state.slot === 0) retVal = window.innerWidth > 990 ? -110 : -100
+    else retVal = window.innerWidth > 990 ? 279.5 : 920
+    return retVal
   }
-
-  componentWillUnmount() {
-    this.setState({ isMounted: false });
+  /**
+   * Changes in the path length affect positioning, so we need to be careful and lock
+   * it down because it gets confusing fast with the animation and masking. On desktop,
+   * it's harder to mask horizontally, so we just use a shorter arm. On mobile, the
+   * layout flexes around a single arm length masked however, so content can expand
+   * its containers vertically as needed.
+   */
+  get buttonArmLength() {
+    let retVal = window.innerWidth > 990 ? 1000 : 1500
+    return retVal
   }
-
+  /**
+   *
+   */
+  htmlId = null
+  /**
+   *
+   */
+  testId = null
+  /**
+   *
+   */
+  slideStarted = false
+  /**
+   *
+   */
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.slot !== this.state.slot) {
+      this.setState({ ...this.props })
+    }
+  }
+  /**
+   *
+   */
   render() {
-
-    const config = this.props.config;
-
-    const btnIndex = config.buttonIndex;
-    const ringIndex = config.ringIndex;
-
-    this.id = (config.idMod) ? config.idMod : `wissArm_${ringIndex}_${btnIndex}`;
-
+    const config = this.props.config
     // Distinguish between primary and testing paths (both contained here).
-    this.testId = `${this.id}_TEST`;
-
-    const clipId = "clipRect" + this.id;
-    const clipRef = `url(#${clipId})`;
-
-    const textColor = config.textColor;
-    const appState = this.props.appState;
-
-    const selectedRingIndex = appState.selectedRingIndex;
-    const selectedButtonIndex = appState.selectedButtonIndex;
-
-    this.isSelected = btnIndex === selectedButtonIndex && ringIndex === selectedRingIndex;
-
-    const maskYIntermediatePos = -780;
-    const maskYStartPos = this.state ? maskYIntermediatePos : -1200;
-    const maskHeightIntermediatePos = 700;
-    const maskHeightStartPos = this.state ? maskHeightIntermediatePos : 400;
-
-    const textIntermediatePos = 500;
-    const textStartPos = this.state ? textIntermediatePos : 400;
+    this.testId = `${config.htmlId}_TEST`
+    const clipId = 'clipRect' + config.htmlId
+    const armPathId = 'armPath' + config.htmlId
+    const testPathId = 'testPath' + config.htmlId
+    const textColor = config.textColor
+    // TODO: Figure out why delay is sometimes NaN.
+    const delay = !isNaN(this.props.delay) ? this.props.delay : 0
+    const maskY =
+      this.state.slot === 0 ? (window.innerWidth > 990 ? -1570 : -2000) : -1002
 
     return (
-
       <Animate
         start={() => {
-          return {
-            maskY: this.isSelected ? ButtonArm.textPos(this.props.tweenRadius) : maskYStartPos,
-            maskHeight: this.isSelected ? ButtonArm.textPos(this.props.tweenRadius) : maskHeightStartPos,
-            textOffset: this.isSelected ? ButtonArm.textPos(this.props.tweenRadius) : textStartPos,
+          const retVal = {
+            maskY: 250,
+            maskHeight: 150,
+            textOffset: 1156,
           }
+          return retVal
         }}
         update={() => {
-          return ({
-            maskY: [this.isSelected ? maskYIntermediatePos : -1100],
-            maskHeight: [this.isSelected ? maskHeightIntermediatePos : 200],
-            textOffset: [this.isSelected ? textIntermediatePos : 200],
-            timing: { delay: 250, duration: 1000, ease: easeExpOut },
-          })
+          const retVal = {
+            maskY: [maskY],
+            maskHeight: [560],
+            textOffset: [this.restingTextPos],
+            timing: { delay: delay, duration: 1200, ease: easeCubicOut },
+          }
+          return retVal
         }}
       >
-        {(state1) => {
+        {state1 => {
+          const { textOffset, maskY, maskHeight } = state1
 
-          // const { textOffset, maskHeight, maskY } = state1;
-          const { textOffset, maskY } = state1;
-
-          let testText = null;
-          let testPath = null;
+          let testText = null
+          let testPath = null
+          let testRect = null
 
           if (ButtonArm.TEST_MODE) {
+            testPath = (
+              <path
+                className="wiss-button-arm-test"
+                id={`${testPathId}`}
+                d={ButtonArm.armPath(
+                  this.buttonArmLength,
+                  this.props.tweenRadius,
+                )}
+                stroke={Utils.randRGBA(0.4)}
+                fill={Utils.randRGBA(0.2)}
+                strokeWidth={20}
+                style={{ opacity: 0.25 }}
+              />
+            )
 
-            testPath = <path
-              className="wiss-button-arm-test"
-              id={this.testId}
-              d={ButtonArm.armPath(ButtonArm.ARM_LENGTH, this.props.tweenRadius)}
-              stroke={Utils.randRGBA(0.4)}
-              fill={Utils.randRGBA(0.2)}
-              strokeWidth={20}
-            />
-
-            testText = <textPath
-              startOffset={'700px'}
-              xlinkHref={`#${this.testId}`}
-              fill={textColor}
-            >
-
-              {this.props.uid}-{this.id}
-              {/* {config.label} {/* KEEP: For testing. */}
-              {/* {selectedRingIndex} {/* KEEP: For testing. */}
-              {/* {selectedButtonIndex} {/* KEEP: For testing. */}
-              {this.props.tweenRadius} {/* KEEP: For testing.
-              {/* {textOffset} {/* KEEP: For testing. */}
-
-            </textPath>
+            testText = (
+              <textPath
+                startOffset={'200px'}
+                xlinkHref={`#${testPathId}`}
+                fill={textColor}
+              >
+                {clipId} {this.htmlId}
+                {/* {this.props.id}-{this.id}  */}
+                {/* {config.label} {/* KEEP: For testing. */}
+                {/* {selectedRingIndex} {/* KEEP: For testing. */}
+                {/* {selectedButtonIndex} {/* KEEP: For testing. */}
+                {this.props.tweenRadius}{' '}
+                {/* KEEP: For testing.
+                {/* {textOffset} {/* KEEP: For testing. */}
+              </textPath>
+            )
+            testRect = (
+              <rect
+                x={maskY}
+                y="-260"
+                width={maskHeight}
+                height="260"
+                style={{ fill: 'rgba(0,0,0,0.25)' }}
+              />
+            )
           }
 
-          const strokeColor = config.color;
-          const thickness = this.props.thickness;
+          const strokeColor = config.color
+          const thickness = this.props.thickness + 2
 
-          let translate = '';
+          let translate = ''
+          let style = {}
 
           if (ButtonArm.TEST_MODE) {
-            // const translate = typeof this.props.slot !== 'undefined' ? `translate(0,0)` : '';
-            translate = typeof this.props.slot !== 'undefined' ? `translate(0,${this.props.slot * 110})` : '';
+            style = { opacity: 0.25 }
+            translate =
+              typeof this.state.slot !== 'undefined'
+                ? `translate(0,${this.state.slot * 110})`
+                : ''
           }
 
           return (
             <g transform={translate}>
-              <g clipPath={clipRef}>
+              <g clipPath={`url(#${clipId})`}>
+                {/* <g> */}
                 <path
                   className="wiss-button-arm"
-                  id={this.id}
-                  d={ButtonArm.armPath(ButtonArm.ARM_LENGTH, this.props.tweenRadius)}
+                  id={`${armPathId}`}
+                  d={ButtonArm.armPath(
+                    this.buttonArmLength,
+                    this.props.tweenRadius,
+                  )}
                   stroke={strokeColor}
                   strokeWidth={thickness}
-                  fill='none'
+                  fill="none"
+                  style={style}
                 />
                 {testPath}
-                <text className="wiss-button-arm" dominantBaseline="central">
+                <text
+                  className="wiss-button-arm"
+                  alignmentBaseline="middle"
+                  dominantBaseline="central"
+                >
                   <textPath
                     startOffset={textOffset + 'px'}
-                    xlinkHref={`#${this.id}`}
+                    xlinkHref={`#${armPathId}`}
                     fill={textColor}
                   >
                     {config.label}
@@ -170,8 +218,15 @@ export default class ButtonArm extends React.Component {
                   {testText}
                 </text>
               </g>
+              {testRect}
               <clipPath id={clipId}>
-                <rect x={maskY - 800} y="-400" width="1200" height="400" style={{ fill: "rgba(0,0,0,0.25)" }} />
+                <rect
+                  x={maskY}
+                  y="-425"
+                  width={maskHeight}
+                  height="425"
+                  style={{ fill: 'rgba(0,0,0,0.25)' }}
+                />
               </clipPath>
             </g>
           )
