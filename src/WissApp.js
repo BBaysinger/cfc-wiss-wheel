@@ -17,6 +17,7 @@ export default class WissApp extends React.Component {
 
   /**
    * Creates an instance of WissApp.
+   * 
    * @param {*} props
    * @memberof WissApp
    */
