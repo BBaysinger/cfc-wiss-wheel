@@ -8,6 +8,13 @@ import React from 'react'
  * @version N/A
  */
 export default class Instructions extends React.Component {
+
+  /**
+   *
+   *
+   * @returns
+   * @memberof Instructions
+   */
   render() {
     return (
       <section className="wiss-instruction">

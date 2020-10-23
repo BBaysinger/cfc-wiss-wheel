@@ -15,6 +15,10 @@ export default class Utils {
     return result
   }
 
+  /**
+   * 
+   * @param {*} alpha 
+   */
   static randRGBA(alpha) {
     const randomNumber = (min, max) =>
       Math.floor(Math.random() * (max - min + 1) + min)
@@ -26,6 +30,10 @@ export default class Utils {
     )})`
   }
 
+  /**
+   * 
+   * @param  {...any} args 
+   */
   static log(...args) {
     console['log'](JSON.stringify(args))
   }

@@ -31,10 +31,20 @@ export default class ButtonRing extends React.Component {
     this.ringIndex = config.ringIndex
   }
 
+  /**
+   *
+   *
+   * @memberof ButtonRing
+   */
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleResize)
   }
 
+  /**
+   *
+   *
+   * @memberof ButtonRing
+   */
   handleResize = () => {
     // let orientation = window.innerWidth > 990 && this.ringIndex === 1 ? -90 : 0
     let orientation = this.ringIndex === 1 ? 0 : 0
@@ -44,39 +54,42 @@ export default class ButtonRing extends React.Component {
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    // if (!this.once) {
-    //   this.once = true
-    //   return true
-    // }
-    // if (
-    //   nextProps.rotation !== this.props.rotation ||
-    //   nextProps.thickness !== this.props.thickness ||
-    //   nextProps.radius !== this.props.radius //  ||
-    //   // nextProps.returnAll !== this.props.returnAll
-    // ) {
-    //   return true
-    // } else {
-    //   return false
-    // }
-    return true
-  }
-
+  /**
+   *
+   *
+   * @memberof ButtonRing
+   */
   componentDidMount() {
     window.addEventListener('resize', this.handleResize)
     this.handleResize()
   }
 
+  /**
+   *
+   *
+   * @readonly
+   * @memberof ButtonRing
+   */
   get rotation() {
     return this.props.rotation + this.state.orientationShim
   }
 
+  /**
+   *
+   *
+   * @memberof ButtonRing
+   */
   handleButtonClick = (ringIndex, buttonIndex) => {
     this.props.handleRingClick(this.ringIndex, buttonIndex, this.state.rotation)
   }
 
+  /**
+   *
+   *
+   * @returns
+   * @memberof ButtonRing
+   */
   render() {
-    const appState = this.props.appState
     const config = this.props.config
 
     return (

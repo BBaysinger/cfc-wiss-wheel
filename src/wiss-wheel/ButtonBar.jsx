@@ -8,16 +8,33 @@ import React from 'react'
  * @version N/A
  */
 export default class ButtonBar extends React.Component {
+
+  /**
+   *
+   *
+   * @memberof ButtonBar
+   */
   nextAnim = function() {
     alert('Oops, not set.')
   }
 
+  /**
+   *
+   *
+   * @memberof ButtonBar
+   */
   componentDidMount() {
     if (this.props.nextAnim) {
       this.nextAnim = this.props.nextAnim
     }
   }
 
+  /**
+   *
+   *
+   * @returns
+   * @memberof ButtonBar
+   */
   render() {
     return (
       <div className="wiss-button-bar" style={{ textAlign: 'center' }}>

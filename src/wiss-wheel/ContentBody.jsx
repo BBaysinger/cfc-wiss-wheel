@@ -10,14 +10,50 @@ import Instructions from './Instructions'
  * @version N/A
  */
 export default class ContentBody extends React.Component {
-  // TODO: Cascade animations. https://stackoverflow.com/questions/18518237/how-do-you-make-nth-child-work-with-descendant-selectors
 
+  /**
+   *
+   *
+   * @memberof ContentBody
+   */
   copySection = []
+
+  /**
+   *
+   *
+   * @memberof ContentBody
+   */
   state = {}
+  
+  /**
+   *
+   *
+   * @memberof ContentBody
+   */
   classMap = [[''], ['', '', '', ''], [''], ['']]
+
+  /**
+   *
+   *
+   * @memberof ContentBody
+   */
   launchArm = null
+
+  /**
+   *
+   *
+   * @memberof ContentBody
+   */
   contentRef = React.createRef
 
+  /**
+   *
+   *
+   * @param {*} selector
+   * @param {*} equation
+   * @param {*} cssClass
+   * @memberof ContentBody
+   */
   setDelays(selector, equation, cssClass) {
     // HACK: Not the React way, but it's just a side effect...
     // const arr = document.querySelector(selector).querySelectorAll("div");
@@ -36,6 +72,12 @@ export default class ContentBody extends React.Component {
     // });
   }
 
+  /**
+   *
+   *
+   * @param {*} prevProps
+   * @memberof ContentBody
+   */
   componentDidUpdate(prevProps) {
     if (window) {
       if (
@@ -64,6 +106,14 @@ export default class ContentBody extends React.Component {
     }
   }
 
+  /**
+   *
+   *
+   * @param {*} ringIndex
+   * @param {*} buttonIndex
+   * @returns
+   * @memberof ContentBody
+   */
   isSelectedContent(ringIndex, buttonIndex) {
     const retVal =
       ringIndex === this.props.ringIndex &&
@@ -74,6 +124,12 @@ export default class ContentBody extends React.Component {
     return retVal
   }
 
+  /**
+   *
+   *
+   * @returns
+   * @memberof ContentBody
+   */
   render() {
     let left,
       marg,
@@ -116,20 +172,20 @@ export default class ContentBody extends React.Component {
               All Second Step<sup>®</sup> programs include supports for
               families, from weekly letters and book lists to free resources
               like{' '}
-              <a href="https://www.imagineneighborhood.org/" target="_blank">
+              <a href="https://www.imagineneighborhood.org/" target="_blank" rel="noopener noreferrer">
                 <em>
                   The Imagine Neighborhood<sup>™</sup>
                 </em>
               </a>{' '}
               podcast series and{' '}
-              <a href="https://www.parenteenconnect.org/" target="_blank">
+              <a href="https://www.parenteenconnect.org/" target="_blank" rel="noopener noreferrer">
                 ParenTeen Connect
               </a>
               . Families can also bring social-emotional learning home through
               our{' '}
               <a
                 href="https://www.cfchildren.org/resources/bullying-prevention-information/"
-                target="_blank"
+                target="_blank" rel="noopener noreferrer"
               >
                 Captain Compassion<sup>®</sup>
               </a>{' '}
@@ -137,7 +193,7 @@ export default class ContentBody extends React.Component {
               as well as our{' '}
               <a
                 href="https://www.cfchildren.org/resources/child-abuse-prevention/"
-                target="_blank"
+                target="_blank" rel="noopener noreferrer"
               >
                 Hot Chocolate Talk<sup>®</sup>
               </a>{' '}

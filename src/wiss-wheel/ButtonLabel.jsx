@@ -8,6 +8,13 @@ import React from 'react'
  * @version N/A
  */
 export default class ButtonLabel extends React.Component {
+
+  /**
+   *
+   *
+   * @returns
+   * @memberof ButtonLabel
+   */
   render() {
     const config = this.props.config
 

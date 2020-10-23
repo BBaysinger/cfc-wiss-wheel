@@ -1,9 +1,9 @@
-import React from 'react'
+import React from "react";
 
-import { Animate } from 'react-move'
-import { easeCubicOut } from 'd3-ease'
+import { Animate } from "react-move";
+import { easeCubicOut } from "d3-ease";
 
-import Utils from './Utils.js'
+import Utils from "./Utils.js";
 
 /**
  * The arm that flies off the wheel, either vertically or horizontally.
@@ -18,89 +18,143 @@ import Utils from './Utils.js'
  * @version N/A
  */
 export default class ButtonArm extends React.Component {
+
   /**
    *
+   *
+   * @static
+   * @memberof ButtonArm
    */
-  static ARM_LAYER_HEIGHT = 1657
+  static ARM_LAYER_HEIGHT = 1657;
+
   /**
    *
+   *
+   * @static
+   * @memberof ButtonArm
    */
-  static ARM_LAYER_WIDTH = 850
+  static ARM_LAYER_WIDTH = 850;
+
   /**
    *
+   *
+   * @static
+   * @memberof ButtonArm
    */
-  static TEST_MODE = false
+  static TEST_MODE = false;
+
   /**
    *
+   *
+   * @memberof ButtonArm
    */
-  state = {}
+  htmlId = null;
+
   /**
    *
+   *
+   * @memberof ButtonArm
+   */
+  testId = null;
+
+  /**
+   *
+   *
+   * @memberof ButtonArm
+   */
+  slideStarted = false;
+
+  /**
+   *
+   *
+   * @memberof ButtonArm
+   */
+  state = {};
+
+  /**
+   *
+   *
+   * @static
+   * @param {*} leg
+   * @param {*} radius
+   * @returns
+   * @memberof ButtonArm
    */
   static armPath(leg, radius) {
-    return `M${-leg},-${radius} L0,-${radius} a${radius},${radius} 0 0,1 ${radius},${radius}`
+    return `M${-leg},-${radius} L0,-${radius} a${radius},${radius} 0 0,1 ${radius},${radius}`;
   }
+
   /**
    * Maybe not needed if the arms with always be the same length.
+   *
+   * @static
+   * @param {*} radius
+   * @returns
+   * @memberof ButtonArm
    */
   static textPos(radius) {
-    return ButtonArm.RESTING_ARM_BOTTOM + (radius * 2 * Math.PI) / 8
+    return ButtonArm.RESTING_ARM_BOTTOM + (radius * 2 * Math.PI) / 8;
   }
+
   /**
    *
+   *
+   * @readonly
+   * @memberof ButtonArm
    */
   get restingTextPos() {
-    let retVal
-    if (this.state.slot === 0) retVal = window.innerWidth > 990 ? -110 : -100
-    else retVal = window.innerWidth > 990 ? 279.5 : 920
-    return retVal
+    let retVal;
+    if (this.state.slot === 0) retVal = window.innerWidth > 990 ? -110 : -100;
+    else retVal = window.innerWidth > 990 ? 279.5 : 920;
+    return retVal;
   }
+
   /**
    * Changes in the path length affect positioning, so we need to be careful and lock
    * it down because it gets confusing fast with the animation and masking. On desktop,
    * it's harder to mask horizontally, so we just use a shorter arm. On mobile, the
    * layout flexes around a single arm length masked however, so content can expand
    * its containers vertically as needed.
+   *
+   * @readonly
+   * @memberof ButtonArm
    */
   get buttonArmLength() {
-    let retVal = window.innerWidth > 990 ? 1000 : 1500
-    return retVal
+    let retVal = window.innerWidth > 990 ? 1000 : 1500;
+    return retVal;
   }
+
   /**
    *
-   */
-  htmlId = null
-  /**
    *
-   */
-  testId = null
-  /**
-   *
-   */
-  slideStarted = false
-  /**
-   *
+   * @param {*} prevProps
+   * @param {*} prevState
+   * @memberof ButtonArm
    */
   componentDidUpdate(prevProps, prevState) {
     if (this.props.slot !== this.state.slot) {
-      this.setState({ ...this.props })
+      this.setState({ ...this.props });
     }
   }
+
   /**
    *
+   *
+   * @returns
+   * @memberof ButtonArm
    */
   render() {
-    const config = this.props.config
+    const config = this.props.config;
     // Distinguish between primary and testing paths (both contained here).
-    this.testId = `${config.htmlId}_TEST`
-    const clipId = 'clipRect' + config.htmlId
-    const armPathId = 'armPath' + config.htmlId
-    const testPathId = 'testPath' + config.htmlId
-    const textColor = config.textColor
+    this.testId = `${config.htmlId}_TEST`;
+    const clipId = "clipRect" + config.htmlId;
+    const armPathId = "armPath" + config.htmlId;
+    const testPathId = "testPath" + config.htmlId;
+    const textColor = config.textColor;
     // TODO: Figure out why delay is sometimes NaN.
-    const delay = !isNaN(this.props.delay) ? this.props.delay : 0
+    const delay = !isNaN(this.props.delay) ? this.props.delay : 0;
     const maskY =
-      this.state.slot === 0 ? (window.innerWidth > 990 ? -1570 : -2000) : -1002
+      this.state.slot === 0 ? (window.innerWidth > 990 ? -1570 : -2000) : -1002;
 
     return (
       <Animate
@@ -109,8 +163,8 @@ export default class ButtonArm extends React.Component {
             maskY: 250,
             maskHeight: 150,
             textOffset: 1156,
-          }
-          return retVal
+          };
+          return retVal;
         }}
         update={() => {
           const retVal = {
@@ -118,16 +172,16 @@ export default class ButtonArm extends React.Component {
             maskHeight: [560],
             textOffset: [this.restingTextPos],
             timing: { delay: delay, duration: 1200, ease: easeCubicOut },
-          }
-          return retVal
+          };
+          return retVal;
         }}
       >
-        {state1 => {
-          const { textOffset, maskY, maskHeight } = state1
+        {(state1) => {
+          const { textOffset, maskY, maskHeight } = state1;
 
-          let testText = null
-          let testPath = null
-          let testRect = null
+          let testText = null;
+          let testPath = null;
+          let testRect = null;
 
           if (ButtonArm.TEST_MODE) {
             testPath = (
@@ -136,18 +190,18 @@ export default class ButtonArm extends React.Component {
                 id={`${testPathId}`}
                 d={ButtonArm.armPath(
                   this.buttonArmLength,
-                  this.props.tweenRadius,
+                  this.props.tweenRadius
                 )}
                 stroke={Utils.randRGBA(0.4)}
                 fill={Utils.randRGBA(0.2)}
                 strokeWidth={20}
                 style={{ opacity: 0.25 }}
               />
-            )
+            );
 
             testText = (
               <textPath
-                startOffset={'200px'}
+                startOffset={"200px"}
                 xlinkHref={`#${testPathId}`}
                 fill={textColor}
               >
@@ -156,34 +210,34 @@ export default class ButtonArm extends React.Component {
                 {/* {config.label} {/* KEEP: For testing. */}
                 {/* {selectedRingIndex} {/* KEEP: For testing. */}
                 {/* {selectedButtonIndex} {/* KEEP: For testing. */}
-                {this.props.tweenRadius}{' '}
+                {this.props.tweenRadius}{" "}
                 {/* KEEP: For testing.
                 {/* {textOffset} {/* KEEP: For testing. */}
               </textPath>
-            )
+            );
             testRect = (
               <rect
                 x={maskY}
                 y="-260"
                 width={maskHeight}
                 height="260"
-                style={{ fill: 'rgba(0,0,0,0.25)' }}
+                style={{ fill: "rgba(0,0,0,0.25)" }}
               />
-            )
+            );
           }
 
-          const strokeColor = config.color
-          const thickness = this.props.thickness + 2
+          const strokeColor = config.color;
+          const thickness = this.props.thickness + 2;
 
-          let translate = ''
-          let style = {}
+          let translate = "";
+          let style = {};
 
           if (ButtonArm.TEST_MODE) {
-            style = { opacity: 0.25 }
+            style = { opacity: 0.25 };
             translate =
-              typeof this.state.slot !== 'undefined'
+              typeof this.state.slot !== "undefined"
                 ? `translate(0,${this.state.slot * 110})`
-                : ''
+                : "";
           }
 
           return (
@@ -195,7 +249,7 @@ export default class ButtonArm extends React.Component {
                   id={`${armPathId}`}
                   d={ButtonArm.armPath(
                     this.buttonArmLength,
-                    this.props.tweenRadius,
+                    this.props.tweenRadius
                   )}
                   stroke={strokeColor}
                   strokeWidth={thickness}
@@ -209,7 +263,7 @@ export default class ButtonArm extends React.Component {
                   dominantBaseline="central"
                 >
                   <textPath
-                    startOffset={textOffset + 'px'}
+                    startOffset={textOffset + "px"}
                     xlinkHref={`#${armPathId}`}
                     fill={textColor}
                   >
@@ -225,13 +279,13 @@ export default class ButtonArm extends React.Component {
                   y="-425"
                   width={maskHeight}
                   height="425"
-                  style={{ fill: 'rgba(0,0,0,0.25)' }}
+                  style={{ fill: "rgba(0,0,0,0.25)" }}
                 />
               </clipPath>
             </g>
-          )
+          );
         }}
       </Animate>
-    )
+    );
   }
 }

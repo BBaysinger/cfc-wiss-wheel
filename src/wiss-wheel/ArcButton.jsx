@@ -14,16 +14,46 @@ import ButtonArm from './ButtonArm.jsx'
  * @version N/A
  */
 export default class ArcButton extends React.Component {
+
+  /**
+   *
+   *
+   * @static
+   * @memberof ArcButton
+   */
   static TEST_MODE = false
 
+  /**
+   *
+   *
+   * @static
+   * @param {*} cx
+   * @param {*} cy
+   * @param {*} r
+   * @param {number} [sweep=1]
+   * @returns
+   * @memberof ArcButton
+   */
   static arcPath(cx, cy, r, sweep = 1) {
     return `m -${r}, 0 a ${r},${r} 0 1,${sweep} ${r * 2},0`
   }
 
+  /**
+   *
+   *
+   * @static
+   * @returns
+   * @memberof ArcButton
+   */
   static randomColor() {
     return '#' + Math.floor(Math.random() * 16777215).toString(16)
   }
 
+  /**
+   *
+   *
+   * @memberof ArcButton
+   */
   state = {
     inSelectedRing: false,
     intro: false,
@@ -31,6 +61,11 @@ export default class ArcButton extends React.Component {
     thickness: 0,
   }
 
+  /**
+   *
+   *
+   * @memberof ArcButton
+   */
   handleClick = () => {
     this.props.handleClick(
       this.props.config.ringIndex,
@@ -38,6 +73,12 @@ export default class ArcButton extends React.Component {
     )
   }
 
+  /**
+   *
+   *
+   * @returns
+   * @memberof ArcButton
+   */
   render() {
     const config = this.props.config
     const thickness = this.props.thickness
