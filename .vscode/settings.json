@@ -15,5 +15,8 @@
         "node_modules": true // this excludes the folder 
         // only from the root of
         // your workspace 
-    }
+    },
+    "cSpell.words": [
+        "WISS"
+    ]
 }

@@ -1,6 +1,6 @@
 import React from "react";
 
-import WISSWheel from "./wiss-wheel/WISSWheel.jsx";
+import WISSWheel from "./wiss-wheel/WissWheel.jsx";
 import ButtonBar from "./wiss-wheel/ButtonBar.jsx";
 
 import "./WissApp.scss";
